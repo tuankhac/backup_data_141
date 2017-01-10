@@ -1,0 +1,133 @@
+<table id="nhatky_thus" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mst_label" style="font-weight:bold;color:#039">${n.i18n.nhatky_thus_mst}*</td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst" placeholder='Type ${n.i18n.crud_info_mst}' onKeyUp="loadInfo()"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngayhen_tt_label">${n.i18n.nhatky_thus_ngayhen_tt}</td>
+		<td>
+			<input   type="text" class="form-control" name="ngayhen_tt" id="ngayhen_tt"><span id="ngayhen_tt_msg"></span>
+		</td>					
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_kt_label">${n.i18n.chuyenkhoans_ten_nnt}</td>
+		<td>
+			<input readonly type="text" class="form-control" name="ten_nnt" id="ten_nnt"><span id="ten_nnt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngayhen_tt_label">${n.i18n.nhatky_thus_luot_nhac}</td>
+		<td>
+			<select class="form-control" name="luotnhac" id="luotnhac">
+				<option value="1">${n.i18n.nhatky_thus_luot_nhac} 1</option>
+				<option value="2">${n.i18n.nhatky_thus_luot_nhac} 2</option>
+				<option value="3">${n.i18n.nhatky_thus_luot_nhac} 3</option>
+				<option value="4">${n.i18n.nhatky_thus_luot_nhac} 4</option>
+				<option value="5">${n.i18n.nhatky_thus_luot_nhac} 5</option>
+				<span id="luotnhac_msg"></span></td>
+	</tr>
+	<tr>
+        <td>${n.i18n.crud_info_diachi}</td>
+        <td colspan="3"><input readonly  type="text" class="form-control" name="mota_diachi" id="mota_diachi"></td>
+     </tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="lydos_label">${n.i18n.nhatky_thus_lydos}</td>
+		<td colspan=3>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="lydos" id="lydos" style='vertical-align:top'></textarea><span id="lydos_msg"></span></td>
+		<td></td><td></td></tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="hinhthuctt_id_label">${n.i18n.chuyenkhoans_hinhthuctt_id}</td>
+		<td>
+		<select class="form-control" name="hinhthuctt_id" id="hinhthuctt_id" onchange="change_bank()" >
+			<option value="">${n.i18n.curd_info_khong_chon}</option>
+			#foreach ($i in $u.qry("crud_search_hinhthuc_service_all","default",[],0) )
+           	<option value="$!i['ID']" #if ($!v['HINHTHUC_ID']=="$!i['ID']")selected#end>$!i['NAME']</option>
+            #end
+		</select><span id="hinhthuctt_id_msg"></span></td>	
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="nganhang_id_label">${n.i18n.nnt_cks_nganhang_id}</td>
+		<td>
+		<select class="form-control" name="nganhang_id" id="nganhang_id" disabled>
+			<option value="">Kh&#244;ng ch&#7885;n</option>
+			#foreach ($i in $u.qry("crud_search_nganhang_service","default",[$!{param.province}],1) )
+           	<option value="$!i['ID']" #if ($!v['NGANHANG_ID']=="$!i['ID']")selected#end>$!i['TEN']</option>
+            #end
+		</select><span id="nganhang_id_msg"></span></td>
+		
+	</tr>
+
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	function change_bank(){
+		var bank_ = $("#hinhthuctt_id").val();
+		if (bank_=='4'){
+			$("#nganhang_id").attr('disabled' , false);
+		}else{
+			$("#nganhang_id").attr('disabled' , true);
+		}
+	}
+
+	function loadInfo(){
+		if(event.keyCode != 13){
+	        return;
+	    }
+		$("#ten_nnt").val("");	
+		$("#mota_diachi").val("");
+		$('#result').text('${n.i18n.crud_process_message}');
+	
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=nnts/tai_quay_info_search.html&mst='+$("#mst").val()+'&sogt='+$("#so").val(),async: false,
+			success: function(data){ 
+				eval('data='+data);
+				$("#ten_nnt").val(data.TEN_NNT);			
+				$("#mst").val(data.MST);
+				$("#mota_diachi").val(data.MOTA_DIACHI);
+				$('#result').text('');
+
+			}
+		});
+		
+	}
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			//var exec='&mst='+$('#mst').val()+'&lydos='+$('#lydos').val()+'&luotnhac='+$('#luotnhac').val()+'&ngayhen_tt='+$('#ngayhen_tt').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			var exec='&mst='+$('#mst').val()+'&lydos='+$('#lydos').val()+'&luotnhac='+$('#luotnhac').val()+'&ngayhen_tt='+$('#ngayhen_tt').val()+'&hinhthuc='+$('#hinhthuctt_id').val()+'&nganhang='+$('#nganhang_id').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=nhatky_thus/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nhatky_thus/index.html';
+		});
+		$('#lydos').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=lydos&content="+$('#lydos').val(),'selectFile',700,280);
+		});
+		$('#ngayhen_tt').blur(function(){
+			if ($('#ngayhen_tt').val()=='' || patternValidate($('#ngayhen_tt'),'dd/mm/yyyy')){
+				$('#ngayhen_tt_msg').html('');
+				$('#ngayhen_tt_msg').attr('style','display:none');
+			}else{
+				$('#ngayhen_tt_msg').html('${n.i18n.nhatky_thus_ngayhen_tt} dạng dd/mm/yyyy');
+				$('#ngayhen_tt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngayhen_tt').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

@@ -1,0 +1,5 @@
+chuongs_id=Id
+chuongs_ma_cap=Ma_Cap
+chuongs_ten_chuong=Ten_Chuong
+chuongs_hieu_luc_tu=Hieu_Luc_Tu
+chuongs_hieu_luc_den=Hieu_Luc_Den

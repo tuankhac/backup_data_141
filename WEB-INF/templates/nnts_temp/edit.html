@@ -1,0 +1,170 @@
+#set ($v = $u.ref("crud_search_nnts_temp_service","default",["$!{mcq}","$!{ma_unt}","$!{ten_unt}","$!{cbk_unt}","$!{ngay_unt}","$!{ma_nnt}","$!{ten_nnt}","$!{sac_thue}","$!{chuong}","$!{tieu_muc}","$!{dia_ban}","$!{kbnn}","$!{kythue}","$!{loaitk_nsnn}","$!{han_nop}","$!{magiao_unt}","$!{loai_tien}","$!{tien_giao}","$!{tien_con}","$!{tien_thuduoc}","$!{tien_quyettoan}","$!{so_bl}","$!{ngay_bl}","$!{sobl_unt}","$!{ngaybl_unt}","$!{ngay_banke}","$!{sonha_ct}","$!{matinh_ct}","$!{tentinh_ct}","$!{maquan_ct}","$!{tenquan_ct}","$!{maxa_ct}","$!{tenxa_ct}","$!{mobile}","$!{email}","$!{sonha_tt}","$!{matinh_tt}","$!{tentinh_tt}","$!{maquan_tt}","$!{tenquan_tt}","$!{maxa_tt}","$!{tenxa_tt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],46)[0] )
+	<table id="nnts_temp" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="mcq_label">${n.i18n.nnts_temp_mcq}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MCQ"]' name="mcq" id="mcq"><span id="mcq_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_unt_label">${n.i18n.nnts_temp_ma_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MA_UNT"]' name="ma_unt" id="ma_unt"><span id="ma_unt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="ten_unt_label">${n.i18n.nnts_temp_ten_unt}</td>
+			<td>			<textarea class="form-control"  title='${n.i18n.crud_input_editor_title}' rows=2 name="ten_unt" id="ten_unt" style='vertical-align:top'>$!v["TEN_UNT"]</textarea><span id="ten_unt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="cbk_unt_label">${n.i18n.nnts_temp_cbk_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["CBK_UNT"]' name="cbk_unt" id="cbk_unt"><span id="cbk_unt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ngay_unt_label">${n.i18n.nnts_temp_ngay_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAY_UNT"]' name="ngay_unt" id="ngay_unt"><span id="ngay_unt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ma_nnt_label">${n.i18n.nnts_temp_ma_nnt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MA_NNT"]' name="ma_nnt" id="ma_nnt"><span id="ma_nnt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.nnts_temp_ten_nnt}</td>
+			<td>			<textarea class="form-control"  title='${n.i18n.crud_input_editor_title}' rows=2 name="ten_nnt" id="ten_nnt" style='vertical-align:top'>$!v["TEN_NNT"]</textarea><span id="ten_nnt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="sac_thue_label">${n.i18n.nnts_temp_sac_thue}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SAC_THUE"]' name="sac_thue" id="sac_thue"><span id="sac_thue_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="chuong_label">${n.i18n.nnts_temp_chuong}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["CHUONG"]' name="chuong" id="chuong"><span id="chuong_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="tieu_muc_label">${n.i18n.nnts_temp_tieu_muc}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEU_MUC"]' name="tieu_muc" id="tieu_muc"><span id="tieu_muc_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="dia_ban_label">${n.i18n.nnts_temp_dia_ban}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["DIA_BAN"]' name="dia_ban" id="dia_ban"><span id="dia_ban_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="kbnn_label">${n.i18n.nnts_temp_kbnn}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["KBNN"]' name="kbnn" id="kbnn"><span id="kbnn_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.nnts_temp_kythue}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["KYTHUE"]' name="kythue" id="kythue"><span id="kythue_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="loaitk_nsnn_label">${n.i18n.nnts_temp_loaitk_nsnn}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["LOAITK_NSNN"]' name="loaitk_nsnn" id="loaitk_nsnn"><span id="loaitk_nsnn_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="han_nop_label">${n.i18n.nnts_temp_han_nop}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["HAN_NOP"]' name="han_nop" id="han_nop"><span id="han_nop_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="magiao_unt_label">${n.i18n.nnts_temp_magiao_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MAGIAO_UNT"]' name="magiao_unt" id="magiao_unt"><span id="magiao_unt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="loai_tien_label">${n.i18n.nnts_temp_loai_tien}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["LOAI_TIEN"]' name="loai_tien" id="loai_tien"><span id="loai_tien_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="tien_giao_label">${n.i18n.nnts_temp_tien_giao}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_GIAO"]' name="tien_giao" id="tien_giao"><span id="tien_giao_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="tien_con_label">${n.i18n.nnts_temp_tien_con}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_CON"]' name="tien_con" id="tien_con"><span id="tien_con_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="tien_thuduoc_label">${n.i18n.nnts_temp_tien_thuduoc}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_THUDUOC"]' name="tien_thuduoc" id="tien_thuduoc"><span id="tien_thuduoc_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="tien_quyettoan_label">${n.i18n.nnts_temp_tien_quyettoan}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_QUYETTOAN"]' name="tien_quyettoan" id="tien_quyettoan"><span id="tien_quyettoan_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="so_bl_label">${n.i18n.nnts_temp_so_bl}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SO_BL"]' name="so_bl" id="so_bl"><span id="so_bl_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ngay_bl_label">${n.i18n.nnts_temp_ngay_bl}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAY_BL"]' name="ngay_bl" id="ngay_bl"><span id="ngay_bl_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="sobl_unt_label">${n.i18n.nnts_temp_sobl_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SOBL_UNT"]' name="sobl_unt" id="sobl_unt"><span id="sobl_unt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ngaybl_unt_label">${n.i18n.nnts_temp_ngaybl_unt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAYBL_UNT"]' name="ngaybl_unt" id="ngaybl_unt"><span id="ngaybl_unt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ngay_banke_label">${n.i18n.nnts_temp_ngay_banke}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAY_BANKE"]' name="ngay_banke" id="ngay_banke"><span id="ngay_banke_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="sonha_ct_label">${n.i18n.nnts_temp_sonha_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SONHA_CT"]' name="sonha_ct" id="sonha_ct"><span id="sonha_ct_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="matinh_ct_label">${n.i18n.nnts_temp_matinh_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MATINH_CT"]' name="matinh_ct" id="matinh_ct"><span id="matinh_ct_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tentinh_ct_label">${n.i18n.nnts_temp_tentinh_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENTINH_CT"]' name="tentinh_ct" id="tentinh_ct"><span id="tentinh_ct_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="maquan_ct_label">${n.i18n.nnts_temp_maquan_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MAQUAN_CT"]' name="maquan_ct" id="maquan_ct"><span id="maquan_ct_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tenquan_ct_label">${n.i18n.nnts_temp_tenquan_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENQUAN_CT"]' name="tenquan_ct" id="tenquan_ct"><span id="tenquan_ct_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="maxa_ct_label">${n.i18n.nnts_temp_maxa_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MAXA_CT"]' name="maxa_ct" id="maxa_ct"><span id="maxa_ct_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tenxa_ct_label">${n.i18n.nnts_temp_tenxa_ct}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENXA_CT"]' name="tenxa_ct" id="tenxa_ct"><span id="tenxa_ct_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.nnts_temp_mobile}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MOBILE"]' name="mobile" id="mobile"><span id="mobile_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.nnts_temp_email}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["EMAIL"]' name="email" id="email"><span id="email_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="sonha_tt_label">${n.i18n.nnts_temp_sonha_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SONHA_TT"]' name="sonha_tt" id="sonha_tt"><span id="sonha_tt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="matinh_tt_label">${n.i18n.nnts_temp_matinh_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MATINH_TT"]' name="matinh_tt" id="matinh_tt"><span id="matinh_tt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tentinh_tt_label">${n.i18n.nnts_temp_tentinh_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENTINH_TT"]' name="tentinh_tt" id="tentinh_tt"><span id="tentinh_tt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="maquan_tt_label">${n.i18n.nnts_temp_maquan_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MAQUAN_TT"]' name="maquan_tt" id="maquan_tt"><span id="maquan_tt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tenquan_tt_label">${n.i18n.nnts_temp_tenquan_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENQUAN_TT"]' name="tenquan_tt" id="tenquan_tt"><span id="tenquan_tt_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="maxa_tt_label">${n.i18n.nnts_temp_maxa_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MAXA_TT"]' name="maxa_tt" id="maxa_tt"><span id="maxa_tt_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tenxa_tt_label">${n.i18n.nnts_temp_tenxa_tt}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TENXA_TT"]' name="tenxa_tt" id="tenxa_tt"><span id="tenxa_tt_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		var orginData={mcq:'$!v["MCQ"]',ma_unt:'$!v["MA_UNT"]',ten_unt:'$!v["TEN_UNT"]',cbk_unt:'$!v["CBK_UNT"]',ngay_unt:'$!v["NGAY_UNT"]',ma_nnt:'$!v["MA_NNT"]',ten_nnt:'$!v["TEN_NNT"]',sac_thue:'$!v["SAC_THUE"]',chuong:'$!v["CHUONG"]',tieu_muc:'$!v["TIEU_MUC"]',dia_ban:'$!v["DIA_BAN"]',kbnn:'$!v["KBNN"]',kythue:'$!v["KYTHUE"]',loaitk_nsnn:'$!v["LOAITK_NSNN"]',han_nop:'$!v["HAN_NOP"]',magiao_unt:'$!v["MAGIAO_UNT"]',loai_tien:'$!v["LOAI_TIEN"]',tien_giao:'$!v["TIEN_GIAO"]',tien_con:'$!v["TIEN_CON"]',tien_thuduoc:'$!v["TIEN_THUDUOC"]',tien_quyettoan:'$!v["TIEN_QUYETTOAN"]',so_bl:'$!v["SO_BL"]',ngay_bl:'$!v["NGAY_BL"]',sobl_unt:'$!v["SOBL_UNT"]',ngaybl_unt:'$!v["NGAYBL_UNT"]',ngay_banke:'$!v["NGAY_BANKE"]',sonha_ct:'$!v["SONHA_CT"]',matinh_ct:'$!v["MATINH_CT"]',tentinh_ct:'$!v["TENTINH_CT"]',maquan_ct:'$!v["MAQUAN_CT"]',tenquan_ct:'$!v["TENQUAN_CT"]',maxa_ct:'$!v["MAXA_CT"]',tenxa_ct:'$!v["TENXA_CT"]',mobile:'$!v["MOBILE"]',email:'$!v["EMAIL"]',sonha_tt:'$!v["SONHA_TT"]',matinh_tt:'$!v["MATINH_TT"]',tentinh_tt:'$!v["TENTINH_TT"]',maquan_tt:'$!v["MAQUAN_TT"]',tenquan_tt:'$!v["TENQUAN_TT"]',maxa_tt:'$!v["MAXA_TT"]',tenxa_tt:'$!v["TENXA_TT"]'};
+		$('#doEdit').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&mcq='+$('#mcq').val()+'&ma_unt='+$('#ma_unt').val()+'&ten_unt='+$('#ten_unt').val()+'&cbk_unt='+$('#cbk_unt').val()+'&ngay_unt='+$('#ngay_unt').val()+'&ma_nnt='+$('#ma_nnt').val()+'&ten_nnt='+$('#ten_nnt').val()+'&sac_thue='+$('#sac_thue').val()+'&chuong='+$('#chuong').val()+'&tieu_muc='+$('#tieu_muc').val()+'&dia_ban='+$('#dia_ban').val()+'&kbnn='+$('#kbnn').val()+'&kythue='+$('#kythue').val()+'&loaitk_nsnn='+$('#loaitk_nsnn').val()+'&han_nop='+$('#han_nop').val()+'&magiao_unt='+$('#magiao_unt').val()+'&loai_tien='+$('#loai_tien').val()+'&tien_giao='+$('#tien_giao').val()+'&tien_con='+$('#tien_con').val()+'&tien_thuduoc='+$('#tien_thuduoc').val()+'&tien_quyettoan='+$('#tien_quyettoan').val()+'&so_bl='+$('#so_bl').val()+'&ngay_bl='+$('#ngay_bl').val()+'&sobl_unt='+$('#sobl_unt').val()+'&ngaybl_unt='+$('#ngaybl_unt').val()+'&ngay_banke='+$('#ngay_banke').val()+'&sonha_ct='+$('#sonha_ct').val()+'&matinh_ct='+$('#matinh_ct').val()+'&tentinh_ct='+$('#tentinh_ct').val()+'&maquan_ct='+$('#maquan_ct').val()+'&tenquan_ct='+$('#tenquan_ct').val()+'&maxa_ct='+$('#maxa_ct').val()+'&tenxa_ct='+$('#tenxa_ct').val()+'&mobile='+$('#mobile').val()+'&email='+$('#email').val()+'&sonha_tt='+$('#sonha_tt').val()+'&matinh_tt='+$('#matinh_tt').val()+'&tentinh_tt='+$('#tentinh_tt').val()+'&maquan_tt='+$('#maquan_tt').val()+'&tenquan_tt='+$('#tenquan_tt').val()+'&maxa_tt='+$('#maxa_tt').val()+'&tenxa_tt='+$('#tenxa_tt').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=nnts_temp/edit_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_edit_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nnts_temp/index.html';
+		});
+		$('#ten_unt').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ten_unt&content="+$('#ten_unt').val(),'selectFile',700,280);
+		});
+		$('#ten_nnt').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ten_nnt&content="+$('#ten_nnt').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

@@ -1,0 +1,209 @@
+#set ($v = $u.ref("crud_search_danh_ba_ng_nop_thue","default",["$!{mst}","$!{ma_tinh}","$!{no_cuoi_ky}","$!{ma_chuong}","$!{ma_tmuc}","$!{kythue}","$!{so_qdinh}","$!{ngay_qdinh}","$!{ma_cq_thu}","$!{han_nop}","$!{magiao_unt}","$!{chuky}","$!{sobk_unt}","$!{ngaybk_unt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],18)[0] )
+	<table id="tien_nop" class='table table-condensed'>   
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	
+		<tr>
+
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label" >${n.i18n.phieuhuys_mst}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst" value="$!v['MST']" readonly>
+			<span id="msg_ma_st" ></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.hctt_ma_tinh}<font color=red>*</font>:</td>
+		<td>
+			<select class="form-control" name="2_ma_tinh" id="2_ma_tinh" onclick="doGetMaCQT_QL()" readonly>
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_tinh","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TINH'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			<span id="msg_ma_tinh"></span></td>
+		</tr>
+		
+		<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="no_cuoi_ky_label">${n.i18n.hctt_debit}</td>
+		<td><input  type="text" class="form-control" name="3_no_cuoi_ky" id="3_no_cuoi_ky" readonly value="$!v['NO_CUOI_KY']"><span id="msg_no_cuoi_ky"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kieu_no_label">${n.i18n.hctt_machuong}</td>
+		<td><input  readonly type="text" class="form-control" name="5_ma_chuong" id="5_ma_chuong" value="$!v['EDIT_MA_CHUONG']">
+			<!--<select class="form-control" name="5_ma_chuong" id="5_ma_chuong" readonly>
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_ma_chuong","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_CHUONG'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>-->
+			<span id="msg_ma_chuong"></span>
+			<input  type="hidden" class="form-control" name="4_kieu_no" id="4_kieu_no" readonly value="1">
+			<span id="msg_kieu_no"></span> 
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_tmuc_label">${n.i18n.hctt_mathumuc}</td>
+		<td><input  type="text" class="form-control" name="6_ma_tmuc" id="6_ma_tmuc" readonly value="$!v['EDIT_MA_TMUC']">
+			<!--<select class="form-control" name="6_ma_tmuc" id="6_ma_tmuc" readonly>
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_ma_tmuc","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TMUC'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>-->
+			<span id="msg_ma_tmuc"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.hctt_kythue}</td>
+		<td>
+			<select class="form-control" name="7_kythue" id="7_kythue" readonly>
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_kythue","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_KYTHUE'])
+								<option value="$!i['ID']" selected="selected">$!i['ID']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['ID']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_kythue"></span>
+		</td>
+	</tr>
+	<tr style="display:none">
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_taikhoan_co_label"></td>
+		<td><input  type="hidden" class="form-control" name="8_so_taikhoan_co" readonly id="8_so_taikhoan_co" value="711">
+			<span id="msg_so_taikhoan_co"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_qdinh_label">${n.i18n.hctt_soqd}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="9_so_qdinh" id="9_so_qdinh" readonly value="$!v['SO_QDINH']">
+			<span id="msg_so_qdinh"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngay_qdinh_label">${n.i18n.hctt_ngayqd}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="10_ngay_qdinh" id="10_ngay_qdinh" readonly value="$!v['NGAY_QDINH']">
+			<span id="msg_ngay_qdinh"></span>
+		</td>
+	</tr>
+	
+	
+	<tr style="display:none">
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="loai_tien_label">${n.i18n.hctt_loaitien}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="11_loai_tien" id="11_loai_tien" readonly value="$!v['LOAI_TIEN']">
+			<span id="msg_loai_tien"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ti_gia_label">${n.i18n.hctt_tigia}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="12_ti_gia" id="12_ti_gia" readonly value="$!v['TI_GIA']">
+			<span id="msg_ti_gia"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_cq_thu_label">${n.i18n.hctt_ma_cqt_ql}</td>
+		<td><select class="form-control" name="p14_ma_cq_thu" id="p14_ma_cq_thu" readonly>
+			<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_cqt_ql","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_CQ_THU'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_ma_cq_thu"></span>
+			<span id="msg_ma_cq_thu"></span>
+			<input  type="hidden" class="form-control" name="13_loai_thue" id="13_loai_thue" readonly value="10">
+			<span id="msg_loai_thue"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="han_nop_label">${n.i18n.hctt_hannop}</td>
+		<td><input  type="text" class="form-control" name="15_han_nop" id="15_han_nop" readonly value="$!v['HAN_NOP']">
+			<span id="msg_han_nop"></span>
+		</td>
+	</tr>
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="magiao_unt_label">${n.i18n.hctt_ma_unt}</td>
+		<td><input  type="text" class="form-control" name="16_magiao_unt" id="16_magiao_unt" readonly value="$!v['MAGIAO_UNT']">
+			<span id="msg_magiao_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="chuky_label">${n.i18n.hctt_chuky}</td>
+		<td>
+			<select class="form-control" name="17_chuky" id="17_chuky" readonly>
+			<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_chuky","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_CHUKY'])
+								<option value="$!i['ID']" selected="selected">$!i['ID']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['ID']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_chuky"></span>
+		</td>
+	</tr>
+	
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="sobk_unt_label">${n.i18n.hctt_sobk_unt}</td>
+		<td><input  type="text" class="form-control" name="18_sobk_unt" id="18_sobk_unt" readonly value="$!v['SOBK_UNT']">
+			<span id="msg_sobk_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngaybk_unt_label">${n.i18n.hctt_ngaybk_unt}</td>
+		<td><input  type="text" class="form-control" name="19_ngaybk_unt" id="19_ngaybk_unt" readonly value="$!v['NGAYBK_UNT']">
+			<span id="msg_ngaybk_unt"></span>
+		</td>
+	</tr>
+		<tr><td colspan="4" align=center><font id="result" color=red></font></td></tr>
+		
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			var url='crud_exec.jsp?crud_type=tab_nopthue/danh_ba_ng_nop_thue/delete_exec.html&mst='+$("#1_mst").val()
+				+'&ma_chuong='+$('#5_ma_chuong').val()
+				+'&ma_tmuc='+$('#6_ma_tmuc').val()
+				+'&kythue='+$('#7_kythue').val()				
+				+'&chuky='+$('#17_chuky').val()
+				+'&magiao_unt='+$('#16_magiao_unt').val();
+			
+			$.ajax({
+				url: url,
+				success: function(data){ 
+					if (data=="1.0" || data=="1" ||data==1){
+						$('#result').attr('style',' color:#006600; font-weight:bold;');
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=tab_nopthue/danh_ba_ng_nop_thue/index.html';
+		});
+		
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.tien_nop_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#10_ngay_qdinh').datepicker({format:"dd/mm/yyyy"});
+		$('#15_han_nop').datepicker({format:"dd/mm/yyyy"});
+		$('#19_ngaybk_unt').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

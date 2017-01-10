@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-08-25T19:05:58 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payment_order_v" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="3" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" isFloatColumnFooter="true" isIgnorePagination="true" uuid="6b918229-3f7b-4759-a949-98960aa21564">
+	<property name="ireport.zoom" value="1.126972201352367"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+	<scriptlet name="FORMAT_MONEY" class="format.FormatMoneyVi"/>
+	<parameter name="AGENT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGE_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="INVOICE" class="java.lang.String"/>
+	<parameter name="SERIAL" class="java.lang.String"/>
+	<parameter name="FOMAT_MONEY_VI" class="format.FormatMoneyVi"/>
+	<parameter name="TIEUMUC" class="java.lang.String"/>
+	<parameter name="MA_NV" class="java.lang.String"/>
+	<parameter name="CHUKY" class="java.lang.String"/>
+	<parameter name="MATHUE" class="java.lang.String"/>
+	<parameter name="USERID" class="java.lang.String"/>
+	<parameter name="USERIP" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="TYPE_PRINT" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{call tax.prints.print_data_receipt_offline('$P!{MA_NV}','$P!{MATHUE}','$P!{TIEUMUC}','$P!{CHUKY}','$P!{AGENT}','$P!{TYPE_PRINT}','$P!{USERID}','$P!{USERIP}',$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="mst" class="java.lang.String"/>
+	<field name="mobile" class="java.lang.String"/>
+	<field name="ten_nnt" class="java.lang.String"/>
+	<field name="mota_diachi" class="java.lang.String"/>
+	<field name="ma_tmuc" class="java.lang.String"/>
+	<field name="kythue" class="java.lang.String"/>
+	<field name="nocuoi" class="java.lang.Integer"/>
+	<field name="tentieumuc" class="java.lang.String"/>
+	<field name="serial" class="java.lang.String"/>
+	<field name="pattern" class="java.lang.String"/>
+	<field name="ten_dv" class="java.lang.String"/>
+	<field name="diachi_dv" class="java.lang.String"/>
+	<field name="mst_dv" class="java.lang.String"/>
+	<field name="ky_view" class="java.lang.String"/>
+	<variable name="year" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("yyyy")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("yyyy")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<variable name="month" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("MM")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("MM")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<variable name="day" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("dd")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("dd")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<variable name="mst1" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{mst}]]></variableExpression>
+	</variable>
+	<variable name="tong_tien" class="java.lang.Long" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{nocuoi}]]></variableExpression>
+	</variable>
+	<variable name="tong_tien_chu" class="java.lang.String">
+		<variableExpression><![CDATA[$P{FORMAT_MONEY_SCRIPTLET}.numberToString(String.valueOf($V{tong_tien}))]]></variableExpression>
+	</variable>
+	<variable name="COUNT_COLUM_GROUP" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="Count">
+		<variableExpression><![CDATA[$F{ma_tmuc}]]></variableExpression>
+	</variable>
+	<group name="Group1" isStartNewColumn="true" isStartNewPage="true" minHeightToStartNewPage="200" keepTogether="true">
+		<groupExpression><![CDATA[$F{mst}+$F{kythue}]]></groupExpression>
+		<groupHeader>
+			<band height="249" splitType="Prevent">
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<staticText>
+					<reportElement x="10" y="233" width="31" height="16" uuid="96404606-f7bf-459d-bc7a-ac61b343dd21">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[STT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="233" width="136" height="16" uuid="34c7f30e-40af-481a-9e79-17d6c1d3de14">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Đã nộp]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="271" y="233" width="48" height="16" uuid="34c7f30e-40af-481a-9e79-17d6c1d3de14"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Tiểu mục]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="41" y="233" width="230" height="16" uuid="ba529d27-3831-4bfc-8f04-440756d4db33">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Nội dung các khoản nộp]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="319" y="233" width="80" height="16" uuid="34c7f30e-40af-481a-9e79-17d6c1d3de14">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Kỳ thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="188" width="38" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Địa chỉ :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="172" width="110" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Họ tên người nộp thuế:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="402" y="172" width="59" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Mã số thuế : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="205" width="89" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Số điện thoại : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="112" width="550" height="20" uuid="9f5d3a46-bf47-4091-b5a2-ecef89bb4ac3"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="13" isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[PHIẾU THU TIỀN THUẾ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="53" width="200" height="15" uuid="9d69f32e-dbf2-4983-ae18-4745ac32a13d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TỔNG CÔNG TY DỊCH VỤ VIỄN THÔNG]]></text>
+				</staticText>
+				<image>
+					<reportElement x="72" y="7" width="40" height="40" uuid="6140a0b6-7171-4b47-aba8-cb014dbe4fe5"/>
+					<imageExpression><![CDATA[$P{IMAGE_PATH}+"images\\QC_VNPT_2015.jpg"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="178" y="12" width="201" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="178" y="28" width="201" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="427" y="7" width="44" height="15" uuid="b0d31256-9f14-4098-bb69-f735fb0d8dcb"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="8" isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Ký hiệu : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="427" y="25" width="23" height="15" uuid="eedc6476-e380-4ed5-b25e-bab636284dd5"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="8" isBold="true" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Số : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="461" y="172" width="75" height="15" uuid="7a3c2978-fe1e-4a97-9878-555792538320"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mst}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="39" y="187" width="497" height="16" uuid="6c401a8c-7305-42f3-afe9-6d806850d31e"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mota_diachi}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="90" y="205" width="100" height="15" uuid="71bed855-826c-45be-bb7d-4b9e36e259a9"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="111" y="171" width="291" height="16" uuid="7cc1af81-9717-43aa-87e2-854449c91790"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ten_nnt}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="471" y="7" width="79" height="15" uuid="7cfb7cc8-c28b-40cc-a2ce-ce0856c9205b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pattern}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="450" y="25" width="100" height="15" uuid="5f98d315-ecf2-41a5-9c06-a81cdebb2121"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{serial}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="69" width="300" height="15" uuid="e9c511f4-2ce9-49cf-b7d7-e471bffa5b75">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ten_dv}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="84" width="300" height="15" uuid="90f65068-84f8-422c-9781-13e3f9bc2867">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diachi_dv}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="100" width="41" height="15" uuid="275b8b39-0f9d-4bb2-8874-9bb4b10f6daa">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<text><![CDATA[MST:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="40" y="99" width="150" height="15" uuid="3e870bb5-5726-4048-b934-b712ff54285c">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box leftPadding="5"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mst_dv}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="155">
+				<staticText>
+					<reportElement x="107" y="66" width="100" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Người nộp thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="16" width="151" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<box leftPadding="0"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+						<paragraph tabStopWidth="20"/>
+					</textElement>
+					<text><![CDATA[      Tổng số tiền ghi bằng chữ :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="10" y="0" width="389" height="15" uuid="6fc3c728-c723-4dbd-b45c-91f2dfe21490"/>
+					<box rightPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph tabStopWidth="5"/>
+					</textElement>
+					<text><![CDATA[    Cộng:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="337" y="66" width="137" height="25" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Giao dịch viên/Nhân viên thu
+         (ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="330" y="50" width="184" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ngày      tháng        năm]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="356" y="50" width="20" height="15" uuid="2b5864ac-6fac-4b04-a562-7e33fdb67cc7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{day}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="445" y="50" width="26" height="15" uuid="01b0f82f-d80a-4e59-86fb-895dde5b2da2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{year}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="402" y="50" width="20" height="15" uuid="746d1299-ff5d-4a16-9d0e-065844d875d7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{month}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="101" y="78" width="100" height="15" uuid="d890b088-a949-423e-8899-6f5db480a98f"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="9" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[(ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="400" y="0" width="136" height="15" uuid="41fffd56-110f-44c7-988f-553f523a1610"/>
+					<box leftPadding="5" rightPadding="5">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.text.DecimalFormat("###,###,###,###").format($V{tong_tien}== null ?0:$V{tong_tien})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="160" y="15" width="376" height="16" uuid="44d33f5f-72e0-4869-ba41-f89c46a9d2cd"/>
+					<box topPadding="0" leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{tong_tien_chu}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="10">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="0" width="136" height="16" uuid="ada52320-863c-436b-bc58-8e98a1e1ced7">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("###,###,###,###").format($F{nocuoi}== null ? 0:$F{nocuoi})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="0" width="48" height="16" uuid="16493c8e-760c-40fb-8612-078ce0759fc8"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ma_tmuc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="0" width="230" height="16" uuid="70264129-791d-40bb-a03d-0dd4ec3a91c9"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tentieumuc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="31" height="16" uuid="876dad2b-00b8-454d-8264-f80f1442357f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COUNT_COLUM_GROUP}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="319" y="0" width="80" height="16" uuid="d8962043-08b1-46f2-b4a8-88382c956697"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ky_view}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageFooter>
+</jasperReport>

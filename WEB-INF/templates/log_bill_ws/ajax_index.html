@@ -1,0 +1,36 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_code}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_bill}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_cashier}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_Response}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_Method}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_Logdate}</th>
+		<th style = "text-align:center;">${n.i18n.log_bill_ws_Month}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_log_bill_ws_service","default",["$!{code}","$!{bill}","$!{cashier}","","$!{Response}","$!{Method}","$!{Month}","$!{Logdate}","","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}","$!{province}","1"],15) )
+#foreach ($i in $list)
+	<tr>
+		<td>$!i["CODE"]</td>
+		<td>$!i["BILL"]</td>
+		<td>$!i["CASHIER"]</td>
+		<td>$!i["RESPONSE"]</td>
+		<td>$!i["METHOD"]</td>
+		<td>$!i["LOGDATE"]</td>
+		<td>$!i["MONTH"]</td>
+	</tr>
+#end
+</table>
+#set ($lis = $u.ref("crud_search_log_bill_ws_service","default",["$!{code}","$!{bill}","$!{cashier}","","$!{Response}","$!{Method}","$!{Month}","$!{Logdate}","","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}","$!{province}","2"],15) )
+#foreach ($i in $lis)
+	#set ($val_page = $!i["RECORD"])
+#end
+<script>
+	var total_ = $!{val_page};
+	$("#total1").html(total_);
+	$("#page1").html(parseInt($("#total1").html()/$("#cboSetPageRec1").val())+1);
+	
+	$('#ajax_log_bill_ws :radio').change(function(){	
+		$('#ajax_log_bill_ws :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

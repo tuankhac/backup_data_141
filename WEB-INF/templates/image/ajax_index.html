@@ -1,0 +1,34 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.image_id}</th>
+		<th align=center>${n.i18n.image_title}</th>
+		<th align=center>${n.i18n.image_source}</th>
+		<th align=center>${n.i18n.image_description}</th>
+		<th align=center>${n.i18n.image_created_date}</th>
+		<th align=center>${n.i18n.image_modified_date}</th>
+		<th align=center>${n.i18n.image_created_user}</th>
+		<th align=center>${n.i18n.image_modified_user}</th>
+		<th align=center>${n.i18n.image_nhanvien_tcs_id}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_image_service","default",["$!{id}","$!{title}","$!{source}","$!{description}","$!{created_date}","$!{modified_date}","$!{created_user}","$!{modified_user}","$!{nhanvien_tcs_id}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="image_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='title'>$!i["TITLE"]</td>
+		<td align=left name='source'>$!i["SOURCE"]</td>
+		<td align=left name='description'>$!i["DESCRIPTION"]</td>
+		<td align=center name='created_date'>$!i["CREATED_DATE"]</td>
+		<td align=center name='modified_date'>$!i["MODIFIED_DATE"]</td>
+		<td align=left name='created_user'>$!i["CREATED_USER"]</td>
+		<td align=left name='modified_user'>$!i["MODIFIED_USER"]</td>
+		<td align=center name='nhanvien_tcs_id'>$!i["NHANVIEN_TCS_ID"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_image :radio').change(function(){	
+		$('#ajax_image :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

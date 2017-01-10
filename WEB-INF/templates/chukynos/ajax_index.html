@@ -1,0 +1,24 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.chukynos_id}</th>
+		<th align=center>${n.i18n.chukynos_ten_chukyno}</th>
+		<th align=center>${n.i18n.chukynos_is_active}</th>
+		<th align=center>${n.i18n.chukynos_status}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_chukynos_service","default",["$!{id}","$!{ten_chukyno}","$!{is_active}","$!{status}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],8) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="chukynos_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='ten_chukyno'>$!i["TEN_CHUKYNO"]</td>
+		<td align=center name='is_active'>$!i["IS_ACTIVE"]</td>
+		<td align=center name='status'>$!i["STATUS"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_chukynos :radio').change(function(){	
+		$('#ajax_chukynos :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

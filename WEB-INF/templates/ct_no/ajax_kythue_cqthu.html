@@ -1,0 +1,7 @@
+<select class="form-control" name="kythue" id="kythue" style="width:100%" onchange="GetInfodept()">	
+	#set ($list = $u.ref("danh_sach_ky_thue_cqt","default",["$!{mst}","$!{ma_tinh}","$!{ma_cqt_ql}"],3) )
+	#foreach ($i in $list)
+   	<option value="$!i['ID']">$!i['NAME']</option>
+    #end
+</select>
+		

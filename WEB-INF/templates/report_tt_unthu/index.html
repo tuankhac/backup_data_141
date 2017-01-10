@@ -1,0 +1,88 @@
+﻿<table id="chuyenkhoans" class='table table-condensed'>
+	<tr><th colspan='4'><b>BẢNG THANH TOÁN ỦY NHIỆM THU</b></th></tr>
+	<tr>
+		<td width="15%">${n.i18n.report_tt_uynhiemthu_type}</td>
+		<td width="35%"><select id="cboLoaiThue" name="cboLoaiThue" class="form-control">
+        <option value="1"> Thuế môn bài</option>
+        <option value="2"> Thuế khoán</option>
+        <option value="3"> Thuế trội</option>
+        </select> </td>
+		<td width="15%">${n.i18n.report_tt_uynhiemthu_quy}</td>
+		<td width="35%">
+			<select class="form-control" name="cboQuy" id="cboQuy">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("report_get_quarter","default",[],0) )                   					
+				<option value="$!i['QUARTER']-$!i['NAME']">Quý $!i['QUARTER'] - Năm $!i['NAME']</option>				
+                #end
+			</select></td>
+	</tr>
+    <tr><td width="15%">${n.i18n.report_tt_uynhiemthu_donvi}</td>
+    <td><select class="form-control" name="donviql_id" id="donviql_id" >
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("report_list_khobac","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="donviql_id_msg"></td>
+    </tr>
+		
+		
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary" ><i class="fa fa-print"></i> ${n.i18n.curd_report_print}</button>&nbsp;
+				<button name="doSearchXLS" id="doSearchXLS" class="btn btn-primary" ><i class="fa fa-print"></i> ${n.i18n.curd_report_print} xls</button>&nbsp;	
+	</td></tr>
+</table>
+
+<script type="text/javascript">	
+
+	$(document).ready(function(){	
+	});
+	$("#doSearch").click(function(){
+		var js_name="";
+		if ($("#cboLoaiThue").val()==1) js_name="report_bang_tt_monbai";
+		else if ($("#cboLoaiThue").val()==2) js_name="report_bang_tt_thuekhoan";
+		else if ($("#cboLoaiThue").val()==3) js_name="report_bang_tt_thuetroi";
+		var jpPath = '${pathroot}' + "WEB-INF/templates/jasper/";
+		var time = $("#cboQuy").val();
+		if (time=="") {
+			alert("Phải chọn quý lấy báo cáo");	
+			return;
+		}
+
+		var arr = time.split("-");
+		var quy= arr[0];
+		var nam= arr[1];	
+		var unit_ = $("#donviql_id").val();		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+js_name+"&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&QUY="+quy+"&NAM="+nam+"&DON_VI="+$("#donviql_id").val();
+		//alert (s_);
+		
+		window.open(s_);
+		
+	});
+	
+	$("#doSearchXLS").click(function(){
+		var js_name="";
+		if ($("#cboLoaiThue").val()==1) js_name="report_bang_tt_monbai";
+		else if ($("#cboLoaiThue").val()==2) js_name="report_bang_tt_thuekhoan";
+		else if ($("#cboLoaiThue").val()==3) js_name="report_bang_tt_thuetroi";
+		var jpPath = '${pathroot}' + "WEB-INF/templates/jasper/";
+		var time = $("#cboQuy").val();
+		if (time=="") {
+			alert("Phải chọn quý lấy báo cáo");	
+			return;
+		}
+
+		var arr = time.split("-");
+		var quy= arr[0];
+		var nam= arr[1];	
+		var unit_ = $("#donviql_id").val();		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+js_name+"&jasperExportType=xls&AGENT=${province}&IMAGE_PATH="+jpPath+"&QUY="+quy+"&NAM="+nam+"&DON_VI="+$("#donviql_id").val();
+		//alert (s_);
+		
+		window.open(s_);
+		
+	});
+	
+
+</script>

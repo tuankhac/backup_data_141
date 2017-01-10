@@ -1,0 +1,232 @@
+#set ($v = $u.ref("crud_search_nhanvien_tcs_service","default",["$!{id}","$!{ma_tinh}","$!{so_cmnd}","$!{ten_nv}","$!{diachi}","$!{nguoi_bl}","$!{tien_dc}","$!{so_hd}","$!{ngay_hd}","$!{mabc_id}","$!{mobile}","$!{email}","1","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17)[0] )
+	<table id="nhanvien_tcs" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.nhanvien_tcs_id}<font>*</font></td>
+			<td>			<input  type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+			<td title="" id="ma_tinh_label">${n.i18n.nhanvien_tcs_ma_tinh}<font>*</font></td>
+			<td>			<select class="form-control" name="ma_tinh" id="ma_tinh">
+				#foreach ($i in $u.qry("crud_search_nhanvien_tcs_ma_tinh_service","default",[${province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']==$!v["MA_TINH"])selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="so_cmnd_label">${n.i18n.nhanvien_tcs_so_cmnd}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SO_CMND"]' name="so_cmnd" id="so_cmnd"><span id="so_cmnd_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ten_nv_label">${n.i18n.nhanvien_tcs_ten_nv}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TEN_NV"]' name="ten_nv" id="ten_nv"><span id="ten_nv_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="diachi_label">${n.i18n.nhanvien_tcs_diachi}</td>
+			<td>			<textarea class="form-control"  title='${n.i18n.crud_input_editor_title}' rows=2 name="diachi" id="diachi" style='vertical-align:top'>$!v["DIACHI"]</textarea><span id="diachi_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_bl_label">${n.i18n.nhanvien_tcs_nguoi_bl}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGUOI_BL"]' name="nguoi_bl" id="nguoi_bl"><span id="nguoi_bl_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_dc_label">${n.i18n.nhanvien_tcs_tien_dc}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_DC"]' name="tien_dc" id="tien_dc"><span id="tien_dc_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="so_hd_label">${n.i18n.nhanvien_tcs_so_hd}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SO_HD"]' name="so_hd" id="so_hd"><span id="so_hd_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_bs_label">${n.i18n.nhanvien_tcs_tien_bs}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TIEN_BS"]' name="tien_bs" id="tien_bs"><span id="tien_bs_msg"></span></td>
+			<td title="" id="mabc_id_label">${n.i18n.nhanvien_tcs_mabc_id}<font>*</font></td>
+			<td>			<select class="form-control" name="mabc_id" id="mabc_id">
+				#foreach ($i in $u.qry("crud_search_nhanvien_tcs_mabc_id_service","default",[${province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']==$!v["MABC_ID"])selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="mabc_id_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.nhanvien_tcs_mobile}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MOBILE"]' name="mobile" id="mobile"><span id="mobile_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.nhanvien_tcs_email}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["EMAIL"]' name="email" id="email"><span id="email_msg"></span></td>
+		</tr>
+		<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_hd_label">${n.i18n.nhanvien_tcs_ngay_hd}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAY_HD"]' name="ngay_hd" id="ngay_hd"><span id="ngay_hd_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="avatar">Ảnh đại diện</td>
+			<td>			
+				<form id="frmUpload">
+					<input type="file" id="file" name="file" style="display: inline;" accept="image/*" data-input="false" data-icon="false" data-buttonName="btn-primary" data-buttonText="${i18n.l.file_upload}"  onchange="javascript:if(this.value!='') {$('#upload_btn').removeAttr('disabled');} else {$('#upload_btn').attr('disabled','true');}" />
+					<button  name="submit" type="button" id="upload_btn" class="btn btn-primary start" disabled onClick="uploadFileAttach();" >Upload</button>
+					#set ($i = $u.ref("crud_search_image_service","default",["","","","","","","","","$!v['ID']","1","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0])
+					#if ($!i['NOP']=="0" || $!i['NOP']==0)
+						<img id="target" src="http://10.252.2.147:8090/nhanvien_tcs/images/no_avatar.png" alt='your avatar' width="140" height="140" />
+					#else 
+						#set ($list = $u.ref("crud_search_image_service","default",["","","","","","","","","$!v['ID']","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0])
+						<img id="target" src="http://10.252.2.147:8090/nhanvien_tcs/images/$!list['TITLE']" alt='your avatar' width="140" height="140" />
+					#end
+				</form><span id="avatar_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	var imagePath = "", imageName="";
+	$(function(){
+		var orginData={id:'$!v["ID"]',ma_tinh:'$!v["MA_TINH"]',so_cmnd:'$!v["SO_CMND"]',ten_nv:'$!v["TEN_NV"]',diachi:'$!v["DIACHI"]',nguoi_bl:'$!v["NGUOI_BL"]',tien_dc:'$!v["TIEN_DC"]',tien_bs:'$!v["TIEN_BS"]',so_hd:'$!v["SO_HD"]',ngay_hd:'$!v["NGAY_HD"]',mabc_id:'$!v["MABC_ID"]',mobile:'$!v["MOBILE"]',email:'$!v["EMAIL"]'};
+		$('#doEdit').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&ma_tinh='+$('#ma_tinh').val()+'&so_cmnd='+$('#so_cmnd').val()+'&ten_nv='+$('#ten_nv').val()+'&diachi='+$('#diachi').val()+'&nguoi_bl='+$('#nguoi_bl').val()+'&tien_dc='+$('#tien_dc').val()+'&tien_bs='+$('#tien_bs').val()+'&so_hd='+$('#so_hd').val()+'&ngay_hd='+$('#ngay_hd').val()+'&mabc_id='+$('#mabc_id').val()+'&mobile='+$('#mobile').val()+'&email='+$('#email').val()+'&title='+imageName+'&source='+imagePath+'&description='+$('#id').val()+'_AVATAR'+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			// alert(exec);
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=nhanvien_tcs/edit_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_edit_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nhanvien_tcs/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.nhanvien_tcs_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ma_tinh').blur(function(){
+			if ($('#ma_tinh').val()!=''){
+				$('#ma_tinh_msg').html('');
+				$('#ma_tinh_msg').attr('style','display:none');
+			}else{
+				$('#ma_tinh_msg').html('${n.i18n.crud_required_message} ${n.i18n.nhanvien_tcs_ma_tinh}');
+				$('#ma_tinh_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#diachi').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=diachi&content="+$('#diachi').val(),'selectFile',700,280);
+		});
+		$('#tien_dc').blur(function(){
+			if ($('#tien_dc').val()*1==$('#tien_dc').val()){
+				$('#tien_dc_msg').html('');
+				$('#tien_dc_msg').attr('style','display:none');
+			}else{
+				$('#tien_dc_msg').html('${n.i18n.nhanvien_tcs_tien_dc} ${n.i18n.crud_is_number_message}');
+				$('#tien_dc_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tien_bs').blur(function(){
+			if ($('#tien_bs').val()*1==$('#tien_bs').val()){
+				$('#tien_bs_msg').html('');
+				$('#tien_bs_msg').attr('style','display:none');
+			}else{
+				$('#tien_bs_msg').html('${n.i18n.nhanvien_tcs_tien_bs} ${n.i18n.crud_is_number_message}');
+				$('#tien_bs_msg').attr('style','display:block');
+				return false;
+			}
+		});
+
+		$('#ngay_hd').blur(function(){
+			if ($('#ngay_hd').val()=='' || patternValidate($('#ngay_hd'),'dd/mm/yyyy')){
+				$('#ngay_hd_msg').html('');
+				$('#ngay_hd_msg').attr('style','display:none');
+			}else{
+				$('#ngay_hd_msg').html('${n.i18n.nhanvien_tcs_ngay_hd} dạng dd/mm/yyyy');
+				$('#ngay_hd_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#mabc_id').blur(function(){
+			if ($('#mabc_id').val()!=''){
+				$('#mabc_id_msg').html('');
+				$('#mabc_id_msg').attr('style','display:none');
+			}else{
+				$('#mabc_id_msg').html('${n.i18n.crud_required_message} ${n.i18n.nhanvien_tcs_mabc_id}');
+				$('#mabc_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#email').blur(function(){
+			if ($('#email').val()*1==$('#email').val()){
+				$('#email_msg').html('');
+				$('#email_msg').attr('style','display:none');
+			}else{
+				$('#email_msg').html('${n.i18n.nhanvien_tcs_email} ${n.i18n.crud_is_number_message}');
+				$('#email_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_hd').datepicker({format:"dd/mm/yyyy"});
+	});
+	function uploadFileAttach(){
+		if($('#file').val()=='') {
+			alert('Vui lòng chọn file danh sách!');
+			return;
+		}
+		finish = false;
+		err_html = '';
+		total = 0;
+		success = 0;
+		fail = 0;
+		var form = document.getElementById('frmUpload');
+		var formData = new FormData(form);
+		var u = 'nhanvien_tcs/uploadfile.jsp';
+		//alert(u);
+		// loading();
+		$.ajax({
+			type : "POST",
+			url : u,
+			cache : false,
+			async : false,
+			enctype : 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,	
+			success : function(data) {
+				var result = data.trim().split("|");
+				if(result[0]=="1") {
+					alert("Upload thành công!");
+					imageName = result[1];
+					imagePath = result[2];
+					//alert(imagePath);
+				}else if(result[0]=="0"){
+					alert("Lỗi: "+result[1]);
+				}else{
+					alert(data);
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+        		alert(jqXHR.responseText);
+    		}
+		});
+	}
+
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();            
+            reader.onload = function (e) {
+                $('#target').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#file").change(function(){
+        readURL(this);
+    });
+</script>

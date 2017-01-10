@@ -1,0 +1,86 @@
+<table id="log_pos" class='table table-condensed'>
+   <tr>
+      <th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_code_label">${n.i18n.log_bill_ws_code}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_code" id="log_bill_ws_code"><span id="log_bill_ws_code_msg"></span>
+      </td>
+      <td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_bill_label">${n.i18n.log_bill_ws_bill}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_bill" id="log_bill_ws_bill"><span id="log_bill_ws_bill_msg"></span>
+      </td>
+   </tr>
+   <tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_cashier_label">${n.i18n.log_bill_ws_cashier}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_cashier" id="log_bill_ws_cashier"><span id="log_bill_ws_cashier_msg"></span>
+      </td>
+	   <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_Response_label">${n.i18n.log_bill_ws_Response}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_Response" id="log_bill_ws_Response"><span id="log_bill_ws_Response_msg"></span>
+      </td>
+   </tr>
+	<tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_Method_label">${n.i18n.log_bill_ws_Method}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_Method" id="log_bill_ws_Method"><span id="log_bill_ws_Method_msg"></span>
+      </td>
+	  <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_Month_label">${n.i18n.log_bill_ws_Month}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_Month" id="log_bill_ws_Month"><span id="log_bill_ws_Month_msg"></span>
+      </td>
+	</tr>
+	<tr>
+      <td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="log_bill_ws_Logdate_label">${n.i18n.log_bill_ws_Logdate}</td>
+      <td>
+         <input  type="text" class="form-control" name="log_bill_ws_Logdate" id="log_bill_ws_Logdate"><span id="log_bill_ws_Logdate_msg"></span>
+      </td>
+	  
+	</tr>
+	
+   <tr id='control'>
+      <td colspan='4' align='center'><font id="result1"></font>
+         <button name="doSearch1" id="doSearch1" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			
+      </td>
+   </tr>
+</table>
+<section class="content">
+   <div class="box box-primary">
+      <div class="box-body no-padding" id='data-list1' style="overflow:auto;margin:auto"></div>
+   </div>
+</section>
+<div id="pageinfo1"></div>
+<script type="text/javascript">
+	function getData1(pageNum,pageRec){			
+		var url_= 'crud_exec.jsp?crud_type=log_bill_ws/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&code='+$("#log_bill_ws_code").val()+'&bill='+$("#log_bill_ws_bill").val()+'&cashier='+$("#log_bill_ws_cashier").val()+'&Content='+$("#log_bill_ws_Content").val()+'&Response='+$("#log_bill_ws_Response").val()+'&Method='+$("#log_bill_ws_Method").val()+'&Month='+$("#log_bill_ws_Month").val()+'&Logdate='+$("#log_bill_ws_Logdate").val()+'&province=${province}';
+		$.ajax({
+			url: url_,
+			success: function(data){ 				
+			$('#data-list1').html(data);													
+			$('#result1').html('');
+				setPage1(pageNum,$("#page1").html());
+			}
+		});
+	};
+	
+	$(document).ready(function(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=log_pos_bill_ws/PageRec.htm',
+			success: function(data){ 					
+				$('#pageinfo1').html(data);	
+				getData1(1,$('#cboSetPageRec1').val());								
+			}
+		});
+	});
+	
+	$(function(){
+		$('#doSearch1').click(function(){
+			$('#result1').html('${n.i18n.crud_process_message}');
+			getData1(1,$('#cboSetPageRec1').val());
+		});
+		$('#doSearch1').click();
+	});
+	
+</script>

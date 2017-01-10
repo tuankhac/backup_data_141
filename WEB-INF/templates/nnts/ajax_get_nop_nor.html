@@ -1,0 +1,12 @@
+<!-- <span id="nor_test"></span> -->
+<script>
+#set ($list = $u.ref("crud_search_nnts_service1","default",["$!{ma_nv}","${province}","${search_key}","1","${record_per_page}","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],8) )
+	#foreach ($i in $list)
+		 nop = $!i["NOP"];
+		 nor = $!i["NOR"];
+	#end
+	// alert("nop="+nop+" nor="+nor);
+	// $('#total_page').html(nop);
+	// $('#total_rec').html(nor);
+	// $('#nor_test').html(nor);
+</script>

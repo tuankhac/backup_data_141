@@ -1,0 +1,132 @@
+<table id="tien_nop" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_bc_label">${n.i18n.tien_nop_ma_bc}*</td>
+		<td>			<input  type="text" class="form-control" name="ma_bc" id="ma_bc"><span id="ma_bc_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.tien_nop_ma_nv}*</td>
+		<td>			<input  type="text" class="form-control" name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_nop_label">${n.i18n.tien_nop_ngay_nop}</td>
+		<td>			<input  type="text" class="form-control" name="ngay_nop" id="ngay_nop"><span id="ngay_nop_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_label">${n.i18n.tien_nop_tien}</td>
+		<td>			<input  type="text" class="form-control" name="tien" id="tien" onKeyUp="CalTra(this)"><span id="tien_msg"></span></td>
+		</tr>
+	<tr hidden>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_cn_label">${n.i18n.tien_nop_nguoi_cn}</td>
+		<td>			<input  type="text" class="form-control" name="nguoi_cn" id="nguoi_cn"><span id="nguoi_cn_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_cn_label">${n.i18n.tien_nop_ngay_cn}</td>
+		<td>			<input  type="text" class="form-control" name="ngay_cn" id="ngay_cn"><span id="ngay_cn_msg"></span></td>
+		</tr>
+	<tr hidden>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ip_cn_label">${n.i18n.tien_nop_ip_cn}</td>
+		<td>			<input  type="text" class="form-control" name="ip_cn" id="ip_cn"><span id="ip_cn_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.tien_nop_id}</td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="noi_dung_label">${n.i18n.tien_nop_noi_dung}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="noi_dung" id="noi_dung" style='vertical-align:top'></textarea><span id="noi_dung_msg"></span></td>
+		<td></td><td></td>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+	<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	var ma_bc="", ma_nv="";
+	var tien="";
+	function CalTra(o){
+		$(o).val(fnumber($(o).val()));
+		tien=$("#tien").val().replace(/,/g,"")*1;
+	}
+	var tasks = {
+		#set ($list = $u.qry("danh_sach_buucucs_theo_tinh","default",["${province}" ],1) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+ 	};
+	var tasksArray = $.map(tasks, function (value, key) { return { value: value, data: key }; });
+	$('#ma_bc').autocomplete({
+		lookup: tasksArray,
+		onSelect: function (suggestion) {
+			$('#data-list').html('${n.i18n.crud_process_message}');
+			ma_bc = suggestion.data;
+			if(ma_bc != "" || ma_bc != null){
+				doGetMaNV();
+			}
+ 		}
+
+	});
+	var ma_nv="";
+ 	function doGetMaNV(){
+		document.getElementById('ma_nv').disabled = false;
+ 		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tien_nop/ajax_get_manv.html&ma_tinh=${province}&ma_bc='+ma_bc,
+			success: function(data){ 
+				eval('data='+data);
+				var dataSize = Object.keys(data).length;
+				if(dataSize > 0 ){
+					var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+					$('#ma_nv').autocomplete({
+						lookup: mapNV,
+						onSelect: function (suggestion) {
+							$('#data-list').html('${n.i18n.crud_process_message}');
+							ma_nv = suggestion.data;
+						}
+					});
+				}else{
+					alert("Không có mã Đường thu nào");
+				}
+
+			}
+		});
+	}
+	
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&ma_bc='+ma_bc+'&ma_nv='+ma_nv+'&ngay_nop='+$('#ngay_nop').val()+'&tien='+tien+'&nguoi_cn='+$('#nguoi_cn').val()+'&ngay_cn='+$('#ngay_cn').val()+'&ip_cn='+$('#ip_cn').val()+'&id='+$('#id').val()+'&noi_dung='+$('#noi_dung').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tien_nop/new_exec.html'+exec,
+				success: function(data){ 
+					data = data.trim();
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else if(data == "MA_BC_NV_NULL"){
+						$('#result').html("Điểm thu và Đường thu không tồn tại.");
+					}else if(data == "MA_BC_NULL"){
+						$('#result').html("Điểm thu không tồn tại.");
+					}else if(data == "MA_NV_NULL"){
+						$('#result').html("Đường thu không tồn tại.");
+					}else if(data == "DUPLICATE"){
+						$('#result').html("Dữ liệu đã tồn tại.");
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=tien_nop/index.html';
+		});
+		
+	});
+	$(document).ready(function(){
+		$('#ngay_nop').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_cn').datepicker({format:"dd/mm/yyyy"});
+
+	});
+</script>

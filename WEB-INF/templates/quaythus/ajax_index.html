@@ -1,0 +1,40 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.quaythus_id}</th>
+		<th align=center>${n.i18n.quaythus_ma_tinh}</th>
+		<th align=center>${n.i18n.quaythus_tenquay}</th>
+		<th align=center>${n.i18n.quaythus_diachi}</th>
+		<th align=center>${n.i18n.quaythus_tel}</th>
+		<th align=center>${n.i18n.quaythus_fax}</th>
+		<th align=center>${n.i18n.quaythus_truongquay}</th>
+		<th align=center>${n.i18n.quaythus_mabc_id}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_quaythus_service","default",["$!{id}","$!{ma_tinh}","$!{tenquay}","$!{diachi}","$!{tel}","$!{fax}","$!{truongquay}","$!{mabc_id}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="quaythus_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='ma_tinh'>$!i["MA_TINH"]</td>
+		<td align=left name='tenquay'>$!i["TENQUAY"]</td>
+		<td align=left name='diachi'>$!i["DIACHI"]</td>
+		<td align=left name='tel'>$!i["TEL"]</td>
+		<td align=left name='fax'>$!i["FAX"]</td>
+		<td align=left name='truongquay'>$!i["TRUONGQUAY"]</td>
+		<td align=left name='mabc_id'>$!i["MABC_ID"]</td>
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_quaythus_service","default",["$!{id}","$!{ma_tinh}","$!{tenquay}","$!{diachi}","$!{tel}","$!{fax}","$!{truongquay}","$!{mabc_id}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+<script>
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+
+	$('#ajax_quaythus :radio').change(function(){	
+		$('#ajax_quaythus :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

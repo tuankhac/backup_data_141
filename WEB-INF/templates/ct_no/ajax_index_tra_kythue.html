@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table table-striped">
+      <thead>
+      	<tr><th colspan='5' style="font-weight:bold;color:#039"><b>${n.i18n.crud_info_ls_tra.toUpperCase()}</b></th></tr>
+        <tr>
+          <th>${n.i18n.print_phieu}</th>
+          <th>${n.i18n.thongtin_kythue}</th>
+          <th>${n.i18n.print_tien_tra}</th>
+          <th>${n.i18n.print_chuong}</th>
+          <th>${n.i18n.print_muc}</th>     
+		  <th>${n.i18n.bangphieutra_q42015_nguoigachno_id}
+          <th>${n.i18n.print_ngay_tra}</th> 
+        </tr>
+      </thead>
+      <tbody>
+      #set ($list = $u.ref("crud_info_history_service","default",["$!{mst}","$!{ma_tinh}"],2) )
+		#foreach ($i in $list)
+			<tr>
+				<td align=left name='sophieu'>$!i["PHIEU_ID"]</td>
+				<td align=left name='sophieu'>$!i["KYTHUE"]</td>
+				<td align=left name='da_tra'>$!i["TIENTRA"]</td>
+				<td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td>
+				<td align=left name='ma_tmuc'>$!i["TEN_MUC"] [$!i["CHUKY"]]</td>
+				<td align=left name='nguoi_tra'>$!i["NGUOI_TT"]</td>
+				<td align=left name='ngay_tt'>$!i["NGAY_TT"]</td>
+			</tr>
+		#end
+      </tbody>
+    </table>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+

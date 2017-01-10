@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!-- START SNIPPET: e1 -->
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <display-name>Mobifone Portal for Mobile</display-name>
+
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+	<jsp-config>
+		<jsp-property-group>
+			<description>Property group for common configuration for all the JSP's</description> 
+			<url-pattern>*.jsp</url-pattern>
+			<url-pattern>*.html</url-pattern>
+			<el-ignored>false</el-ignored>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+	
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+	
+	<!--filter>
+		<filter-name>SingleLogin</filter-name>
+		<filter-class>org.apache.shiro.realm.neo.SingleLogin</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>SingleLogin</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping-->
+	
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher> 
+		<dispatcher>FORWARD</dispatcher> 
+		<dispatcher>INCLUDE</dispatcher> 
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>jasperReport</servlet-name> 
+		<servlet-class>neo.report.JasperReportParser</servlet-class>
+		<init-param>
+			<param-name>properties-file</param-name> 
+			<param-value>velocity.properties</param-value> 
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jasperReport</servlet-name>
+		<url-pattern>/report/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Export</servlet-name> 
+		<servlet-class>com.neo.export.Export2Excels</servlet-class>
+    </servlet>
+    <servlet-mapping>
+     <servlet-name>Export</servlet-name>
+     <url-pattern>/Export</url-pattern>
+    </servlet-mapping>
+	<servlet>
+		<servlet-name>downloadFile</servlet-name> 
+		<servlet-class>com.neo.export.DownloadFileServlet</servlet-class>
+    </servlet>
+	<servlet-mapping>
+		<servlet-name>downloadFile</servlet-name>
+		<url-pattern>/downloadFile</url-pattern>
+	</servlet-mapping>
+	
+
+</web-app>
+  <!-- END SNIPPET: e1 -->

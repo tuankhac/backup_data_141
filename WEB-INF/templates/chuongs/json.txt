@@ -1,0 +1,4 @@
+crud_new_chuongs_service=begin ?:=crud.new_chuongs(?,?,?,?,?,?,?);commit; end;
+crud_search_chuongs_service=begin ?:= crud.search_chuongs(?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_chuongs_service=begin ?:=crud.edit_chuongs(?,?,?,?,?,?,?);commit; end;
+crud_delete_chuongs_service=begin ?:=crud.del_chuongs(?,?,?);commit; end;

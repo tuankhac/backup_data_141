@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table table-striped">
+      <thead>
+      	<tr><th colspan='5' style="font-weight:bold;color:#039"><b>${n.i18n.crud_info_ls_no.toUpperCase()}</b></th></tr>
+        <tr>
+          <th>${n.i18n.crud_info_no_cuoi_ky}</th>
+          <th>${n.i18n.thongtin_kythue}</th>
+          <th>${n.i18n.crud_info_chuong}</th>
+          <th>${n.i18n.crud_info_muc}</th>
+          <th>${n.i18n.crud_info_da_tra}</th> 
+		  <th>${n.i18n.crud_info_tien_tra}</th> 
+		  <th>${n.i18n.nnts_mobile}</th>  
+		  
+		  
+        </tr>
+      </thead>
+      <tbody>
+		#set ($list = $u.ref("search_ct_no_kythue_service","default",["$!{mst}","$!{ten_nnt}","$!{mota_diachi}","$!{ma_tinh}"],4) )
+		#foreach ($i in $list)
+			<tr>
+		<td width='22px' align=center style="display:none"><input type="radio" id="rad$i['NO_CUOI_KY']" /></td>
+			<td align=left name='no_cuoi_ky'>$!i["NO_CUOI_KY"]</td>
+			<td align=left name='sophieu'>$!i["KYTHUE"]</td>
+			<td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td>
+			<td align=left name='ma_tmuc'>$!i["TENTIEUMUC"]</td>
+			<td align=left name='da_tra'>$!i["TIEN_TRA"]</td>
+			<td align=left name='ngay_qdinh'>$!i["SOTIEN"]</td>
+			<td align=left name='mobile'>$!i["MOBILE"]</td>
+		</tr>
+		#end
+      </tbody>
+    </table>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+

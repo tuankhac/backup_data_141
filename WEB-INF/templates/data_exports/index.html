@@ -1,0 +1,118 @@
+<table id="data_exports" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="sql_id_label">${n.i18n.data_exports_sql_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="sql_id" id="sql_id"><span id="sql_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="sql_name_label">${n.i18n.data_exports_sql_name}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="sql_name" id="sql_name" style='vertical-align:top'></textarea><span id="sql_name_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="sql_export_label">${n.i18n.data_exports_sql_export}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="sql_export" id="sql_export" style='vertical-align:top'></textarea><span id="sql_export_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="sql_param_label">${n.i18n.data_exports_sql_param}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="sql_param" id="sql_param" style='vertical-align:top'></textarea><span id="sql_param_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="agent_label">${n.i18n.data_exports_agent}</td>
+		<td>
+			<input  type="text" class="form-control" name="agent" id="agent"><span id="agent_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="status_label">${n.i18n.data_exports_status}</td>
+		<td>
+			<input  type="text" class="form-control" name="status" id="status"><span id="status_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="file_name_label">${n.i18n.data_exports_file_name}</td>
+		<td>
+			<input  type="text" class="form-control" name="file_name" id="file_name"><span id="file_name_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="ftp_label">${n.i18n.data_exports_ftp}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="ftp" id="ftp" style='vertical-align:top'></textarea><span id="ftp_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="ftp_path_label">${n.i18n.data_exports_ftp_path}</td>
+		<td>
+			<input  type="text" class="form-control" name="ftp_path" id="ftp_path"><span id="ftp_path_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="username_label">${n.i18n.data_exports_username}</td>
+		<td>
+			<input  type="text" class="form-control" name="username" id="username"><span id="username_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="pass_label">${n.i18n.data_exports_pass}</td>
+		<td>
+			<input  type="text" class="form-control" name="pass" id="pass"><span id="pass_msg"></span></td>
+		<td></td><td></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<script type="text/javascript">
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=data_exports/ajax_index.html&record_per_page=500&page_index=1'+'&sql_id='+$('#sql_id').val()+'&sql_name='+$('#sql_name').val()+'&sql_export='+$('#sql_export').val()+'&sql_param='+$('#sql_param').val()+'&agent='+$('#agent').val()+'&status='+$('#status').val()+'&file_name='+$('#file_name').val()+'&ftp='+$('#ftp').val()+'&ftp_path='+$('#ftp_path').val()+'&username='+$('#username').val()+'&pass='+$('#pass').val(),
+				success: function(data){ 
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+			});
+		});
+	$('#doSearch').click();
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=data_exports/new.html';
+		});
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=data_exports/edit.html&id=';
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=data_exports/delete.html&id=';
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#sql_id').blur(function(){
+			if ($('#sql_id').val()*1==$('#sql_id').val()){
+				$('#sql_id_msg').html('');
+				$('#sql_id_msg').attr('style','display:none');
+			}else{
+				$('#sql_id_msg').html('${n.i18n.data_exports_sql_id} ${n.i18n.crud_is_number_message}');
+				$('#sql_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#sql_name').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=sql_name&content="+$('#sql_name').val(),'selectFile',700,280);
+		});
+		$('#sql_export').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=sql_export&content="+$('#sql_export').val(),'selectFile',700,280);
+		});
+		$('#sql_param').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=sql_param&content="+$('#sql_param').val(),'selectFile',700,280);
+		});
+		$('#status').blur(function(){
+			if ($('#status').val()*1==$('#status').val()){
+				$('#status_msg').html('');
+				$('#status_msg').attr('style','display:none');
+			}else{
+				$('#status_msg').html('${n.i18n.data_exports_status} ${n.i18n.crud_is_number_message}');
+				$('#status_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ftp').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ftp&content="+$('#ftp').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

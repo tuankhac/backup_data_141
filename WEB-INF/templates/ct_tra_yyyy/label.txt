@@ -1,0 +1,11 @@
+ct_tra_yyyy_mst=Mst
+ct_tra_yyyy_ten_nnt=Tên
+ct_tra_yyyy_mota_diachi=Địa chỉ
+ct_tra_yyyy_ma_cq_thu=Mã CQ
+ct_tra_yyyy_kythue=Kỳ thuế
+ct_tra_yyyy_chuky=Chu kỳ
+ct_tra_yyyy_ma_chuong=Mã chương
+ct_tra_yyyy_ma_tmuc=Mã mục
+ct_tra_yyyy_tientra=Tiền trả
+ct_tra_yyyy_nguoigachno_id=Người nộp
+ct_tra_yyyy_id=Id

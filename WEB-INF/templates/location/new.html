@@ -1,0 +1,55 @@
+<table id="location" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.location_id}</td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="latitude_label">${n.i18n.location_latitude}</td>
+		<td>			<input  type="text" class="form-control" name="latitude" id="latitude"><span id="latitude_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="longitude_label">${n.i18n.location_longitude}</td>
+		<td>			<input  type="text" class="form-control" name="longitude" id="longitude"><span id="longitude_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="location_label">${n.i18n.location_location}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="location" id="location" style='vertical-align:top'></textarea><span id="location_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="staff_label">${n.i18n.location_staff}</td>
+		<td>			<input  type="text" class="form-control" name="staff" id="staff"><span id="staff_msg"></span></td>
+		<td></td><td></td>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&latitude='+$('#latitude').val()+'&longitude='+$('#longitude').val()+'&location='+$('#location').val()+'&staff='+$('#staff').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=location/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=location/index.html';
+		});
+		$('#location').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=location&content="+$('#location').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

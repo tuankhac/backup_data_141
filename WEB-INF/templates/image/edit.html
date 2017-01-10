@@ -1,0 +1,116 @@
+#set ($v = $u.ref("crud_search_image_service","default",["$!{id}","$!{title}","$!{source}","$!{description}","$!{created_date}","$!{modified_date}","$!{created_user}","$!{modified_user}","$!{nhanvien_tcs_id}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0] )
+	<table id="image" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.image_id}<font>*</font></td>
+			<td>			<input  type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="title_label">${n.i18n.image_title}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TITLE"]' name="title" id="title"><span id="title_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="source_label">${n.i18n.image_source}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["SOURCE"]' name="source" id="source"><span id="source_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="description_label">${n.i18n.image_description}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["DESCRIPTION"]' name="description" id="description"><span id="description_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="created_date_label">${n.i18n.image_created_date}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["CREATED_DATE"]' name="created_date" id="created_date"><span id="created_date_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="modified_date_label">${n.i18n.image_modified_date}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MODIFIED_DATE"]' name="modified_date" id="modified_date"><span id="modified_date_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="created_user_label">${n.i18n.image_created_user}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["CREATED_USER"]' name="created_user" id="created_user"><span id="created_user_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="modified_user_label">${n.i18n.image_modified_user}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MODIFIED_USER"]' name="modified_user" id="modified_user"><span id="modified_user_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="nhanvien_tcs_id_label">${n.i18n.image_nhanvien_tcs_id}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NHANVIEN_TCS_ID"]' name="nhanvien_tcs_id" id="nhanvien_tcs_id"><span id="nhanvien_tcs_id_msg"></span></td>
+		<td></td><td></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		var orginData={id:'$!v["ID"]',title:'$!v["TITLE"]',source:'$!v["SOURCE"]',description:'$!v["DESCRIPTION"]',created_date:'$!v["CREATED_DATE"]',modified_date:'$!v["MODIFIED_DATE"]',created_user:'$!v["CREATED_USER"]',modified_user:'$!v["MODIFIED_USER"]',nhanvien_tcs_id:'$!v["NHANVIEN_TCS_ID"]'};
+		$('#doEdit').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&title='+$('#title').val()+'&source='+$('#source').val()+'&description='+$('#description').val()+'&created_date='+$('#created_date').val()+'&modified_date='+$('#modified_date').val()+'&created_user='+$('#created_user').val()+'&modified_user='+$('#modified_user').val()+'&nhanvien_tcs_id='+$('#nhanvien_tcs_id').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=image/edit_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_edit_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=image/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.image_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.image_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#created_date').blur(function(){
+			if ($('#created_date').val()=='' || patternValidate($('#created_date'),'dd/mm/yyyy')){
+				$('#created_date_msg').html('');
+				$('#created_date_msg').attr('style','display:none');
+			}else{
+				$('#created_date_msg').html('${n.i18n.image_created_date} dạng dd/mm/yyyy');
+				$('#created_date_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#modified_date').blur(function(){
+			if ($('#modified_date').val()=='' || patternValidate($('#modified_date'),'dd/mm/yyyy')){
+				$('#modified_date_msg').html('');
+				$('#modified_date_msg').attr('style','display:none');
+			}else{
+				$('#modified_date_msg').html('${n.i18n.image_modified_date} dạng dd/mm/yyyy');
+				$('#modified_date_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#nhanvien_tcs_id').blur(function(){
+			if ($('#nhanvien_tcs_id').val()*1==$('#nhanvien_tcs_id').val()){
+				$('#nhanvien_tcs_id_msg').html('');
+				$('#nhanvien_tcs_id_msg').attr('style','display:none');
+			}else{
+				$('#nhanvien_tcs_id_msg').html('${n.i18n.image_nhanvien_tcs_id} ${n.i18n.crud_is_number_message}');
+				$('#nhanvien_tcs_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#created_date').datepicker({format:"dd/mm/yyyy"});
+		$('#modified_date').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

@@ -1,0 +1,137 @@
+#set ($v = $u.ref("crud_search_chuyentuyens_service","default",["$!{mst}","$!{ten}","$!{ma_tinh}","$!{dia_chi}","$!{ma_nv_cu}","$!{ma_nv}","$!{kieu}","$!{noidung}","$!{nguoi_cn}","$!{ngay_cn}","$!{ip_cn}","$!{id}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],16)[0] )
+	<table id="chuyentuyens" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.chuyentuyens_mst}<font>*</font></td>
+			<td>			<input  type="text" class="form-control" value='$!v["MST"]' name="mst" id="mst"><span id="mst_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ten_label">${n.i18n.chuyentuyens_ten}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["TEN"]' name="ten" id="ten"><span id="ten_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.chuyentuyens_ma_tinh}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MA_TINH"]' name="ma_tinh" id="ma_tinh"><span id="ma_tinh_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="dia_chi_label">${n.i18n.chuyentuyens_dia_chi}</td>
+			<td>			<textarea class="form-control"  title='${n.i18n.crud_input_editor_title}' rows=2 name="dia_chi" id="dia_chi" style='vertical-align:top'>$!v["DIA_CHI"]</textarea><span id="dia_chi_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_cu_label">${n.i18n.chuyentuyens_ma_nv_cu}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MA_NV_CU"]' name="ma_nv_cu" id="ma_nv_cu"><span id="ma_nv_cu_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.chuyentuyens_ma_nv}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["MA_NV"]' name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="kieu_label">${n.i18n.chuyentuyens_kieu}<font>*</font></td>
+			<td>			<input  type="text" class="form-control" value='$!v["KIEU"]' name="kieu" id="kieu"><span id="kieu_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="noidung_label">${n.i18n.chuyentuyens_noidung}</td>
+			<td>			<textarea class="form-control"  title='${n.i18n.crud_input_editor_title}' rows=2 name="noidung" id="noidung" style='vertical-align:top'>$!v["NOIDUNG"]</textarea><span id="noidung_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_cn_label">${n.i18n.chuyentuyens_nguoi_cn}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGUOI_CN"]' name="nguoi_cn" id="nguoi_cn"><span id="nguoi_cn_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_cn_label">${n.i18n.chuyentuyens_ngay_cn}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["NGAY_CN"]' name="ngay_cn" id="ngay_cn"><span id="ngay_cn_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ip_cn_label">${n.i18n.chuyentuyens_ip_cn}</td>
+			<td>			<input  type="text" class="form-control" value='$!v["IP_CN"]' name="ip_cn" id="ip_cn"><span id="ip_cn_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.chuyentuyens_id}<font>*</font></td>
+			<td>			<input  type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		var orginData={mst:'$!v["MST"]',ten:'$!v["TEN"]',ma_tinh:'$!v["MA_TINH"]',dia_chi:'$!v["DIA_CHI"]',ma_nv_cu:'$!v["MA_NV_CU"]',ma_nv:'$!v["MA_NV"]',kieu:'$!v["KIEU"]',noidung:'$!v["NOIDUNG"]',nguoi_cn:'$!v["NGUOI_CN"]',ngay_cn:'$!v["NGAY_CN"]',ip_cn:'$!v["IP_CN"]',id:'$!v["ID"]'};
+		$('#doEdit').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&mst='+$('#mst').val()+'&ten='+$('#ten').val()+'&ma_tinh='+$('#ma_tinh').val()+'&dia_chi='+$('#dia_chi').val()+'&ma_nv_cu='+$('#ma_nv_cu').val()+'&ma_nv='+$('#ma_nv').val()+'&kieu='+$('#kieu').val()+'&noidung='+$('#noidung').val()+'&nguoi_cn='+$('#nguoi_cn').val()+'&ngay_cn='+$('#ngay_cn').val()+'&ip_cn='+$('#ip_cn').val()+'&id='+$('#id').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=chuyentuyens/edit_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_edit_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=chuyentuyens/index.html';
+		});
+		$('#mst').blur(function(){
+			if ($('#mst').val()!=''){
+				$('#mst_msg').html('');
+				$('#mst_msg').attr('style','display:none');
+			}else{
+				$('#mst_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyentuyens_mst}');
+				$('#mst_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#dia_chi').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=dia_chi&content="+$('#dia_chi').val(),'selectFile',700,280);
+		});
+		$('#kieu').blur(function(){
+			if ($('#kieu').val()!=''){
+				$('#kieu_msg').html('');
+				$('#kieu_msg').attr('style','display:none');
+			}else{
+				$('#kieu_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyentuyens_kieu}');
+				$('#kieu_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#kieu').val()*1==$('#kieu').val()){
+				$('#kieu_msg').html('');
+				$('#kieu_msg').attr('style','display:none');
+			}else{
+				$('#kieu_msg').html('${n.i18n.chuyentuyens_kieu} ${n.i18n.crud_is_number_message}');
+				$('#kieu_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#noidung').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=noidung&content="+$('#noidung').val(),'selectFile',700,280);
+		});
+		$('#ngay_cn').blur(function(){
+			if ($('#ngay_cn').val()=='' || patternValidate($('#ngay_cn'),'dd/mm/yyyy')){
+				$('#ngay_cn_msg').html('');
+				$('#ngay_cn_msg').attr('style','display:none');
+			}else{
+				$('#ngay_cn_msg').html('${n.i18n.chuyentuyens_ngay_cn} dạng dd/mm/yyyy');
+				$('#ngay_cn_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyentuyens_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.chuyentuyens_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_cn').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

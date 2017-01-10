@@ -1,0 +1,7 @@
+nguoigachnos_id=Id
+nguoigachnos_ma_tinh=Ma_Tinh
+nguoigachnos_hovaten=Hovaten
+nguoigachnos_mabc_id=Mabc_Id
+nguoigachnos_quaythu_id=Quaythu_Id
+nguoigachnos_gn_luingay=Gn_Luingay
+nguoigachnos_xp_luingay=Xp_Luingay

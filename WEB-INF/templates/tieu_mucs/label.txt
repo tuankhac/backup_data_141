@@ -1,0 +1,5 @@
+tieu_mucs_id=Id
+tieu_mucs_tentieumuc=Tentieumuc
+tieu_mucs_ma_muc=Ma_Muc
+tieu_mucs_hieu_luc_tu=Hieu_Luc_Tu
+tieu_mucs_hieu_luc_den=Hieu_Luc_Den

@@ -1,0 +1,38 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.data_exports_sql_id}</th>
+		<th align=center>${n.i18n.data_exports_sql_name}</th>
+		<th align=center>${n.i18n.data_exports_sql_export}</th>
+		<th align=center>${n.i18n.data_exports_sql_param}</th>
+		<th align=center>${n.i18n.data_exports_agent}</th>
+		<th align=center>${n.i18n.data_exports_status}</th>
+		<th align=center>${n.i18n.data_exports_file_name}</th>
+		<th align=center>${n.i18n.data_exports_ftp}</th>
+		<th align=center>${n.i18n.data_exports_ftp_path}</th>
+		<th align=center>${n.i18n.data_exports_username}</th>
+		<th align=center>${n.i18n.data_exports_pass}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_data_exports_service","default",["$!{sql_id}","$!{sql_name}","$!{sql_export}","$!{sql_param}","$!{agent}","$!{status}","$!{file_name}","$!{ftp}","$!{ftp_path}","$!{username}","$!{pass}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],15) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="data_exports_rad"></td>
+		<td align=center name='sql_id'>$!i["SQL_ID"]</td>
+		<td align=left name='sql_name'>$!i["SQL_NAME"]</td>
+		<td align=left name='sql_export'>$!i["SQL_EXPORT"]</td>
+		<td align=left name='sql_param'>$!i["SQL_PARAM"]</td>
+		<td align=left name='agent'>$!i["AGENT"]</td>
+		<td align=center name='status'>$!i["STATUS"]</td>
+		<td align=left name='file_name'>$!i["FILE_NAME"]</td>
+		<td align=left name='ftp'>$!i["FTP"]</td>
+		<td align=left name='ftp_path'>$!i["FTP_PATH"]</td>
+		<td align=left name='username'>$!i["USERNAME"]</td>
+		<td align=left name='pass'>$!i["PASS"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_data_exports :radio').change(function(){	
+		$('#ajax_data_exports :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

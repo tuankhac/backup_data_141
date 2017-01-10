@@ -1,0 +1,125 @@
+
+<table id="nnt_cks" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_nnt_cks_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.nnt_cks_mst}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_kt_label">${n.i18n.chuyenkhoans_ten_nnt}</td>
+		<td>
+			<input  type="text" class="form-control" name="ten_nnt" id="ten_nnt"><span id="ten_nnt_msg"></span></td>					
+		</tr>
+	<tr>
+        <td>${n.i18n.crud_info_diachi}</td>
+        <td colspan="3"><input  type="text" class="form-control" name="mota_diachi" id="mota_diachi"></td>
+     </tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="hinhthuctt_id_label">${n.i18n.chuyenkhoans_hinhthuctt_id}</td>
+		<td>
+			<select class="form-control" name="hinhthuctt_id" id="hinhthuctt_id">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_search_hinhthuc_service_all","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="hinhthuctt_id_msg"></span></td>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="nganhang_id_label">${n.i18n.nnt_cks_nganhang_id}</td>
+		<td>
+			<select class="form-control" name="nganhang_id" id="nganhang_id">
+				<option value="">Kh&#244;ng ch&#7885;n</option>
+				#foreach ($i in $u.qry("crud_search_nganhang_service","default",[$!{param.province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['TEN']</option>
+                #end
+			</select><span id="nganhang_id_msg"></span></td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_bd_label">${n.i18n.nnt_cks_ngay_bd}</td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_bd" id="ngay_bd"><span id="ngay_bd_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_kt_label">${n.i18n.nnt_cks_ngay_kt}</td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_kt" id="ngay_kt"><span id="ngay_kt_msg"></span></td>
+	</tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<div id="pageinfo"></div>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);	
+					getData(1,$('#cboSetPageRec').val());
+								
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=nnt_cks/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&mst='+$('#mst').val()+'&hinhthuctt_id='+$('#hinhthuctt_id').val()+'&nganhang_id='+$('#nganhang_id').val()+'&ngay_bd='+$('#ngay_bd').val()+'&ngay_kt='+$('#ngay_kt').val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+	};
+
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());
+		});
+	$('#doSearch').click();
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=nnt_cks/new.html';
+		});
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='mst']").length>=1){
+				window.location.href='crud.jsp?crud_type=nnt_cks/edit.html&mst='+$(':radio:checked').parent().parent().children("[name='mst']").text();
+
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='mst']").length>=1){
+				window.location.href='crud.jsp?crud_type=nnt_cks/delete.html&mst='+$(':radio:checked').parent().parent().children("[name='mst']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#ngay_bd').blur(function(){
+			if ($('#ngay_bd').val()=='' || patternValidate($('#ngay_bd'),'dd/mm/yyyy')){
+				$('#ngay_bd_msg').html('');
+				$('#ngay_bd_msg').attr('style','display:none');
+			}else{
+				$('#ngay_bd_msg').html('${n.i18n.nnt_cks_ngay_bd} dạng dd/mm/yyyy');
+				$('#ngay_bd_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_kt').blur(function(){
+			if ($('#ngay_kt').val()=='' || patternValidate($('#ngay_kt'),'dd/mm/yyyy')){
+				$('#ngay_kt_msg').html('');
+				$('#ngay_kt_msg').attr('style','display:none');
+			}else{
+				$('#ngay_kt_msg').html('${n.i18n.nnt_cks_ngay_kt} dạng dd/mm/yyyy');
+				$('#ngay_kt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		
+	});
+	$(document).ready(function(){
+		$('#ngay_bd').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_kt').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

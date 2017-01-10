@@ -1,0 +1,28 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.notification_log_id}</th>
+		<th align=center>${n.i18n.notification_log_receiver}</th>
+		<th align=center>${n.i18n.notification_log_content}</th>
+		<th align=center>${n.i18n.notification_log_province_id}</th>
+		<th align=center>${n.i18n.notification_log_created_user}</th>
+		<th align=center>${n.i18n.notification_log_created_date}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_notification_log_service","default",["$!{id}","$!{receiver}","$!{content}","$!{province_id}","$!{created_user}","$!{created_date}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],10) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="notification_log_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='receiver'>$!i["RECEIVER"]</td>
+		<td align=left name='content'>$!i["CONTENT"]</td>
+		<td align=left name='province_id'>$!i["PROVINCE_ID"]</td>
+		<td align=left name='created_user'>$!i["CREATED_USER"]</td>
+		<td align=center name='created_date'>$!i["CREATED_DATE"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_notification_log :radio').change(function(){	
+		$('#ajax_notification_log :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

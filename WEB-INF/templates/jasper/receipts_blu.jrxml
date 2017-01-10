@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2016-10-28T17:39:49 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payment_order_v_main" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="547" leftMargin="20" rightMargin="28" topMargin="1" bottomMargin="10" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="d26ded77-2e12-4ae0-91f5-fd7dff206639">
+	<property name="ireport.zoom" value="1.126972201352367"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="AGENT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGE_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MST_NNT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DIACHI" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TEN_NNT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PHIEU_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="INVOICE" class="java.lang.String"/>
+	<parameter name="SERIAL" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\tax\\Server\\webapps\\ROOT\\WEB-INF\\templates\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[{call tax.crud.report_receipts('$P!{PHIEU_ID}','$P!{AGENT}',
+$P{ORACLE_REF_CURSOR})}]]>
+	</queryString>
+	<field name="stt" class="java.lang.Integer"/>
+	<field name="tong_tien" class="java.lang.Integer"/>
+	<field name="tieu_muc" class="java.lang.String"/>
+	<field name="tien_tieu_muc" class="java.lang.Integer"/>
+	<field name="tieumuc_id" class="java.lang.Integer"/>
+	<field name="tong_tien_chu" class="java.lang.String"/>
+	<field name="ten_chuong" class="java.lang.String"/>
+	<variable name="year" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("yyyy")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("yyyy")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<variable name="month" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("MM")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("MM")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<variable name="day" class="java.lang.String">
+		<variableExpression><![CDATA[(new SimpleDateFormat("dd")).format(new Date())]]></variableExpression>
+		<initialValueExpression><![CDATA[(new SimpleDateFormat("dd")).format(new Date())]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="116" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="547" height="36" uuid="ed04a32f-ff8d-461d-98e9-39485b471dd8"/>
+				<subreportParameter name="AGENT">
+					<subreportParameterExpression><![CDATA[$P{AGENT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IMAGE_PATH">
+					<subreportParameterExpression><![CDATA[$P{IMAGE_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MST_NNT">
+					<subreportParameterExpression><![CDATA[$P{MST_NNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DIACHI">
+					<subreportParameterExpression><![CDATA[$P{DIACHI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TEN_NNT">
+					<subreportParameterExpression><![CDATA[$P{TEN_NNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PHIEU_ID">
+					<subreportParameterExpression><![CDATA[$P{PHIEU_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INVOICE">
+					<subreportParameterExpression><![CDATA[$P{INVOICE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SERIAL">
+					<subreportParameterExpression><![CDATA[$P{SERIAL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "receiptsub3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35">
+			<subreport>
+				<reportElement x="0" y="0" width="547" height="35" uuid="035c3467-444a-4c10-8802-774cc4d2289e"/>
+				<subreportParameter name="AGENT">
+					<subreportParameterExpression><![CDATA[$P{AGENT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IMAGE_PATH">
+					<subreportParameterExpression><![CDATA[$P{IMAGE_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MST_NNT">
+					<subreportParameterExpression><![CDATA[$P{MST_NNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DIACHI">
+					<subreportParameterExpression><![CDATA[$P{DIACHI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TEN_NNT">
+					<subreportParameterExpression><![CDATA[$P{TEN_NNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PHIEU_ID">
+					<subreportParameterExpression><![CDATA[$P{PHIEU_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INVOICE">
+					<subreportParameterExpression><![CDATA[$P{INVOICE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SERIAL">
+					<subreportParameterExpression><![CDATA[$P{SERIAL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "receiptsub4.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+</jasperReport>

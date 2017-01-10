@@ -1,0 +1,4 @@
+crud_new_location_service=begin ?:=crud.new_location(?,?,?,?,?,?,?);commit; end;
+crud_search_location_service=begin ?:= crud.search_location(?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_location_service=begin ?:=crud.edit_location(?,?,?,?,?,?,?);commit; end;
+crud_delete_location_service=begin ?:=crud.del_location(?,?,?);commit; end;

@@ -1,0 +1,178 @@
+<table id="user_role"  class='table table-condensed'>
+	<tr><th colspan='2'><b>QUẢN LÝ ĐƯỜNG THU</b></th></tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="user_id_label">Người dùng<font>*</font></td>
+		<td>			
+			<input  type="text" class="form-control" name="id_user_info" id="id_user_info">
+		<span id="user_id_msg"></span></td>
+	</tr>
+	<tr>
+		<td>Lý do</td>
+		<td>
+			<textarea rows="2" cols="50" id="ly_do"  ></textarea>
+		</td>
+	</tr>
+	<tr id='control'><td colspan='2' align='center'>
+		</td>
+	</tr></table>
+<section class="content">
+<table cellpadding="4" cellspacing="4" border="0" class='ctable' align="center" width="100%">
+	<tr>
+    	<th>Đường thu</th>
+        <th></th>
+        <th>Đường thu được gán</th>
+    </tr>
+
+    <tr>
+    	<td style="width:50%">
+        	<select class="form-control" name="AllMenus" id="AllMenus" style="width:100%;height:160px" multiple="multiple">
+                #set ($list = $u.qry("crud_get_nhanvien_tcs","default",["${province}"],1) )
+				#foreach ($i in $list)
+                <option value="$!i['ID']">$!i['ID']</option>
+                #end
+            </select>
+        </td>
+        <td>
+        	<button class="btn btn-primary" onclick="toRight()"><i class="fa fa-caret-right"></i></button>
+            <button class="btn btn-danger" onclick="toLeft()"><i class="fa fa-caret-left"></i></button>
+        </td>
+        <td style="width:50%" id ="tdUserRoles"></td>
+    </tr>
+
+</table>
+ <p align="center">
+	<font id="result"></font>
+    <button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-edit"></i> Cập nhật</button>&nbsp;
+   <!-- <button class="btn btn-primary" onclick="onCboChange()" ><i class="fa fa-reply" ></i> Khôi phục</button>-->
+    &nbsp; </p>
+ 
+	<div class="box box-primary"><div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div><div id="div_page_section2" class=""></div></div>
+</section>
+<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		onCboChange();
+		showDuongThuLog();
+	});
+	var record_per_page=20, page=1, nor=0;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	//var id_user_info="";
+	var tasks = {
+ 		#set ($list = $u.qry("crud_get_all_user_info","default",["${province}" ],1) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+	};
+	var tasksArray = $.map(tasks, function (value, key) { return { value: value, data: key }; });
+	$('#id_user_info').autocomplete({
+		lookup: tasksArray,
+		onSelect: function (suggestion) {
+			$('#data-list').html('${n.i18n.crud_process_message}');
+			$('#id_user_info').val(suggestion.data);
+			showDuongThuLog();
+			onCboChange();
+		}
+	});
+	function showDuongThuLog(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=duongthus/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+			success: function(data){
+ 				eval('data='+data);
+					nor = data.NOR*1;
+					onStartSearch(nor);
+					$('#data-list').html(data);
+					$('#result').html('');
+			},
+			error: function(){
+			
+			}
+		});
+	}
+	function onCboChange(){
+		$('#tdUserRoles').html("Vui lòng đợi ...");
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=duongthus/ajax_user_roles.html&id_user_info='+$('#id_user_info').val(),
+			success: function(data){ 
+				$('#tdUserRoles').html(data);
+			}
+		});
+	}
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var duongthus="";
+			$("#RoleMenus option").each(function(){
+				duongthus+=$(this).val()+",";
+			});
+			if (duongthus.length<=1){
+				if( !confirm('Người dùng sẽ bị xóa toàn bộ các quyền truy cập!') ){return;}
+			}else{
+				duongthus=duongthus.substring(0,duongthus.length-1);
+			}
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=duongthus/new_exec.html&id_user_info='+$('#id_user_info').val()+'&duongthus='+duongthus+'&ly_do='+$('#ly_do').val(),
+				success: function(data){ 
+					if (data=="1.0" || data==1){
+						$('#result').html("Cập nhật quyền thành công!"); 
+						showDuongThuLog();
+					}else if(data=='USER_NOT_EXIST'){
+						$('#result').html("Người dùng không tồn tại.");
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+	});
+
+	function toRight(){
+		$('#AllMenus option:selected').each(function(){
+  			if ($('#RoleMenus option[value="'+$(this).val()+'"]').length==0){
+	 	  		$("#RoleMenus").append('<option value="'+$(this).val()+'">'+$(this).html()+'</option>');
+	 	  	}
+		});
+ 	}
+ 	function toLeft(){
+  		$('#RoleMenus option:selected').each(function(){
+  			$(this).remove();
+		});
+ 	}
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	//Ham nay tu dong duoc goi sau khi click vao cac so...:
+	function onGetData(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=duongthus/ajax_index.html'+getParams(page,record_per_page),
+			timeout: 1000,
+			success: function(data){ 
+				if(data!=''){
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+				if(nor==0 && data!=''){
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+		var exec='&record_per_page='+record_per_page+'&page_index='+page;
+		return exec;
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+</script>

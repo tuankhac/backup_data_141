@@ -1,0 +1,143 @@
+<table id="phieu_q42015" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.phieu_q42015_id}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.phieu_q42015_mst}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_giao_label">${n.i18n.phieu_q42015_tien_giao}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="tien_giao" id="tien_giao"><span id="tien_giao_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.phieu_q42015_ma_nv}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_giao_label">${n.i18n.phieu_q42015_ngay_giao}</td>
+		<td>			<input  type="text" class="form-control" name="ngay_giao" id="ngay_giao"><span id="ngay_giao_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="nguoi_giao_label">${n.i18n.phieu_q42015_nguoi_giao}</td>
+		<td>			<input  type="text" class="form-control" name="nguoi_giao" id="nguoi_giao"><span id="nguoi_giao_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="trangthai_tt_label">${n.i18n.phieu_q42015_trangthai_tt}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="trangthai_tt" id="trangthai_tt"><span id="trangthai_tt_msg"></span></td>
+		<td></td><td></td>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&mst='+$('#mst').val()+'&tien_giao='+$('#tien_giao').val()+'&ma_nv='+$('#ma_nv').val()+'&ngay_giao='+$('#ngay_giao').val()+'&nguoi_giao='+$('#nguoi_giao').val()+'&trangthai_tt='+$('#trangthai_tt').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=phieu_q42015/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=phieu_q42015/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.phieu_q42015_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.phieu_q42015_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#mst').blur(function(){
+			if ($('#mst').val()!=''){
+				$('#mst_msg').html('');
+				$('#mst_msg').attr('style','display:none');
+			}else{
+				$('#mst_msg').html('${n.i18n.crud_required_message} ${n.i18n.phieu_q42015_mst}');
+				$('#mst_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tien_giao').blur(function(){
+			if ($('#tien_giao').val()!=''){
+				$('#tien_giao_msg').html('');
+				$('#tien_giao_msg').attr('style','display:none');
+			}else{
+				$('#tien_giao_msg').html('${n.i18n.crud_required_message} ${n.i18n.phieu_q42015_tien_giao}');
+				$('#tien_giao_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#tien_giao').val()*1==$('#tien_giao').val()){
+				$('#tien_giao_msg').html('');
+				$('#tien_giao_msg').attr('style','display:none');
+			}else{
+				$('#tien_giao_msg').html('${n.i18n.phieu_q42015_tien_giao} ${n.i18n.crud_is_number_message}');
+				$('#tien_giao_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ma_nv').blur(function(){
+			if ($('#ma_nv').val()!=''){
+				$('#ma_nv_msg').html('');
+				$('#ma_nv_msg').attr('style','display:none');
+			}else{
+				$('#ma_nv_msg').html('${n.i18n.crud_required_message} ${n.i18n.phieu_q42015_ma_nv}');
+				$('#ma_nv_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_giao').blur(function(){
+			if ($('#ngay_giao').val()=='' || patternValidate($('#ngay_giao'),'dd/mm/yyyy')){
+				$('#ngay_giao_msg').html('');
+				$('#ngay_giao_msg').attr('style','display:none');
+			}else{
+				$('#ngay_giao_msg').html('${n.i18n.phieu_q42015_ngay_giao} dạng dd/mm/yyyy');
+				$('#ngay_giao_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#trangthai_tt').blur(function(){
+			if ($('#trangthai_tt').val()!=''){
+				$('#trangthai_tt_msg').html('');
+				$('#trangthai_tt_msg').attr('style','display:none');
+			}else{
+				$('#trangthai_tt_msg').html('${n.i18n.crud_required_message} ${n.i18n.phieu_q42015_trangthai_tt}');
+				$('#trangthai_tt_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#trangthai_tt').val()*1==$('#trangthai_tt').val()){
+				$('#trangthai_tt_msg').html('');
+				$('#trangthai_tt_msg').attr('style','display:none');
+			}else{
+				$('#trangthai_tt_msg').html('${n.i18n.phieu_q42015_trangthai_tt} ${n.i18n.crud_is_number_message}');
+				$('#trangthai_tt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_giao').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

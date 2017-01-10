@@ -1,0 +1,26 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.location_id}</th>
+		<th align=center>${n.i18n.location_latitude}</th>
+		<th align=center>${n.i18n.location_longitude}</th>
+		<th align=center>${n.i18n.location_location}</th>
+		<th align=center>${n.i18n.location_staff}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_location_service","default",["$!{id}","$!{latitude}","$!{longitude}","$!{location}","$!{staff}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],9) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="location_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='latitude'>$!i["LATITUDE"]</td>
+		<td align=left name='longitude'>$!i["LONGITUDE"]</td>
+		<td align=left name='location'>$!i["LOCATION"]</td>
+		<td align=left name='staff'>$!i["STAFF"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_location :radio').change(function(){	
+		$('#ajax_location :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

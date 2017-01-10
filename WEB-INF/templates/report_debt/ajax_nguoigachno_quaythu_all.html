@@ -1,0 +1,6 @@
+<select class="form-control" name="nguoigachno" id="nguoigachno">
+	<option value="">${n.i18n.curd_info_khong_chon}</option>
+	#foreach ($i in $u.qry("crud_report_info_nguoi_gach_no","default",["${ma_tinh}"],1) )
+   	<option value="$!i['ID']">$!i['NAME']</option>
+    #end
+</select>

@@ -1,0 +1,11 @@
+data_exports_sql_id=Sql_Id
+data_exports_sql_name=Sql_Name
+data_exports_sql_export=Sql_Export
+data_exports_sql_param=Sql_Param
+data_exports_agent=Agent
+data_exports_status=Status
+data_exports_file_name=File_Name
+data_exports_ftp=Ftp
+data_exports_ftp_path=Ftp_Path
+data_exports_username=Username
+data_exports_pass=Pass

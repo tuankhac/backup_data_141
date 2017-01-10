@@ -1,0 +1,62 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.nhanvien_tcs_id}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_ma_tinh}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_so_cmnd}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_ten_nv}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_diachi}</th>
+		<!--th align=center>${n.i18n.nhanvien_tcs_nguoi_bl}</th-->
+		<th align=center>${n.i18n.nhanvien_tcs_tien_dc}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_tien_bs}</th>
+		<!--th align=center>${n.i18n.nhanvien_tcs_so_hd}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_ngay_hd}</th-->
+		<th align=center>${n.i18n.nhanvien_tcs_mabc_id}</th>
+		<!--th align=center>${n.i18n.nhanvien_tcs_mobile}</th>
+		<th align=center>${n.i18n.nhanvien_tcs_email}</th-->
+		<th align=center>Ảnh đại diện</th-->
+	</tr>
+#set ($list = $u.ref("crud_search_nhanvien_tcs_service","default",["$!{id}","$!{ma_tinh}","$!{so_cmnd}","$!{ten_nv}","$!{diachi}","$!{nguoi_bl}","$!{tien_dc}","$!{so_hd}","$!{ngay_hd}","$!{mabc_id}","$!{mobile}","$!{email}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="nhanvien_tcs_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='ma_tinh'>$!i["MA_TINH"]</td>
+		<td align=left name='so_cmnd'>$!i["SO_CMND"]</td>
+		<td align=left name='ten_nv'>$!i["TEN_NV"]</td>
+		<td align=left name='diachi'>$!i["DIACHI"]</td>
+		<!--td align=left name='nguoi_bl'>$!i["NGUOI_BL"]</td-->
+		<td align=center name='tien_dc'>$!i["TIEN_DC"]</td>
+		<td align=center name='tien_dc'>$!i["TIEN_BS"]</td>
+		<!--td align=left name='so_hd'>$!i["SO_HD"]</td>
+		<td align=center name='ngay_hd'>$!i["NGAY_HD"]</td-->
+		<td align=left name='mabc_id'>$!i["MABC_ID"]</td>
+		<!--td align=left name='mobile'>$!i["MOBILE"]</td>
+		<td align=center name='email'>$!i["EMAIL"]</td-->
+		#set ($h = $u.ref("crud_search_image_service","default",["","","","","","","","","$!i['ID']","1","-1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0])
+		#if ($!h['NOP']=="0" || $!h['NOP']==0)
+			<th align=center><a href="javascript:void(0)" onclick="$('#spamModal').modal('show');  showImage('no_avatar.png');" >Xem ảnh</a></th-->
+		#else 
+			#set ($list = $u.ref("crud_search_image_service","default",["","","","","","","","","$!i['ID']","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0])
+			<th align=center><a href="javascript:void(0)" onclick="$('#spamModal').modal('show');  showImage('$!list['TITLE']');" >Xem ảnh</a></th-->
+		#end
+		
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_nhanvien_tcs_service","default",["$!{id}","$!{ma_tinh}","$!{so_cmnd}","$!{ten_nv}","$!{diachi}","$!{nguoi_bl}","$!{tien_dc}","$!{so_hd}","$!{ngay_hd}","$!{mabc_id}","$!{mobile}","$!{email}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+<script>
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+
+	$('#ajax_nhanvien_tcs :radio').change(function(){	
+		$('#ajax_nhanvien_tcs :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+	function showImage(s){
+		 $('#show_img').attr('src','http://10.252.2.147:8090/nhanvien_tcs/images/'+s);
+	}
+</script>

@@ -1,0 +1,24 @@
+<table class="table table-striped">
+	<tbody>
+		<tr>			
+			<td style="font-weight:bold;">${n.i18n.nnts_mst}</td>
+			<td style="font-weight:bold;">${n.i18n.nnts_ten_nnt}</td>								  
+			<td style="font-weight:bold;" colspan=2>${n.i18n.info_gachno_m_label1}</td>	
+		</tr>
+		#set ($list = $u.ref("crud_search_nnts_service1","default",["$!{ma_nv}","${province}","1","20","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],7) )
+		#foreach ($i in $list)
+		<tr>			
+			<td style="font-weight:bold;color:#039">$!i["MST"]</td>
+			<td>$!i["TEN_NNT"]</td>
+			<td>$!i["SOTIEN"]</td>
+			<td><a href="javascript:doPayment('$!i['MST']')" class="btn btn-primary btn-sm"><i class="fa fa-money"></i></a></td>				
+		</tr>
+		#end
+	</tbody>
+</table>
+
+<script type="text/javascript">	
+	function doPayment(Vmst){
+		window.location.href='tai_quay_mobile.jsp?&mst='+Vmst;
+	}
+</script>

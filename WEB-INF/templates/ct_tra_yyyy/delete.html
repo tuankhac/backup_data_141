@@ -1,0 +1,150 @@
+#set ($v = $u.ref("crud_search_ct_tra_yyyy_service","default",["$!{ma_tinh}","$!{mst}","$!{ten_nnt}","$!{mota_diachi}","$!{ma_cq_thu}","$!{kythue}","$!{chuky}","$!{ma_chuong}","$!{ma_tmuc}","$!{tientra}","$!{nguoigachno_id}","$!{id}","1","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17)[0] )
+	<table id="ct_tra_yyyy" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.ct_tra_yyyy_mst}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MST"]' name="mst" id="mst"><span id="mst_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.ct_tra_yyyy_ten_nnt}</td>
+			<td>			<textarea class="form-control" readonly name="ten_nnt" id="ten_nnt" style='vertical-align:top'>$!v["TEN_NNT"]</textarea><span id="ten_nnt_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.ct_tra_yyyy_id}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>			
+			<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_cq_thu_label">${n.i18n.ct_tra_yyyy_ma_cq_thu}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_CQ_THU"]' name="ma_cq_thu" id="ma_cq_thu"><span id="ma_cq_thu_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.ct_tra_yyyy_kythue}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["KYTHUE"]' name="kythue" id="kythue"><span id="kythue_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="chuky_label">${n.i18n.ct_tra_yyyy_chuky}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["CHUKY"]' name="chuky" id="chuky"><span id="chuky_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_chuong_label">${n.i18n.ct_tra_yyyy_ma_chuong}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_CHUONG"]' name="ma_chuong" id="ma_chuong"><span id="ma_chuong_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_tmuc_label">${n.i18n.ct_tra_yyyy_ma_tmuc}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_TMUC"]' name="ma_tmuc" id="ma_tmuc"><span id="ma_tmuc_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tientra_label">${n.i18n.ct_tra_yyyy_tientra}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["TIENTRA"]' name="tientra" id="tientra"><span id="tientra_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="nguoigachno_id_label">${n.i18n.ct_tra_yyyy_nguoigachno_id}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["NGUOIGACHNO_ID"]' name="nguoigachno_id" id="nguoigachno_id"><span id="nguoigachno_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="mota_diachi_label">${n.i18n.ct_tra_yyyy_mota_diachi}</td>
+			<td colspan='4'>			<textarea class="form-control" readonly rows=2 name="mota_diachi" id="mota_diachi" style='vertical-align:top'>$!v["MOTA_DIACHI"]</textarea><span id="mota_diachi_msg"></span></td></tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			var exec='&id=${id}&mst=${mst}&kythue=${kythue}&chuky=${chuky}&nguoigachno_id=${nguoigachno_id}&ma_tmuc=${ma_tmuc}&ma_tinh=$!{province}';			
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=ct_tra_yyyy/delete_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=ct_tra_yyyy/index.html';
+		});
+		$('#mst').blur(function(){
+			if ($('#mst').val()!=''){
+				$('#mst_msg').html('');
+				$('#mst_msg').attr('style','display:none');
+			}else{
+				$('#mst_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_mst}');
+				$('#mst_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#kythue').blur(function(){
+			if ($('#kythue').val()!=''){
+				$('#kythue_msg').html('');
+				$('#kythue_msg').attr('style','display:none');
+			}else{
+				$('#kythue_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_kythue}');
+				$('#kythue_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#chuky').blur(function(){
+			if ($('#chuky').val()!=''){
+				$('#chuky_msg').html('');
+				$('#chuky_msg').attr('style','display:none');
+			}else{
+				$('#chuky_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_chuky}');
+				$('#chuky_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ma_tmuc').blur(function(){
+			if ($('#ma_tmuc').val()!=''){
+				$('#ma_tmuc_msg').html('');
+				$('#ma_tmuc_msg').attr('style','display:none');
+			}else{
+				$('#ma_tmuc_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_ma_tmuc}');
+				$('#ma_tmuc_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tientra').blur(function(){
+			if ($('#tientra').val()!=''){
+				$('#tientra_msg').html('');
+				$('#tientra_msg').attr('style','display:none');
+			}else{
+				$('#tientra_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_tientra}');
+				$('#tientra_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#tientra').val()*1==$('#tientra').val()){
+				$('#tientra_msg').html('');
+				$('#tientra_msg').attr('style','display:none');
+			}else{
+				$('#tientra_msg').html('${n.i18n.ct_tra_yyyy_tientra} ${n.i18n.crud_is_number_message}');
+				$('#tientra_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#nguoigachno_id').blur(function(){
+			if ($('#nguoigachno_id').val()!=''){
+				$('#nguoigachno_id_msg').html('');
+				$('#nguoigachno_id_msg').attr('style','display:none');
+			}else{
+				$('#nguoigachno_id_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_nguoigachno_id}');
+				$('#nguoigachno_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.ct_tra_yyyy_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.ct_tra_yyyy_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

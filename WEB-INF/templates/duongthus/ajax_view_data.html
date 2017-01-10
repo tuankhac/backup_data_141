@@ -1,0 +1,100 @@
+<table width="100%" class='table table-striped'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.nnts_temp_mcq}</th>
+		<th align=center>${n.i18n.nnts_temp_ma_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_ten_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_cbk_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_ngay_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_ma_nnt}</th>
+		<th align=center>${n.i18n.nnts_temp_ten_nnt}</th>
+		<th align=center>${n.i18n.nnts_temp_sac_thue}</th>
+		<th align=center>${n.i18n.nnts_temp_chuong}</th>
+		<th align=center>${n.i18n.nnts_temp_tieu_muc}</th>
+		<th align=center>${n.i18n.nnts_temp_dia_ban}</th>
+		<th align=center>${n.i18n.nnts_temp_kbnn}</th>
+		<th align=center>${n.i18n.nnts_temp_kythue}</th>
+		<th align=center>${n.i18n.nnts_temp_loaitk_nsnn}</th>
+		<th align=center>${n.i18n.nnts_temp_han_nop}</th>
+		<th align=center>${n.i18n.nnts_temp_magiao_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_loai_tien}</th>
+		<th align=center>${n.i18n.nnts_temp_tien_giao}</th>
+		<th align=center>${n.i18n.nnts_temp_tien_con}</th>
+		<th align=center>${n.i18n.nnts_temp_tien_thuduoc}</th>
+		<th align=center>${n.i18n.nnts_temp_tien_quyettoan}</th>
+		<th align=center>${n.i18n.nnts_temp_so_bl}</th>
+		<th align=center>${n.i18n.nnts_temp_ngay_bl}</th>
+		<th align=center>${n.i18n.nnts_temp_sobl_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_ngaybl_unt}</th>
+		<th align=center>${n.i18n.nnts_temp_ngay_banke}</th>
+		<th align=center>${n.i18n.nnts_temp_sonha_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_matinh_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_tentinh_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_maquan_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_tenquan_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_maxa_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_tenxa_ct}</th>
+		<th align=center>${n.i18n.nnts_temp_mobile}</th>
+		<th align=center>${n.i18n.nnts_temp_email}</th>
+		<th align=center>${n.i18n.nnts_temp_sonha_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_matinh_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_tentinh_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_maquan_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_tenquan_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_maxa_tt}</th>
+		<th align=center>${n.i18n.nnts_temp_tenxa_tt}</th>
+	</tr>
+#set ($list = $u.qry("crud_search_duongthus_log","default",[],0) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="nnts_temp_rad"></td>
+		<td align=left name='mcq'>$!i["MCQ"]</td>
+		<td align=left name='ma_unt'>$!i["MA_UNT"]</td>
+		<td align=left name='ten_unt'>$!i["TEN_UNT"]</td>
+		<td align=left name='cbk_unt'>$!i["CBK_UNT"]</td>
+		<td align=left name='ngay_unt'>$!i["NGAY_UNT"]</td>
+		<td align=left name='ma_nnt'>$!i["MA_NNT"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<td align=left name='sac_thue'>$!i["SAC_THUE"]</td>
+		<td align=left name='chuong'>$!i["CHUONG"]</td>
+		<td align=left name='tieu_muc'>$!i["TIEU_MUC"]</td>
+		<td align=left name='dia_ban'>$!i["DIA_BAN"]</td>
+		<td align=left name='kbnn'>$!i["KBNN"]</td>
+		<td align=left name='kythue'>$!i["KYTHUE"]</td>
+		<td align=left name='loaitk_nsnn'>$!i["LOAITK_NSNN"]</td>
+		<td align=left name='han_nop'>$!i["HAN_NOP"]</td>
+		<td align=left name='magiao_unt'>$!i["MAGIAO_UNT"]</td>
+		<td align=left name='loai_tien'>$!i["LOAI_TIEN"]</td>
+		<td align=left name='tien_giao'>$!i["TIEN_GIAO"]</td>
+		<td align=left name='tien_con'>$!i["TIEN_CON"]</td>
+		<td align=left name='tien_thuduoc'>$!i["TIEN_THUDUOC"]</td>
+		<td align=left name='tien_quyettoan'>$!i["TIEN_QUYETTOAN"]</td>
+		<td align=left name='so_bl'>$!i["SO_BL"]</td>
+		<td align=left name='ngay_bl'>$!i["NGAY_BL"]</td>
+		<td align=left name='sobl_unt'>$!i["SOBL_UNT"]</td>
+		<td align=left name='ngaybl_unt'>$!i["NGAYBL_UNT"]</td>
+		<td align=left name='ngay_banke'>$!i["NGAY_BANKE"]</td>
+		<td align=left name='sonha_ct'>$!i["SONHA_CT"]</td>
+		<td align=left name='matinh_ct'>$!i["MATINH_CT"]</td>
+		<td align=left name='tentinh_ct'>$!i["TENTINH_CT"]</td>
+		<td align=left name='maquan_ct'>$!i["MAQUAN_CT"]</td>
+		<td align=left name='tenquan_ct'>$!i["TENQUAN_CT"]</td>
+		<td align=left name='maxa_ct'>$!i["MAXA_CT"]</td>
+		<td align=left name='tenxa_ct'>$!i["TENXA_CT"]</td>
+		<td align=left name='mobile'>$!i["MOBILE"]</td>
+		<td align=left name='email'>$!i["EMAIL"]</td>
+		<td align=left name='sonha_tt'>$!i["SONHA_TT"]</td>
+		<td align=left name='matinh_tt'>$!i["MATINH_TT"]</td>
+		<td align=left name='tentinh_tt'>$!i["TENTINH_TT"]</td>
+		<td align=left name='maquan_tt'>$!i["MAQUAN_TT"]</td>
+		<td align=left name='tenquan_tt'>$!i["TENQUAN_TT"]</td>
+		<td align=left name='maxa_tt'>$!i["MAXA_TT"]</td>
+		<td align=left name='tenxa_tt'>$!i["TENXA_TT"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_nnts_temp :radio').change(function(){	
+		$('#ajax_nnts_temp :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

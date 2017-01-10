@@ -1,0 +1,6 @@
+notification_log_id=Id
+notification_log_receiver=Receiver
+notification_log_content=Content
+notification_log_province_id=Province_Id
+notification_log_created_user=Created_User
+notification_log_created_date=Created_Date

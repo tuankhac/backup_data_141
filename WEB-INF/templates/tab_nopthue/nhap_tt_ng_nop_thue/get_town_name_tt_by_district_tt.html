@@ -1,0 +1,10 @@
+#set ($list = $u.qry("get_town_name_by_district","default",["$!{district_id}"],1) )
+#set ($k = 0 )
+<select id="13_ma_xa_tt" name="13_ma_xa_tt" class="form-control">
+<option value="">Chọn quận/ huyện trước</option>
+#foreach ($i in $list )
+	#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+	#set ($k=$k+1)
+	<option value="$!i['ID']">$!i['NAME']</option>
+#end
+</select>

@@ -1,0 +1,60 @@
+<style type="text/css">
+.style3 {color: #0033FF; font-size: 12px;}
+.style4 {color: #0000FF}
+.style6 {color: #3399FF; font-size: 12px; }
+</style>
+<table width="100%" border="0" style="float:left" cellpadding="0" cellspacing="0"  class=secContent>
+	<tr class=sechead>
+  		<th align="right" width="80%">&nbsp;<small class="label label-success">T&#7893;ng trang:</small> <span class="style3" id="page"> 0</span>&nbsp;&nbsp;&nbsp;<small class="label label-success">T&#7893;ng b&#7843;n ghi:</small> <span class="style3" id="total">0</span>&nbsp;&nbsp;&nbsp;<small class="label label-danger">Xem trang:</small>&nbsp;&nbsp;&nbsp;<b><span id="ds_pages" class="style3"></span></b></th>
+		<th align="center" width="20%"><small class="label label-danger">Hi&#7875;n th&#7883;&nbsp;:</small>&nbsp;
+    		<select name="--cboSetPageRec" id="cboSetPageRec" class="style3">
+                              <option value="20" selected="selected" class="style3">20 Record</option>
+                              <option value="30" class="style3">30 Record</option>
+                              <option value="50" class="style3">50 Record</option>
+                              <option value="100" class="style3">100 Record</option>
+                              <option value="200" class="style3">200 Record</option>
+                              <option value="500" class="style3">500 Record</option>
+     		</select>
+     	</th>
+	</tr>
+</table>
+<script language="javascript">
+
+	$(document).ready(function(){
+		$("#cboSetPageRec").change(function(){			
+		getData(1,$(this).val());
+		});		
+	});
+	
+	function setPage(page_num,page_total){
+		var html_pages="";
+	
+		var pagaRec= $('#cboSetPageRec').val();
+		if(page_total<7)
+		 {			
+		 
+		 for(i=1; i <= page_total; i++){ 
+					if(i == page_num) 
+					html_pages+="<span>"+i+"</span>&nbsp;&nbsp;&nbsp;"; 
+					else
+					html_pages+="<a href=\"javascript:getData("+i+","+pagaRec+");\">"+i+"</a>&nbsp;&nbsp;&nbsp;";				
+					
+				}
+		}		
+		else{
+				if(page_num-2 > 1) 
+					html_pages+="<a href=\"javascript:getData(1,"+pagaRec+");\">1</a>&nbsp;&nbsp;&nbsp;";
+					
+				for(i=page_num-2; i <= page_num+2; i++){ 
+					if(i<1) continue;
+					if(i>page_total) continue;
+					if(i == page_num) html_pages+="<span>"+i+"</span>&nbsp;&nbsp;&nbsp;"; else
+					html_pages+="<a href=\"javascript:getData("+i+","+pagaRec+");\">"+i+"</a>&nbsp;&nbsp;&nbsp;";
+				}	
+				if(page_num+2 < page_total) 
+					html_pages+="<a href=\"javascript:getData("+page_total+","+pagaRec+");\">"+page_total+"</a>&nbsp;&nbsp;&nbsp;";
+					
+			}		
+		$("#ds_pages").html(html_pages);
+	}	
+</script>

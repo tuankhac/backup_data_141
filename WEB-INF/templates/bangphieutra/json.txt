@@ -1,0 +1,5 @@
+crud_new_bangphieutra_q42015_service=begin ?:=crud.new_bangphieutra_q42015(?,?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_search_bangphieutra_q42015_ma_tinh_service=select name,id from TAX.PROVINCES order by id
+crud_search_bangphieutra_q42015_service=begin ?:= crud.search_bangphieutra_q42015(?,?,?,?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_bangphieutra_q42015_service=begin ?:=crud.edit_bangphieutra_q42015(?,?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_delete_bangphieutra_q42015_service=begin ?:=crud.del_bangphieutra_q42015(?,?,?);commit; end;

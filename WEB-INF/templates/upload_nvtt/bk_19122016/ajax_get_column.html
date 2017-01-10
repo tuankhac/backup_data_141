@@ -1,0 +1,51 @@
+<td width="30%">Nhân viên</td>
+<td colspan ='2'>
+	<select class="form-control"   id="nhan_vien" name="nhan_vien" disabled>
+	<option value="">Không chọn</option>
+	#foreach ($i in $u.qry('get_nhanvien_tcs','default',["$!{ma_tinh}","$!{co_quan}"],2) )	
+		<option value="$!i['ID']">$!i['ID'] - $!i['TEN_NV']</option>
+	#end	
+	</select>
+</td>
+
+<script>
+	var col = "MST,MA_NV,NNTS_2016";
+	var data = "";
+	
+	
+	/* Cac chuc nang thuc hien cho tab 2 */
+	$(function(){
+		//set chosen
+		//$("#col_name").chosen({ width : "100%",});
+		//$("#nhan_vien").chosen({ width : "100%",});
+		
+		//default la false
+		
+		$("input[name='radio_button']").on("change",function(){
+			var val = $("input:radio[name ='radio_button']:checked").val();
+			//data = $("#col_name").val() + "," +$("#tbl_name").val() +","+ $("#format_export").val();
+			if(val == "1"){
+				$("#nhan_vien").val("");
+				$("#nhan_vien,#col_name_chosen").prop("disabled",true).trigger("chosen:updated");
+			}
+			if(val == "2"){
+				$("#nhan_vien").val("");
+				$("#nhan_vien,#col_name_chosen").prop("disabled",true).trigger("chosen:updated");
+			}
+			if(val == "3"){
+				$("#nhan_vien,#col_name_chosen").prop("disabled",false).trigger("chosen:updated");
+			}
+		});
+		
+		$("#format_export").on("change",function(){
+			data = col + "," + $("#format_export").val();
+			if($("#format_export").val() != "" && $("#col_name").val() != ""){
+				$("#tr_doExport").css("display","table-row");
+			}else{
+				$("#tr_doExport").css("display","none");
+			}
+		});
+	});
+	//note khi truyen object qua ajax neu chua ro 	contentType thì nên ko viet contentType va processData : false,
+		
+</script>

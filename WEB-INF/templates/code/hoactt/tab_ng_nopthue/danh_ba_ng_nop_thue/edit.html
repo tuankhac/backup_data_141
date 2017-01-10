@@ -1,0 +1,516 @@
+#set ($v = $u.ref("crud_search_danh_ba_ng_nop_thue","default",["$!{mst}","$!{ma_tinh}","$!{no_cuoi_ky}","$!{ma_chuong}","$!{ma_tmuc}","$!{kythue}","$!{so_qdinh}","$!{ngay_qdinh}","$!{ma_cq_thu}","$!{han_nop}","$!{magiao_unt}","$!{chuky}","$!{sobk_unt}","$!{ngaybk_unt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],18)[0] )
+	<table id="tien_nop" class='table table-condensed'>   
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	
+		<tr>
+
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label" >${n.i18n.phieuhuys_mst}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst" value="$!v['MST']" readonly>
+			<span id="msg_ma_st" ></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.hctt_ma_tinh}<font color=red>*</font>:</td>
+		<td>
+			<select class="form-control" name="2_ma_tinh" id="2_ma_tinh" onclick="doGetMaCQT_QL()">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_tinh","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TINH'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			<span id="msg_ma_tinh"></span></td>
+		</tr>
+		
+		<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="no_cuoi_ky_label">${n.i18n.hctt_debit}</td>
+		<td><input  type="text" class="form-control" name="3_no_cuoi_ky" id="3_no_cuoi_ky" value="$!v['NO_CUOI_KY']"><span id="msg_no_cuoi_ky"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kieu_no_label">${n.i18n.hctt_machuong}</td>
+		<td><input type="text" class="form-control" name="5_ma_chuong" id="5_ma_chuong" value="$!v['EDIT_MA_CHUONG']-$!v['MA_CHUONG']" readonly>
+			<!--<select class="form-control" name="5_ma_chuong" id="5_ma_chuong">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_ma_chuong","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_CHUONG'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>-->
+			
+			<span id="msg_ma_chuong"></span>
+			<input  type="hidden" class="form-control" name="4_kieu_no" id="4_kieu_no" value="1">
+			<span id="msg_kieu_no"></span> 
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_tmuc_label">${n.i18n.hctt_mathumuc}</td>
+		<td><input  type="text" class="form-control" name="6_ma_tmuc" id="6_ma_tmuc" value="$!v['EDIT_MA_TMUC']-$!v['MA_TMUC']" readonly>
+			<!--<select class="form-control" name="6_ma_tmuc" id="6_ma_tmuc">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_ma_tmuc","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TMUC'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>-->
+			
+			<span id="msg_ma_tmuc"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.hctt_kythue}</td>
+		<td>
+			<select class="form-control" name="7_kythue" id="7_kythue" disabled>
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_kythue","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_KYTHUE'])
+								<option value="$!i['ID']" selected="selected">$!i['ID']</option>
+								#else 
+									<option value="$!i['ID']">$!i['ID']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_kythue"></span>
+		</td>
+	</tr>
+	<tr style="display:none">
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_taikhoan_co_label"></td>
+		<td><input  type="hidden" class="form-control" name="8_so_taikhoan_co" id="8_so_taikhoan_co" value="711">
+			<span id="msg_so_taikhoan_co"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_qdinh_label">${n.i18n.hctt_soqd}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="9_so_qdinh" id="9_so_qdinh" value="$!v['SO_QDINH']">
+			<span id="msg_so_qdinh"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngay_qdinh_label">${n.i18n.hctt_ngayqd}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="10_ngay_qdinh" id="10_ngay_qdinh" value="$!v['NGAY_QDINH']">
+			<span id="msg_ngay_qdinh"></span>
+		</td>
+	</tr>
+	
+	
+	<tr style="display:none">
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="loai_tien_label">${n.i18n.hctt_loaitien}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="11_loai_tien" id="11_loai_tien" value="$!v['LOAI_TIEN']">
+			<span id="msg_loai_tien"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ti_gia_label">${n.i18n.hctt_tigia}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="12_ti_gia" id="12_ti_gia" value="$!v['TI_GIA']">
+			<span id="msg_ti_gia"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_cq_thu_label">${n.i18n.hctt_ma_cqt_ql}</td>
+		<td><select class="form-control" name="14_ma_cq_thu" id="14_ma_cq_thu" >
+			<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_cqt_ql","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_CQ_THU'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_ma_cq_thu"></span>
+			<span id="msg_ma_cq_thu"></span>
+			<input  type="hidden" class="form-control" name="13_loai_thue" id="13_loai_thue" value="10">
+			<span id="msg_loai_thue"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="han_nop_label">${n.i18n.hctt_hannop}</td>
+		<td><input  type="text" class="form-control" name="15_han_nop" id="15_han_nop" value="$!v['HAN_NOP']">
+			<span id="msg_han_nop"></span>
+		</td>
+	</tr>
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="magiao_unt_label">${n.i18n.hctt_ma_unt}</td>
+		<td><input  type="text" class="form-control" name="16_magiao_unt" id="16_magiao_unt" value="$!v['MAGIAO_UNT']">
+			<span id="msg_magiao_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="chuky_label">${n.i18n.hctt_chuky}</td>
+		<td>
+			<select class="form-control" name="17_chuky" id="17_chuky" >
+			<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("get_chuky","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_CHUKY'])
+								<option value="$!i['ID']" selected="selected">$!i['ID']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['ID']</option>
+								#end
+							#end
+			</select>
+			<span id="msg_chuky"></span>
+		</td>
+	</tr>
+	
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="sobk_unt_label">${n.i18n.hctt_sobk_unt}</td>
+		<td><input  type="text" class="form-control" name="18_sobk_unt" id="18_sobk_unt" value="$!v['SOBK_UNT']">
+			<span id="msg_sobk_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngaybk_unt_label">${n.i18n.hctt_ngaybk_unt}</td>
+		<td><input  type="text" class="form-control" name="19_ngaybk_unt" id="19_ngaybk_unt" value="$!v['NGAYBK_UNT']">
+			<span id="msg_ngaybk_unt"></span>
+		</td>
+	</tr>
+	
+		<tr><td colspan="4" align=center><font id="result" color=red></font></td></tr>
+	<tr id='control'><td colspan='4' align='center'>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<!--button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button-->&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+var get_data_ma_huyen=""; 
+	$(function(){
+		var orginData={mst:'$!v["MST"]',ma_tinh:'$!v["MA_TINH"]',no_cuoi_ky:'$!v["NO_CUOI_KY"]',kieu_no:'$!v["KIEU_NO"]',ma_chuong:'$!v["MA_CHUONG"]',ma_tmuc:'$!v["MA_TMUC"]',kythue:'$!v["KYTHUE"]',so_qdinh:'$!v["SO_QDINH"]',ngay_qdinh:'$!v["NGAY_QDINH"]',loai_tien:'$!v["LOAI_TIEN"]',ti_gia:'$!v["TI_GIA"]',loai_thue:'$!v["LOAI_THUE"]',ma_cq_thu:'$!v["MA_CQ_THU"]',han_nop:'$!v["HAN_NOP"]',magiao_unt:'$!v["MAGIAO_UNT"]',chuky:'$!v["CHUKY"]',sobk_unt:'$!v["SOBK_UNT"]',ngaybk_unt:'$!v["NGAYBK_UNT"]'};
+		
+		$('#doEdit').click(function(){
+		//alert("sdsafsdvsđs");
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+					
+			var vma_tinh = $("#2_ma_tinh").val() == undefined ? '' : $("#2_ma_tinh").val().trim();
+			vma_tinh = vma_tinh.replace(/ /g, '%20');
+				
+			var vma_cqt_ql = $("#14_ma_cq_thu").val() == undefined ? '' : $("#14_ma_cq_thu").val().trim();
+			vma_cqt_ql = vma_cqt_ql.replace(/ /g, '%20');
+			
+			if (Validate()){
+			
+			var m2 = $("#5_ma_chuong").val();
+			var ten_ma_chuong= m2.substring(m2.lastIndexOf("-")+1); 
+			var split_ma_chuong = m2.split("-");
+			var ma_chuong = split_ma_chuong[0];
+		
+			var m3 = $("#6_ma_tmuc").val();
+			var ten_ma_tmuc= m3.substring(m3.lastIndexOf("-")+1); 
+			var split_ma_tmuc = m3.split("-");
+			var ma_tmuc = split_ma_tmuc[0];
+			
+			var ti_gia =$('#12_ti_gia').val();
+			if (ti_gia==''){
+			ti_gia=0;
+			}
+			
+			var exec='&mst='+$('#1_mst').val()
+				+'&ma_tinh='+vma_tinh
+				+'&no_cuoi_ky='+$('#3_no_cuoi_ky').val()
+				
+				+'&kieu_no='+$('#4_kieu_no').val()
+				+'&ma_chuong='+ma_chuong
+				+'&ma_tmuc='+ma_tmuc
+				+'&kythue='+$('#7_kythue').val()
+				+'&so_taikhoan_co='+$('#8_so_taikhoan_co').val()
+				
+				+'&so_qdinh='+$('#9_so_qdinh').val()
+				+'&ngay_qdinh='+$('#10_ngay_qdinh').val()
+				+'&loai_tien='+$('#11_loai_tien').val()
+				
+				+'&loai_thue='+$('#13_loai_thue').val()
+				
+				+'&ma_cq_thu='+$("#14_ma_cq_thu").val()
+				+'&han_nop='+$('#15_han_nop').val()
+				+'&magiao_unt='+$('#16_magiao_unt').val()
+				+'&chuky='+$('#17_chuky').val()
+				+'&sobk_unt='+$('#18_sobk_unt').val()
+				+'&ngaybk_unt='+$('#19_ngaybk_unt').val()
+				+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			
+			//alert(exec);
+			
+				$.ajax({
+					url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/edit_exec.html'+exec,
+					success: function(data){ 
+						data = data.trim();
+						if (data=="1.0" || data=="1" ||data==1){
+						$('#result').attr('style',' color:#006600; font-weight:bold;');
+							$('#result').html("${n.i18n.crud_edit_message}"); 
+						}else{
+							$('#result').html(data);
+						}
+					}
+				});
+			}
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=hoactt/tab_ng_nopthue/index.html';
+		});
+		
+	});
+	
+	$(document).ready(function(){
+		//doGetMaCQT_QL();
+		doGetMachuong();
+		doGetMa_Tmuc();
+		$('#10_ngay_qdinh').datepicker({format:"dd/mm/yyyy"});
+		$('#15_han_nop').datepicker({format:"dd/mm/yyyy"});
+		$('#19_ngaybk_unt').datepicker({format:"dd/mm/yyyy"});
+		
+	});
+	function Validate(){
+	/*Mã số thuế*/
+		var pn0 = $('#1_mst').val();
+					if (/\'/.test(pn0) || pn0=='' ) {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.phieuhuys_mst} và ${n.i18n.knhapnhaydon}");
+						$("#1_mst").focus();
+						return false;
+					}
+					 
+		$("#1_mst").on("keypress", function(event) {var englishAlphabetAndWhiteSpace = /[A-Za-z0-9_-\s]/g;
+				   
+					var key = String.fromCharCode(event.which);
+					if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+						return true;
+					}
+					return false;
+				});
+
+				$('#1_mst').on("paste",function(e)
+				{
+					e.preventDefault();
+				});
+		
+	/*ma_tinh*/
+				var pn1 = $('#2_ma_tinh').val();
+					if (pn1=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_tinh}");
+						$("#2_ma_tinh").focus();
+						return false;
+					}
+	/*no_cuoi_ky*/	
+				var pn2 = $('#3_no_cuoi_ky').val();
+					if (/\'/.test(pn2) || pn2=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_debit_new}"); 
+						$("#3_no_cuoi_ky").focus();
+						return false;
+					}
+				$("#3_no_cuoi_ky").keypress(function (e) {
+				  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+					 $('#result').html("${n.i18n.hctt_debit_new2}"); 
+					  return false;
+				  }
+				   if (e.which == 48 && document.getElementById("3_no_cuoi_ky").value.length == 0) {
+					  $('#result').html("${n.i18n.required_message} ${n.i18n.hctt_debit_new3}"); 
+					  return false;
+				  }
+				});
+	/*kieu_no*/
+				var pn3 = $('#4_kieu_no').val();
+					if (/\'/.test(pn3) || pn3=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_kieuno}"); 
+						$("#4_kieu_no").focus();
+						return false;
+					}
+				$("#4_kieu_no").keypress(function (e) {
+				  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+					 $('#result').html("{n.i18n.hctt_kieuno2}"); 
+					  return false;
+				  }
+				   if (e.which == 48 && document.getElementById("4_kieu_no").value.length == 0) {
+					  $('#result').html("${n.i18n.required_message} ${n.i18n.hctt_kieuno3}"); 
+					  return false;
+				  }
+				});
+	/*ma_chuong*/	
+	$("#5_ma_chuong").on("keypress", function(event) {var englishAlphabetAndWhiteSpace = /[A-Za-z0-9_-\s]/g;
+				   
+					var key = String.fromCharCode(event.which);
+					if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+						return true;
+					}
+					return false;
+				});
+
+				$('#5_ma_chuong').on("paste",function(e)
+				{
+					e.preventDefault();
+				});
+		var pn5 = $('#5_ma_chuong').val();
+					if (/\'/.test(pn5) || pn5=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_machuong} và ${n.i18n.knhapnhaydon}");
+						$("#5_ma_chuong").focus();
+						return false;
+					}	
+	/*ma_tmuc*/
+			$("#6_ma_tmuc").on("keypress", function(event) {var englishAlphabetAndWhiteSpace = /[A-Za-z0-9_-\s]/g;
+				   
+					var key = String.fromCharCode(event.which);
+					if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+						return true;
+					}
+					return false;
+				});
+
+				$('#6_ma_tmuc').on("paste",function(e)
+				{
+					e.preventDefault();
+				});
+				var pn7 = $('#6_ma_tmuc').val();
+					if (/\'/.test(pn7) || pn7=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_mathumuc} và ${n.i18n.knhapnhaydon}");
+						$("#6_ma_tmuc").focus();
+						return false;
+					}	
+	/*kythue*/
+				var pn8 = $('#7_kythue').val();
+					if (/\'/.test(pn8) || pn8=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_kythue} và ${n.i18n.knhapnhaydon}");
+						$('#7_kythue').focus();
+						return false;
+					}	
+	/*Số tài khoản*/
+				var pn9 = $('#8_so_taikhoan_co').val();
+					if (/\'/.test(pn9) || pn9=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_stt} và ${n.i18n.knhapnhaydon}");
+						$('#8_so_taikhoan_co').focus();
+						return false;
+					}	
+	/*so_qdinh
+				var pn10 = $('#9_so_qdinh').val();
+					if (/\'/.test(pn10) || pn10=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_soqd} và ${n.i18n.knhapnhaydon}");
+						$('#9_so_qdinh').focus();
+						return false;
+					}	
+	
+				
+				var time = $("#10_ngay_qdinh").val();
+					if(!time.match(re)) {
+					  $('#result').html("${n.i18n.format_date}");
+						$('#10_ngay_qdinh').focus();
+					  return false;
+					}
+	*/
+	/*loai_tien*/
+				var pn11 = $('#11_loai_tien').val();
+					if (/\'/.test(pn11) || pn11=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_loaitien} và ${n.i18n.knhapnhaydon}");
+						$('#11_loai_tien').focus();
+						return false;
+					}	
+	/*ti_gia
+				var pn12 = $('#12_ti_gia').val();
+					if (/\'/.test(pn12) || pn12=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_tigia} và ${n.i18n.knhapnhaydon}");
+						$('#12_ti_gia').focus();
+						return false;
+					}	
+	*/
+	/*loai_thue*/
+				var pn13 = $('#13_loai_thue').val();
+					if (/\'/.test(pn13) || pn13=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_loaithue} và ${n.i18n.knhapnhaydon}");
+						$('#13_loai_thue').focus();
+						return false;
+					}	
+	/*ma_cq_thu*/
+				var pn14 = $('#14_ma_cq_thu').val();
+					if (/\'/.test(pn14) || pn14=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_cqt_ql} và ${n.i18n.knhapnhaydon}");
+						$('#14_ma_cq_thu').focus();
+						return false;
+					}
+    /*han_nop*/ re = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+				var time1 = $("#15_han_nop").val();
+					if(!time1.match(re)) {
+					  $('#result').html("${n.i18n.format_date}");
+						$('#15_han_nop').focus();
+					  return false;
+					}
+	/*magiao_unt*/
+				var pn16 = $('#16_magiao_unt').val();
+					if (/\'/.test(pn16) || pn16=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_unt} và ${n.i18n.knhapnhaydon}");
+						$('#16_magiao_unt').focus();
+						return false;
+					}
+	/*chuky*/
+				var pn17 = $('#17_chuky').val();
+					if (pn17=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_chuky} và ${n.i18n.knhapnhaydon}");
+						$('#17_chuky').focus();
+						return false;
+					}
+	/*sobk_unt*/
+				var pn18 = $('#18_sobk_unt').val();
+					if (/\'/.test(pn18) || pn18=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_sobk_unt} và ${n.i18n.knhapnhaydon}");
+						$('#18_sobk_unt').focus();
+						return false;
+					}
+	/*Ngày biên lai unt*/	
+		
+		var time2 = $("#19_ngaybk_unt").val();
+            if(!time2.match(re)) {
+              $('#result').html("${n.i18n.format_date}");
+				$('#19_ngaybk_unt').focus();
+              return false;
+            }
+		return true;
+	}
+	
+	/*-------------------------------------------------------------------------------------------*/
+	function doGetMaCQT_QL(){
+		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_ma_cqt_ql_by_province_edit.html&provin_id='+$("#2_ma_tinh").val(),success: function(data){ 
+				$("#14_ma_cq_thu").html(data);
+			
+			}
+		});
+	}
+	function doGetMachuong(){
+		var machuong=""; 
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_machuong.html',
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#5_ma_chuong').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+						$('#data-list').html('${n.i18n.crud_process_message}');
+ 						machuong = suggestion.data;
+ 						//$('#doSearch').click();
+					}
+				});
+			}
+		});
+
+	}
+	function doGetMa_Tmuc(){
+		var ma_tmuc=""; 
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_ma_tmuc.html',
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#6_ma_tmuc').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+						$('#data-list').html('${n.i18n.crud_process_message}');
+ 						ma_tmuc = suggestion.data;
+ 						//$('#doSearch').click();
+					}
+				});
+			}
+		});
+
+	}
+	/*-------------------------------------------------------------------------------------------*/
+
+</script>

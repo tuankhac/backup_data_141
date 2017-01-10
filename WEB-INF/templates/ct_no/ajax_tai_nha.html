@@ -1,0 +1,53 @@
+<table width="100%" class='table table-condensed table-bordered' id="ajax_chuongs">
+	<tr>
+		<th><input type="checkbox" name="select_all" value="1" id="ckbCheckAll"></th>
+		<th align=center>${n.i18n.nnts_mst}</th>
+		<th align=center>${n.i18n.nnts_ten_nnt}</th>
+        <th align="center">${n.i18n.nnts_chuong}/${n.i18n.nnts_muc}</th>
+		<th align=center>${n.i18n.nnts_tien_no}/${n.i18n.nnts_da_tra}</th>
+		<th align=center>${n.i18n.nnts_con_no}</th>
+
+	</tr>
+#set ($list = $u.ref("search_gachno_tainha_service","default",["$!{ma_nv}","${province}","200","1"],4) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="checkbox" id='$!i["MST"]_$!i["MA_CHUONG"]_$!i["MA_TMUC"]' name="nnts_rad" onclick="tong_tien()" class="checkBoxClass" value='$!i["MST"]'></td>
+		<td align=left id='m$!i["MST"]_$!i["MA_CHUONG"]_$!i["MA_TMUC"]'>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<td align=left name='chuong'>[$!i["MA_CHUONG"]] $!i["TENTIEUMUC"]</td>
+		<td align=left name='ma_cqt_ql'>
+        	<small class="label label-success">$!i["NO_CUOI_KY"]</small>
+            <small class="label label-danger">$!i["TIENTRA"]</small>
+            <input type="hidden" id='f$!i["MST"]_$!i["MA_CHUONG"]_$!i["MA_TMUC"]' value='$!i["MST"],$!i["MA_TINH"],{TIEN_TRA},$!i["MA_CHUONG"],$!i["MA_CQ_THU"],$!i["MA_TMUC"],$!i["SO_TAIKHOAN_CO"],$!i["SO_QDINH"],$!i["NGAY_QDINH"],$!i["LOAI_TIEN"],$!i["TI_GIA"],$!i["LOAI_THUE"]' />
+        </td>
+		<td align=left name='mobile'><input type="text" class="form-control" name="thanhtoan" value='$!i["SO_TIEN"]' id='i$!i["MST"]_$!i["MA_CHUONG"]_$!i["MA_TMUC"]'></td>
+	</tr>
+#end
+</table>
+<script>
+	$('input[name="nnts_rad"]').change(function(){	
+		$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+	});
+	
+
+    $("#ckbCheckAll").change(function(){
+    	$(".checkBoxClass").prop('checked', $(this).prop("checked"));
+    	
+    	$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+		
+		tong_tien();
+    });		
+	
+</script>

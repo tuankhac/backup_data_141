@@ -1,0 +1,95 @@
+#set ($v = $u.ref("crud_search_bankes_service","default",["$!{id}","$!{kbnn}","$!{ct_kbnn}","$!{kh_ct_nh}","$!{so_ct_nh}","$!{sotien}","$!{trang_thai}","$!{ngay_unt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12)[0] )
+	<table id="bankes" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.bankes_id}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="kbnn_label">${n.i18n.bankes_kbnn}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["KBNN"]' name="kbnn" id="kbnn"><span id="kbnn_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="ct_kbnn_label">${n.i18n.bankes_ct_kbnn}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["CT_KBNN"]' name="ct_kbnn" id="ct_kbnn"><span id="ct_kbnn_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="kh_ct_nh_label">${n.i18n.bankes_kh_ct_nh}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["KH_CT_NH"]' name="kh_ct_nh" id="kh_ct_nh"><span id="kh_ct_nh_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="so_ct_nh_label">${n.i18n.bankes_so_ct_nh}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["SO_CT_NH"]' name="so_ct_nh" id="so_ct_nh"><span id="so_ct_nh_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="sotien_label">${n.i18n.bankes_sotien}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["SOTIEN"]' name="sotien" id="sotien"><span id="sotien_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="trang_thai_label">${n.i18n.bankes_trang_thai}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["TRANG_THAI"]' name="trang_thai" id="trang_thai"><span id="trang_thai_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_unt_label">${n.i18n.bankes_ngay_unt}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["NGAY_UNT"]' name="ngay_unt" id="ngay_unt"><span id="ngay_unt_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=bankes/delete_exec.html&id=${id}',
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=bankes/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.bankes_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#sotien').blur(function(){
+			if ($('#sotien').val()*1==$('#sotien').val()){
+				$('#sotien_msg').html('');
+				$('#sotien_msg').attr('style','display:none');
+			}else{
+				$('#sotien_msg').html('${n.i18n.bankes_sotien} ${n.i18n.crud_is_number_message}');
+				$('#sotien_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#trang_thai').blur(function(){
+			if ($('#trang_thai').val()*1==$('#trang_thai').val()){
+				$('#trang_thai_msg').html('');
+				$('#trang_thai_msg').attr('style','display:none');
+			}else{
+				$('#trang_thai_msg').html('${n.i18n.bankes_trang_thai} ${n.i18n.crud_is_number_message}');
+				$('#trang_thai_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_unt').blur(function(){
+			if ($('#ngay_unt').val()=='' || patternValidate($('#ngay_unt'),'dd/mm/yyyy')){
+				$('#ngay_unt_msg').html('');
+				$('#ngay_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngay_unt_msg').html('${n.i18n.bankes_ngay_unt} dạng dd/mm/yyyy');
+				$('#ngay_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_unt').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

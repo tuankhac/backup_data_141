@@ -1,0 +1,205 @@
+﻿<html>
+<head>
+
+<script src="/assets/bootstrap/js/chart.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/doughnutit.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/js/excanvas.js" type="text/javascript"></script>
+
+<link href="/assets/bootstrap/css/doughnutit.css" rel="stylesheet" type="text/css" />
+<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+</head>
+
+<body>
+	<div class="box-header with-border">
+		<h3 class="box-title" style="font-weight:bold;color:#039">${n.i18n.curd_report_ti_le_thu}</h3>
+	  	<div class="box-tools"></div>
+	</div><!-- /.box-header -->
+	<div class="box-body no-padding">                    
+		<table id="nnts" class='table table-condensed'>
+			<tr>
+				<td width="15%">Từ ngày/Đến ngày</td>
+				<td><table cellpadding=0 cellspacing=0 width=100%>
+						<tr><td><input  type="text" class="form-control" style="WIDTH: 98%" name="tu_ngay" id="tu_ngay"></td>&nbsp;&nbsp;&nbsp;
+							<td><input  type="text" class="form-control" style="WIDTH: 98%" name="den_ngay" id="den_ngay"></td>&nbsp;&nbsp;&nbsp;	
+							<td><button onClick="ds_thu()" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Lấy danh sách</button>&nbsp;&nbsp;
+								<button onclick="print_tax()" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} tổng</button>&nbsp;&nbsp;
+								<button onclick="print_tax_town()" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} phường/xã </button>&nbsp;&nbsp;
+								<button onclick="print_tax_detail()" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} đường thu</button>
+							</td>
+						</tr>
+					</table>
+				</td>						
+			 </tr>
+		</table>
+	</div>
+	<div class="box-body no-padding">      
+		<div id="data-list"></div>
+		<div id="data-list1"></div>
+	</div>
+	<div class="box-body no-padding">      
+		#set ($v = $u.ref("crud_get_info_staff_report","default",["${province}"],1)[0] )		
+		<table id="reportStaff" class='table table-condensed'>
+			<div class="box-header with-border">
+				<h3 class="box-title" style="font-weight:bold;color:#039">${n.i18n.curd_chart_ti_le_thu}</h3>
+			  	<div class="box-tools"></div>
+			</div><!-- /.box-header -->
+
+			<tr>
+				<th><div id="StaffDoughnut" align=center></th>
+			</tr>
+		</table>
+	</div>	
+
+
+	
+	<script>
+				
+		var doughnutData = [
+			{value:'$!v["TI_LE_TRA"]'*1,color:"#00a65a"},
+			{value:'$!v["TI_LE_NO"]'*1,color:"#dce0df"}
+		];
+
+		$( "#StaffDoughnut" ).doughnutit({
+			dnData: doughnutData,
+		    dnSize: 360,
+		    dnInnerCutout: 60,
+		    dnAnimation: true,
+			dnAnimationSteps: 60,
+			dnAnimationEasing: 'linear',
+			dnStroke: false,
+			dnShowText: true,
+			dnFontSize: '20px',
+			dnFontColor: "#819596",
+			dnText: '${n.i18n.curd_report_sum_money.toUpperCase()}',
+			dnStartAngle: 50,
+			dnCounterClockwise: false,
+			dnRightCanvas: {
+				rcRadius: 15,
+				rcPreMargin: 100,
+				rcMargin: 20,
+				rcHeight: 50,
+				rcOffset: 15,
+				rcLineWidth: 100,
+				rcSphereColor: '#00a65a',
+				rcSphereStroke: '#00a65a',				
+				rcTop:{
+					rcTopLineColor: '#819596',
+					rcTopDashLine: 5,
+					rcTopFontSize: '17px',
+					rcStrokeWidth: 3,
+					rctAbove: {						
+						rctText: '$!v["TONGTRA"] ($!v["TI_LE_TRA"]%)',
+						rctOffset: 5,
+						rctImageOffsetRight: 5,
+						rctImageOffsetBottom: 0,
+						// rctImage: 'calendar.png',
+					},
+					rctBelow: {
+						rctText: '${n.i18n.curd_report_sum_tra.toUpperCase()}',
+						rctFontSize: '20px',
+						rctOffset: 10,
+						rctOffset: 10,
+						rctImageOffsetRight: 5,
+						rctImageOffsetBottom: 0,
+						// rctImage: 'calendar.png'
+					}		        	
+				}
+			},
+			dnLeftCanvas: {
+				lcRadius: 15,
+				lcPreMargin: 100,
+				lcMargin: 20,
+				lcHeight: 50,
+				lcOffset: 15,
+				lcLineWidth: 100,
+				lcSphereColor: '#819596',
+				lcSphereStroke: '#819596',				
+				lcTop:{
+					lcTopLineColor: '#819596',
+					lcTopDashLine: 5,
+					lcTopFontSize: '17px',
+					lcStrokeWidth: 3,
+					lctAbove: {						
+						lctText: '$!v["TONGNO"]',
+						lctOffset: 5,
+						lctImageOffsetRight: 5,
+						lctImageOffsetBottom: 0,
+						// lctImage: 'calendar.png',
+					},
+					lctBelow: {
+						lctText: '${n.i18n.curd_report_sum_no.toUpperCase()}',
+						lctFontSize: '20px',
+						lctOffset: 17,
+						lctOffset: 5,
+						lctImageOffsetRight: 5,
+						lctImageOffsetBottom: 0,
+						// lctImage: 'calendar.png'
+					}		        	
+				}
+			}
+		});// End Doughnut
+
+
+	</script>
+</body>
+</html>
+<script type="text/javascript">
+	$('#tu_ngay').datepicker({format:"dd/mm/yyyy"});
+	$('#den_ngay').datepicker({format:"dd/mm/yyyy"});
+	$("#tu_ngay").datepicker().datepicker("setDate", new Date());
+	$("#den_ngay").datepicker().datepicker("setDate", new Date());
+	$(document).ready(function(){		
+	});
+	
+	function ds_thu(){
+		$.ajax({
+		url: 'crud_exec.jsp?crud_type=baocao/ajax_index_no.html&ma_tinh=${province}&tu_ngay='+$('#tu_ngay').val()+'&den_ngay='+$('#den_ngay').val(),async: false,
+		success: function(data){ 
+			$('#data-list').html(data);		
+		}
+		});
+		
+		$.ajax({
+		url: 'crud_exec.jsp?crud_type=baocao/ajax_index_no_httt.html&ma_tinh=${province}&tu_ngay='+$('#tu_ngay').val()+'&den_ngay='+$('#den_ngay').val(),async: false,
+		success: function(data){ 
+			$('#data-list1').html(data);		
+		}
+		});
+	}
+	
+	function print_list_debt(){	
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/report_dept&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&TUNGAY="+$('#tu_ngay').val()+"&DENNGAY="+$('#den_ngay').val();
+		
+		window.open(s_);
+	}
+	
+	function print_tax(){	
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/report_sum_tax&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&NGAY_TT="+$('#den_ngay').val();
+		
+		window.open(s_);
+	}
+	
+	function print_tax_town(){
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/report_sum_tax_town&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&NGAY_TT="+$('#den_ngay').val();
+		
+		window.open(s_);
+	}
+	
+	function print_tax_detail(){	
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/report_sum_tax_detail&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&NGAY_TT="+$('#den_ngay').val();
+		
+		window.open(s_);
+	}
+</script>

@@ -1,0 +1,52 @@
+﻿<table id="chuyenkhoans" class='table table-condensed'>
+	<tr><th colspan='4'><b>BÁO CÁO THU NGÂN SÁCH NHÀ NƯỚC</b></th></tr>
+
+    <tr><!--td width="15%">${n.i18n.report_tt_uynhiemthu_donvi}</td>
+    <td><select class="form-control" name="donviql_id" id="donviql_id" >
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("report_list_khobac","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="donviql_id_msg"></td-->
+	 
+     <td width="15%">Kỳ thu</td>
+	 <td width="35%" id="tdkythu">
+			<select class="form-control" name="kythu" id="kythu">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) )                   					
+				<option value="$!i['ID']">$!i['NAME']</option>				
+                #end
+			</select><span id="kythue_msg"></span></td>
+	<td width="15%"></td><td width="35%"></td>
+    </tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary" ><i class="fa fa-print"></i> ${n.i18n.curd_report_print}</button>&nbsp;					
+	</td></tr>
+</table>
+
+<script type="text/javascript">	
+
+	$(document).ready(function(){	
+	});
+	$("#doSearch").click(function(){
+		var js_name="general_report_UNT";	
+		var jpPath = '${pathroot}' + "WEB-INF/templates/jasper/";
+		var time = $("#kythu").val();
+		
+		if (time=="") {
+			alert("Phải chọn kỳ lấy báo cáo");	
+			return;
+		}
+
+		var thang= time.substr(0,2);
+		var nam= time.substr(2,4);				
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+js_name+"&jasperExportType=xls&AGENT=${province}&IMAGE_PATH="+jpPath+"&THANG="+thang+"&NAM="+nam+"&KYTHU="+$("#kythu").val();
+		//alert (s_);
+		
+		window.open(s_);
+		
+	});
+	
+
+</script>

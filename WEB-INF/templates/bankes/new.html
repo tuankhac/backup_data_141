@@ -1,0 +1,101 @@
+<table id="bankes" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.bankes_id}</td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="kbnn_label">${n.i18n.bankes_kbnn}</td>
+		<td>			<input  type="text" class="form-control" name="kbnn" id="kbnn"><span id="kbnn_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="ct_kbnn_label">${n.i18n.bankes_ct_kbnn}</td>
+		<td>			<input  type="text" class="form-control" name="ct_kbnn" id="ct_kbnn"><span id="ct_kbnn_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="kh_ct_nh_label">${n.i18n.bankes_kh_ct_nh}</td>
+		<td>			<input  type="text" class="form-control" name="kh_ct_nh" id="kh_ct_nh"><span id="kh_ct_nh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="so_ct_nh_label">${n.i18n.bankes_so_ct_nh}</td>
+		<td>			<input  type="text" class="form-control" name="so_ct_nh" id="so_ct_nh"><span id="so_ct_nh_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="sotien_label">${n.i18n.bankes_sotien}</td>
+		<td>			<input  type="text" class="form-control" name="sotien" id="sotien"><span id="sotien_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="trang_thai_label">${n.i18n.bankes_trang_thai}</td>
+		<td>			<input  type="text" class="form-control" name="trang_thai" id="trang_thai"><span id="trang_thai_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_unt_label">${n.i18n.bankes_ngay_unt}</td>
+		<td>			<input  type="text" class="form-control" name="ngay_unt" id="ngay_unt"><span id="ngay_unt_msg"></span></td>
+		</tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&kbnn='+$('#kbnn').val()+'&ct_kbnn='+$('#ct_kbnn').val()+'&kh_ct_nh='+$('#kh_ct_nh').val()+'&so_ct_nh='+$('#so_ct_nh').val()+'&sotien='+$('#sotien').val()+'&trang_thai='+$('#trang_thai').val()+'&ngay_unt='+$('#ngay_unt').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=bankes/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=bankes/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.bankes_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#sotien').blur(function(){
+			if ($('#sotien').val()*1==$('#sotien').val()){
+				$('#sotien_msg').html('');
+				$('#sotien_msg').attr('style','display:none');
+			}else{
+				$('#sotien_msg').html('${n.i18n.bankes_sotien} ${n.i18n.crud_is_number_message}');
+				$('#sotien_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#trang_thai').blur(function(){
+			if ($('#trang_thai').val()*1==$('#trang_thai').val()){
+				$('#trang_thai_msg').html('');
+				$('#trang_thai_msg').attr('style','display:none');
+			}else{
+				$('#trang_thai_msg').html('${n.i18n.bankes_trang_thai} ${n.i18n.crud_is_number_message}');
+				$('#trang_thai_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_unt').blur(function(){
+			if ($('#ngay_unt').val()=='' || patternValidate($('#ngay_unt'),'dd/mm/yyyy')){
+				$('#ngay_unt_msg').html('');
+				$('#ngay_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngay_unt_msg').html('${n.i18n.bankes_ngay_unt} dạng dd/mm/yyyy');
+				$('#ngay_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_unt').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

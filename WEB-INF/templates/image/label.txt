@@ -1,0 +1,9 @@
+image_id=Id
+image_title=Title
+image_source=Source
+image_description=Description
+image_created_date=Created_Date
+image_modified_date=Modified_Date
+image_created_user=Created_User
+image_modified_user=Modified_User
+image_nhanvien_tcs_id=Nhanvien_Tcs_Id

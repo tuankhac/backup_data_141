@@ -1,0 +1,14 @@
+ketquaphats_id=Id
+ketquaphats_mst=Mst
+ketquaphats_chungtu_id=Chungtu_Id
+ketquaphats_ma_nv=Ma_Nv
+ketquaphats_bill=Bill
+ketquaphats_ngay_phat=Ngay_Phat
+ketquaphats_ngay_nhap=Ngay_Nhap
+ketquaphats_nguoi_nhan=Nguoi_Nhan
+ketquaphats_lan_phat=Lan_Phat
+ketquaphats_lan_thu=Lan_Thu
+ketquaphats_trang_thai=Trang_Thai
+ketquaphats_ma_daily=Ma_Daily
+ketquaphats_diem_thu=Diem_Thu
+ketquaphats_ghichu=Ghichu

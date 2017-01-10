@@ -1,0 +1,190 @@
+<table id="phieuhuys" class='table table-condensed'>
+	<tr><th colspan='4'><b>DANH SÁCH PHIẾU HỦY</b></th></tr>
+		<tr>
+		<td width=10% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_start_date}</td>
+		<td>
+			<input  type="text" class="form-control" name="tungay" id="tungay"><span id="tungay_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_end_date}</td>
+		<td>
+			<input  type="text" class="form-control" name="denngay" id="denngay"><span id="denngay_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_unit}</td>
+		<td>
+			<select class="form-control" name="donviql_id" id="donviql_id">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("phieuhuys_search_donvi_qls_serviec","default",["${province}"],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="donviql_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_post}</td>
+		<td>
+			<select class="form-control" name="mabc_id" id="mabc_id">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				
+			</select><span id="mabc_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.phieuhuys_quaythu_id}</td>
+		<td >
+			<select class="form-control" name="quaythu_id" id="quaythu_id">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+			</select><span id="manv_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.phieuhuys_nguoi_huy}</td>
+		<td >
+			<select class="form-control" name="nguoi_huy" id="nguoi_huy">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+
+			</select><span id="user_id_msg"></span></td>
+	</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;		
+			<button class="btn btn-primary" name="cmdPrint" id="cmdPrint" onclick="doExportReportPDF()"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} &gt;</button>&nbsp;	
+			<button class="btn btn-primary"  onclick="doExportReportXLS()"><i class="fa fa-print"></i> ${n.i18n.curd_report_excel_output} &gt;</button>&nbsp;
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div><div id="div_page_section2" class=""></div></div></section>
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		$('#tungay').datepicker({format:"dd/mm/yyyy"}).datepicker("setDate",new Date());
+		$('#denngay').datepicker({format:"dd/mm/yyyy"}).datepicker("setDate",new Date());
+		$('#doSearch').click();
+	});
+	var record_per_page=10, page=1, nor=0;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	$('#donviql_id').on('change', function() {
+		$("#mabc_id option[name='ma_bc']").remove();
+		$("#quaythu_id option[name='quay_thu']").remove();
+		$("#nguoi_huy option[name='nguoihuy']").remove();
+		getBuuCuc(this.value);
+	});
+	var dataMaBcId = {
+		#set ($list = $u.qry("phieuhuys_search_mabc_id_service","default",["${province}",""],2) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+	};
+	function getBuuCuc(donviql_id){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=phieuhuys/ajax_get_buu_cuc.html&ma_tinh=${province}&donviql_id='+donviql_id,
+			success: function(data){ 
+				eval('data='+data);
+  				$.each(data, function(key, value) {   
+					 $('#mabc_id')
+						 .append($("<option name='ma_bc'></option>")
+						 .attr("value",key)
+						 .text(value)); 
+				});
+			}
+		});
+	}
+	$('#mabc_id').on('change', function() {
+		$("#quaythu_id option[name='quay_thu']").remove();
+		$("#nguoi_huy option[name='nguoihuy']").remove();
+		getQuayThu(this.value);
+	});
+	function getQuayThu(mabc_id){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=phieuhuys/ajax_get_quay_thu.html&ma_tinh=${province}&mabc_id='+mabc_id,
+			success: function(data){ 
+				eval('data='+data);
+  				$.each(data, function(key, value) {   
+					 $('#quaythu_id')
+						 .append($("<option name='quay_thu'></option>")
+						 .attr("value",key)
+						 .text(value)); 
+				});
+			}
+		});
+	}
+	$('#quaythu_id').on('change', function() {
+		$("#nguoi_huy option[name='nguoihuy']").remove();
+		getNguoiHuy(this.value);
+	});
+	function getNguoiHuy(quaythu_id){
+			$.ajax({
+			url: 'crud_exec.jsp?crud_type=phieuhuys/ajax_get_nguoi_huy.html&ma_tinh=${province}&ma_dvi='+$("#donviql_id").val()+'&ma_bc='+$("#mabc_id").val()+'&quaythu_id='+$("#quaythu_id").val(),
+			success: function(data){ 
+				eval('data='+data);
+  				$.each(data, function(key, value) {   
+					 $('#nguoi_huy')
+						 .append($("<option name='nguoihuy'></option>")
+						 .attr("value",key)
+						 .text(value)); 
+				});
+			}
+		});
+	}
+	$('#doSearch').click(function(){
+		$('#result').html('${n.i18n.crud_process_message}');
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=phieuhuys/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+			success: function(data){ 
+				eval('data='+data);
+				nor = data.NOR*1;
+				$('#data-list').html(data);
+				onStartSearch(data.NOR);
+			}
+		});
+	});
+
+	
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	//Ham nay tu dong duoc goi sau khi click vao cac so...:
+	function onGetData(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=phieuhuys/ajax_index.html'+getParams(page,record_per_page),
+			timeout: 1000,
+			success: function(data){ 
+				if(data!=''){
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+				if(nor==0 && data!=''){
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+		var exec='&record_per_page='+record_per_page+'&page_index='+page+'&tu_ngay='+$("#tungay").val()+'&den_ngay='+$("#denngay").val()+'&ma_cq_thu='+$("#donviql_id").val()+'&ma_bc='+$("#mabc_id").val()+'&quaythu_id='+$("#quaythu_id").val()+'&nguoi_huy='+$("#nguoi_huy").val()+'&ma_tinh=${province}';
+		return exec;
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+	function doExportReportPDF(){
+		var jfile;
+		if ("${province}"=="79TTT"){				
+				jfile = "report_phieuhuys_hcm";
+		} else{
+				jfile = "report_phieuhuys";
+		}
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		var s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=pdf&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&DON_VI="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&QUAYTHU_ID="+$('#quaythu_id').val()+"&NGUOI_HUY="+$('#nguoi_huy').val()+'&MA_TINH=${province}';
+		window.open(s_);
+	}
+	function doExportReportXLS(){
+		var jfile;
+		if ("${province}"=="79TTT"){				
+				jfile = "report_phieuhuys_hcm_excel";
+		} else{
+				jfile = "report_phieuhuys_excel";
+		}
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		var s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=xls&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&DON_VI="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&QUAYTHU_ID="+$('#quaythu_id').val()+"&NGUOI_HUY="+$('#nguoi_huy').val()+'&MA_TINH=${province}';
+		window.open(s_);
+	}
+
+</script>

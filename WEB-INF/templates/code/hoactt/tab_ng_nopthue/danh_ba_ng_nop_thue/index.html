@@ -1,0 +1,347 @@
+
+<table id="menu" class='table table-condensed'>
+<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label">${n.i18n.phieuhuys_mst}</td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst"><span id="msg_ma_st"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.hctt_ma_tinh}</td>
+		<td>
+			<select class="form-control" name="2_ma_tinh" id="2_ma_tinh" onclick="doGetMaCQT_QL()">
+				<option value="">Chọn tỉnh/thành phố</option>
+				#foreach ($i in $u.qry("get_ma_tinh","default",[],0) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select>
+			<span id="msg_ma_tinh"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="no_cuoi_ky_label">${n.i18n.hctt_debit}</td>
+		<td><input  type="text" class="form-control" name="3_no_cuoi_ky" id="3_no_cuoi_ky"><span id="msg_no_cuoi_ky"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kieu_no_label">${n.i18n.hctt_machuong}</td>
+		<td><!--<select class="form-control" name="5_ma_chuong" id="5_ma_chuong">
+				<option value="">Chọn chương</option>
+				#foreach ($i in $u.qry("get_ma_chuong","default",[],0) )
+               	<option value="$!i['ID']">$!i['ID'] || $!i['NAME']</option>
+                #end
+			</select>-->
+			<input  type="text" class="form-control" name="5_ma_chuong" id="5_ma_chuong">
+			<span id="msg_ma_chuong"></span>
+			<input  type="hidden" class="form-control" name="4_kieu_no" id="4_kieu_no" value="1">
+			<span id="msg_kieu_no"></span> 
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_tmuc_label">${n.i18n.hctt_mathumuc}</td>
+		<td><input  type="text" class="form-control" name="6_ma_tmuc" id="6_ma_tmuc">
+			<!--<select class="form-control" name="6_ma_tmuc" id="6_ma_tmuc">
+				<option value="">Chọn thư mục</option>
+				#foreach ($i in $u.qry("get_ma_tmuc","default",[],0) )
+               	<option value="$!i['ID']">$!i['ID'] . $!i['NAME']</option>
+                #end
+			</select>-->
+			<span id="msg_ma_tmuc"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.hctt_kythue}</td>
+		<td><select class="form-control" name="7_kythue" id="7_kythue">
+				<option value="">Chọn kỳ thuế</option>
+				#foreach ($i in $u.qry("get_kythue","default",[],0) )
+               	<option value="$!i['ID']">$!i['ID']</option>
+                #end
+			</select>
+			<span id="msg_kythue"></span>
+		</td>
+	</tr>
+	<tr style="display:none">
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_taikhoan_co_label"></td>
+		<td><input  type="hidden" class="form-control" name="8_so_taikhoan_co" id="8_so_taikhoan_co" value="711">
+			<span id="msg_so_taikhoan_co"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_qdinh_label">${n.i18n.hctt_soqd}</td>
+		<td><input  type="text" class="form-control" name="9_so_qdinh" id="9_so_qdinh">
+			<span id="msg_so_qdinh"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngay_qdinh_label">${n.i18n.hctt_ngayqd}</td>
+		<td><input  type="text" class="form-control" name="10_ngay_qdinh" id="10_ngay_qdinh">
+			<span id="msg_ngay_qdinh"></span>
+		</td>
+	</tr>
+	<tr style="display:none">
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="loai_tien_label"></td>
+		<td><input  type="hidden" class="form-control" name="11_loai_tien" id="11_loai_tien" value="VND">
+			<span id="msg_loai_tien"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ti_gia_label"></td>
+		<td><input  type="hidden" class="form-control" name="12_ti_gia" id="12_ti_gia">
+			<span id="msg_ti_gia"></span>
+		</td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_cq_thu_label">${n.i18n.hctt_ma_cqt_ql}</td>
+		<td><div id="load_ma_cqt_ql"></div>
+			<span id="msg_ma_cq_thu"></span>
+			<input  type="hidden" class="form-control" name="13_loai_thue" id="13_loai_thue" value="10">
+			<span id="msg_loai_thue"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="han_nop_label">${n.i18n.hctt_hannop}</td>
+		<td><input  type="text" class="form-control" name="15_han_nop" id="15_han_nop">
+			<span id="msg_han_nop"></span>
+		</td>
+	</tr>
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="magiao_unt_label">${n.i18n.hctt_ma_unt}</td>
+		<td><input  type="text" class="form-control" name="16_magiao_unt" id="16_magiao_unt">
+			<span id="msg_magiao_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="chuky_label">${n.i18n.hctt_chuky}</td>
+		<td>
+			<select class="form-control" name="17_chuky" id="17_chuky">
+				<option value="">Chọn chu kỳ </option>
+				#foreach ($i in $u.qry("get_chuky","default",[],0) )
+               	<option value="$!i['ID']">$!i['ID']</option>
+                #end
+			</select>
+			<span id="msg_chuky"></span>
+		</td>
+	</tr>
+	
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="sobk_unt_label">${n.i18n.hctt_sobk_unt}</td>
+		<td><input  type="text" class="form-control" name="18_sobk_unt" id="18_sobk_unt">
+			<span id="msg_sobk_unt"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ngaybk_unt_label">${n.i18n.hctt_ngaybk_unt}</td>
+		<td><input  type="text" class="form-control" name="19_ngaybk_unt" id="19_ngaybk_unt">
+			<span id="msg_ngaybk_unt"></span>
+		</td>
+	</tr>
+	
+		<tr id='control'>
+			<td colspan='4' align='center'><font id="result"></font>
+				<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			
+				<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+				<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+				<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+			</td>
+		</tr>
+</table>
+<section class="content"><div class="box box-primary">  
+	<div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+		<div id="div_page_section2" class="">
+		</div>
+	</div>
+</section>
+	<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	var record_per_page=20, page=1, nor=0;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	$(function(){
+		$('#doSearch').click(function(){
+		
+		
+		$('#10_ngay_qdinh').blur(function(){
+			if ($('#10_ngay_qdinh').val()=='' || patternValidate($('#10_ngay_qdinh'),'dd/mm/yyyy')){
+				$('#ngaybl_unt_msg').html('');
+				$('#ngaybl_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngaybl_unt_msg').html('${n.i18n.format_date}');
+				$('#ngaybl_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#15_han_nop').blur(function(){
+			if ($('#15_han_nop').val()=='' || patternValidate($('#15_han_nop'),'dd/mm/yyyy')){
+				$('#ngaybl_unt_msg').html('');
+				$('#ngaybl_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngaybl_unt_msg').html('${n.i18n.format_date}');
+				$('#ngaybl_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		
+		$('#19_ngaybk_unt').blur(function(){
+			if ($('#19_ngaybk_unt').val()=='' || patternValidate($('#19_ngaybk_unt'),'dd/mm/yyyy')){
+				$('#ngaybl_unt_msg').html('');
+				$('#ngaybl_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngaybl_unt_msg').html('${n.i18n.format_date}');
+				$('#ngaybl_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+				success: function(data){ 
+					eval('data='+data);
+					nor = data.NOR*1;
+					$('#data-list').html(data);
+					$('#result').html('');
+					onStartSearch(data.NOR);
+				}
+			});
+		});
+		$('#doSearch').click();
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/new.html';
+		});
+		$('#goEdit').click(function(){
+		//alert($(':radio:checked').parent().parent().children("[name='id']").text());
+		if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/edit.html&mst='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+			
+		});
+		$('#goDelete').click(function(){
+		if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/delete.html&mst='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		
+	});
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	//Ham nay tu dong duoc goi sau khi click vao cac so...:
+	function onGetData(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/ajax_index.html'+getParams(page,record_per_page),
+			timeout: 1000,
+			success: function(data){ 
+				if(data!=''){
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+				if(nor==0 && data!=''){
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+	var vma_tinh = $("#2_ma_tinh").val() == undefined ? '' : $("#2_ma_tinh").val().trim();
+	vma_tinh = vma_tinh.replace(/ /g, '%20');
+	
+	var vma_cqt_ql = $("#14_ma_cq_thu").val() == undefined ? '' : $("#14_ma_cq_thu").val().trim();
+	vma_cqt_ql = vma_cqt_ql.replace(/ /g, '%20');
+	
+	
+			var m2 = $("#5_ma_chuong").val();
+			var ten_ma_chuong= m2.substring(m2.lastIndexOf("-")+1); 
+			var split_ma_chuong = m2.split("-");
+			var ma_chuong = split_ma_chuong[0];
+			
+			var m3 = $("#6_ma_tmuc").val();
+			var ten_ma_tmuc= m3.substring(m3.lastIndexOf("-")+1); 
+			var split_ma_tmuc = m3.split("-");
+			var ma_tmuc = split_ma_tmuc[0];
+			
+		var exec='&record_per_page='+record_per_page+
+				'&page_index='+page
+				+'&mst='+$('#1_mst').val()
+				+'&ma_tinh='+vma_tinh
+				+'&no_cuoi_ky='+$('#3_no_cuoi_ky').val()
+				
+				//+'&kieu_no='+$('#4_kieu_no').val()
+				+'&ma_chuong='+ma_chuong
+				+'&ma_tmuc='+ma_tmuc
+				+'&kythue='+$('#7_kythue').val()
+				//+'&so_taikhoan_co='+$('#8_so_taikhoan_co').val()
+				
+				+'&so_qdinh='+$('#9_so_qdinh').val()
+				+'&ngay_qdinh='+$('#10_ngay_qdinh').val()
+				//+'&loai_tien='+$('#11_loai_tien').val()
+				//+'&ti_gia='+$('#12_ti_gia').val()
+				//+'&loai_thue='+$('#13_loai_thue').val()
+				
+				+'&ma_cq_thu='+vma_cqt_ql
+				+'&han_nop='+$('#15_han_nop').val()
+				+'&magiao_unt='+$('#16_magiao_unt').val()
+				+'&chuky='+$('#17_chuky').val()
+				+'&sobk_unt='+$('#18_sobk_unt').val()
+				+'&ngaybk_unt='+$('#19_ngaybk_unt').val();
+		return exec;
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+	/*-------------------------------------------------------------------------------------------*/
+	
+	function doGetMaCQT_QL(){
+		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_ma_cqt_ql_by_province.html&provin_id='+$("#2_ma_tinh").val(),success: function(data){ 
+				$("#load_ma_cqt_ql").html(data);
+			}
+		});
+	}
+	function doGetMachuong(){
+		var machuong=""; 
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_machuong.html',
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#5_ma_chuong').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+						$('#data-list').html('${n.i18n.crud_process_message}');
+ 						machuong = suggestion.data;
+ 						//$('#doSearch').click();
+					}
+				});
+			}
+		});
+
+	}
+	function doGetMa_Tmuc(){
+		var ma_tmuc=""; 
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/danh_ba_ng_nop_thue/get_ma_tmuc.html',
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#6_ma_tmuc').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+						$('#data-list').html('${n.i18n.crud_process_message}');
+ 						ma_tmuc = suggestion.data;
+ 						//$('#doSearch').click();
+					}
+				});
+			}
+		});
+
+	}
+	/*-------------------------------------------------------------------------------------------*/
+	$(document).ready(function(){
+	
+		
+		doGetMaCQT_QL();
+		doGetMachuong();
+		doGetMa_Tmuc();
+		
+		$('#10_ngay_qdinh').datepicker({format:"dd/mm/yyyy"});
+		$('#15_han_nop').datepicker({format:"dd/mm/yyyy"});
+		$('#19_ngaybk_unt').datepicker({format:"dd/mm/yyyy"});
+	
+	});
+</script>

@@ -1,0 +1,4 @@
+crud_new_user_status_service=begin ?:=crud.new_user_status(?,?,?,?);commit; end;
+crud_search_user_status_service=begin ?:= crud.search_user_status(?,?,?,?,?,?) ;end;
+crud_edit_user_status_service=begin ?:=crud.edit_user_status(?,?,?,?);commit; end;
+crud_delete_user_status_service=begin ?:=crud.del_user_status(?,?,?);commit; end;

@@ -1,0 +1,312 @@
+<style type="text/css">
+.modal {
+    display:	none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+ 
+}
+.center{
+        z-index: 1000;
+        margin: 200px auto;
+        width: 140px;
+        border-radius: 10px;
+        filter: alpha(opacity=100);
+        opacity: 1;
+        -moz-opacity: 1;
+}
+.center img {
+	height: 100px;
+	width: 100px;
+}
+ 
+body.loading {
+    overflow: hidden;   
+}
+ 
+body.loading .modal {
+    display: block;
+}
+
+</style>
+<div class="nav-tabs-custom">
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><b>Upload</b></a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab_1">
+         <div id="parent" style="overflow: hidden;" >
+            <section class="content-header">
+               <h1>
+               </h1>
+            </section> 
+            <div class ="box-body no-padding">
+               <div class = "col-md-8">
+                  <div  class ="box box box-primary" style="float: left;">
+                     <table id="upload" class='table table-condensed' >
+                        <tr>
+                           <th colspan='6'><b>${n.i18n.upload_title}</b></th>
+                        </tr>
+                        <tr>
+                           <td title="" id="id_label"><label for="ds_stb">File upload</label></td>
+                           <form id="uploadForm"  target="iframe">
+                              <td>
+                                 <input type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control" name="file_upload" id="file_upload"  onchange="checkCondition();">
+                                 <span id="file_msg"><font color="#dbd3c4">${n.i18n.format_file}</font></span>
+                              </td>
+                           </form>
+                        </tr>
+						<td><b>Kiểu upload</b></td>
+						<td>
+							<select name= "upload_type" id = "upload_type" class="form-control">
+							<option value="">Không chọn</option>
+							<option value="1">Upload nhân viên mới</option>
+							<option value="2">Cập nhật nhân viên đã tồn tại</option>
+							</select>
+						</td>
+						</tr>
+                        <tr>
+                           <td><b>Sheet dữ liệu trong Excel</b></td>
+                           <td><input type="text" class="form-control" id="sheet_dl"  value="1"  /></td>
+                        </tr>
+                        <tr id='control'>
+                           <td colspan='4' align='center'><font id="result"></font>
+                              <button  disabled name="btn_upload" id="btn_upload" class="btn btn-primary" onclick="submit_upload()"><i class="fa fa-upload" aria-hidden="true"></i> ${n.i18n.do_upload}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button disabled  class="btn btn-primary" name="btn_insert_data" id="btn_insert_data" onclick ="insertData();"><i class="fa fa-plus-square"></i> ${n.i18n.inser_data}</button>&nbsp;
+                           </td>
+                        </tr>
+                     </table>
+                     <span ><font color ="#ff3333">(*)Lưu ý:  File upload chứa 11 trường dữ liệu</font></span> 
+                     <iframe id="iframe" name ="iframe" width ="0" height="0" frameborder="0"></iframe>
+                  </div>
+               </div>
+               <div class = "col-md-4">
+                  <div id = "log_msg" style="float: right;"> </div>
+               </div>
+            </div>
+         </div>
+         <div class="box box box-primary">
+            <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto">
+               <div id="r_parent" style="overflow: hidden;" >
+                  <div  style="width: 47%;float: left;">
+                     <div id="pageinfoL"></div>
+                     <div id="left">		
+                     </div>
+                  </div>
+                  <div style="width: 47%;float: right;" >
+                     <div id="pageinfoR"></div>
+                     <div id="right"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal" style="display: none">
+   <div class="center">
+       <img alt="" src="style/img/loading_2.gif" />
+   </div>
+</div>
+<script type="text/javascript">
+	//upload file from local to server	
+	var form = $('#uploadForm');
+	function submit_upload(){		
+		if ($('#file_upload').val() == '') {
+			alert('Vui lòng chọn tệp!');
+			return;
+		}
+		if ($('#sheet_dl').val() == '') {
+			alert('Vui lòng chọn sheet dữ liệu!');
+			return;
+		}
+		
+		if ($('#upload_type').val() == '') {
+			alert('Vui lòng chọn kiểu upload!');
+			return;
+		}
+		
+		var formData = new FormData();
+		var file = $('#file_upload')[0].files[0];
+		var fullPath = document.getElementById('file_upload').value;
+		formData.append("sheet_numb", $("#sheet_dl").val());
+		formData.append("ma_tinh", "${province}");
+		formData.append("user", "$!{request.userPrincipal.name}");
+		formData.append("user_ip", "$!{request.RemoteAddr}");
+		//formData.append("upload_type",$("#upload_type").val());
+		formData.append("file_attach", file);
+		var u = 'nhanvien_tcs/upload_process_nvnew.jsp';
+		$("#btn_upload").prop("disabled",true);
+		$(".modal").show();
+		$.ajax({
+			type : "POST",
+			url : u,
+			cache : false,
+			enctype : 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function (data) {
+				eval('data=' + data);
+				if (data.RESULT == "OK") {
+					$('#log_msg').html(data.VALUE);
+					$("#btn_upload").prop("disabled",true);
+					$("#btn_insert_data").prop("disabled",false);
+					UpdateLog();
+					$(".modal").hide();
+				}else{
+					$(".modal").hide();
+					alert(data.VALUE);
+				}
+				$('#pageinfoL,#pageinfoR,#left,#right').html("");
+			},
+			error : function (jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			}
+		});
+	}
+	//kiem tra file da load
+	function checkCondition(){
+		var input = document.getElementById("file_upload");
+		if(input.value != ""){
+			$("#btn_upload").prop("disabled",false);
+			$("#btn_insert_data").prop("disabled",true);
+		}else{
+			$("#btn_upload,#btn_insert_data").prop("disabled",true);
+		}
+	}
+	
+	function getDataR(pageNum,pageRec){
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/data_fail.html&table_name=UPLOAD_NHANVIENTCS_TEMP&record_per_page='+pageRec+'&page_index='+pageNum+'&t_id='+$('#seq').text()+'&province=${province}',
+			cache: false,
+			success : function(data){
+				$('#right').html(data);
+				setPage(pageNum,$("#page").html());
+			}
+		});
+	}	
+	
+	function getDataL(pageNum,pageRec){
+		
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/data_success.html&table_name=UPLOAD_NHANVIENTCS_TEMP&record_per_page='+pageRec+'&page_index='+pageNum+'&t_id='+$('#seq').text()+'&province=${province}',
+			cache: false,
+			success : function(data){
+				$('#left').html(data);
+				setPage1(pageNum,$("#page1").html());
+			}
+		});
+	}
+	
+	function UpdateLog(){
+		$.ajax({
+			type : 'post',
+			async : false,
+			url	: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/import.html&t_id='+$('#seq').text()+'&type='+$("#upload_type").val()+'&province=${province}',
+			complete : function(data){
+				if(data.statusText == "OK"){
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/PageRecL.html',
+						success: function(data){ 					
+							$('#pageinfoL').html(data);
+							getDataL(1,$("#cboSetPageRec1").val());			
+							$.ajax({
+								url: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/PageRec.html',
+								success: function(data){ 					
+									$('#pageinfoR').html(data);
+									getDataR(1,$("#cboSetPageRec").val());	
+								}
+							});
+						}
+					});
+					
+					//goi 2 ajax de call note 
+					//$.ajax({
+						//url: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/note_value.html&ma_tinh=${province}&t_id='+$('#seq').text()+'&input=1',
+						//success: function(data){ 					
+					//		$('#inserted_records').html(data);
+					//	}
+					//});
+					
+					//$.ajax({
+					//	url: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/note_value.html&ma_tinh=${province}&t_id='+$('#seq').text()+'&table_name=UPLOAD_NHANVIENTCS_TEMP',
+					//	success: function(data){ 					
+					//		$('#failed_records').html(data);
+					//	}
+					//});
+				}
+			}
+		});
+	}
+	
+	function insertData(){
+		//them phan insert vao day
+		if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+		//alert("Insert thành công");
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=nhanvien_tcs/upload_nv/log.html&table_name=UPLOAD_NHANVIENTCS_TEMP&t_id='+$('#seq').text()+'&type='+$("#upload_type").val()+'&province=${province}',
+			success : function(data){
+				$('#log_msg').html(data);
+				if($("#inserted_records").text() > 0){
+					alert("Insert thành công");
+				}
+				else{
+					alert("Insert thất bại. Lỗi "+ $("#inserted_records").text());
+				}
+			}
+		});
+				
+		//&table_name=UPLOAD_NHANVIENTCS_TEMP&record_per_page=10&page_index=1
+		document.getElementById("file_upload").value = "";
+		document.getElementById("sheet_dl").value = "1";
+		document.getElementById("co_quan").value = "";
+		document.getElementById("upload_type").value = "";
+		$("#btn_upload").prop("disabled",true);
+		$("#btn_insert_data").prop("disabled",true);
+	}
+	
+	$(function(){
+		//transparent border-top cho main tag
+		$(".box.box-primary").attr("id","id_main");
+		$("#id_main").css("border-top","transparent");
+		//$("#co_quan").chosen({ width : "100%"});
+		
+		/*Cac chuc nang cho tab 1 */
+		//khi da upload tc thi cap nhat cac button
+		$("form").on('DOMSubtreeModified', "span", function () {
+			var res = "${n.i18n.upload_file_sucess}";
+			var temp =  $(this).text();
+			if(temp == res){
+				$("#btn_upload").prop("disabled",true);
+				$("#btn_insert_data").prop("disabled",false);
+			}
+		});
+		//khi change value thi cap nhat cac button
+		$("#upload_type,#sheet_dl,#co_quan").on("change",function(){
+			var sheet_value = $('#sheet_dl').val();
+			if($("#upload_type").val() != "" && $("#co_quan").val() != "" && $("#file_upload").val() != ""  && sheet_value != 0){
+				$("#btn_upload").prop("disabled",false);
+			} else 
+			if($("#upload_type").val() == "" || $("#co_quan").val() == ""){
+				$("#btn_upload").prop("disabled",true);
+			}
+			$("#btn_insert_data").prop("disabled",true);
+		});
+		
+		$("#pageinfoL").on('DOMSubtreeModified', "#ds_pages1", function () {
+			if(typeof  $('#total1').text() !== 'undefined' &&  typeof  $('#ds_pages1').text() !== 'undefined'){
+				a =  parseInt($('#total1').text()) * parseInt($('#ds_pages1').text());
+				if( a == 0){
+					$("#btn_insert_data").prop("disabled",true);
+					alert("Bạn không thể insert vì không có bản ghi nào thỏa mãn");
+				}
+			}
+		});
+		
+	});
+</script>

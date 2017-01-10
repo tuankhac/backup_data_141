@@ -1,0 +1,11 @@
+##lay gia tri cua so ban ghi dk va khong dk
+
+#set($input = $!{input})
+#set($value = $u.qry("get_ban_ghi_ok_fail","default",["$!{ma_tinh}","$!{t_id}"],2)[0])
+#set($value_ok = $value['C1'])
+#set($value_fail = $value['C2'])
+#if ($input == 1)
+	$value_ok
+#else
+	$value_fail
+#end

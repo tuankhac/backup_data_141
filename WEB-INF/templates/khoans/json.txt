@@ -1,0 +1,4 @@
+crud_new_khoans_service=begin ?:=crud.new_khoans(?,?,?,?,?,?,?);commit; end;
+crud_search_khoans_service=begin ?:= crud.search_khoans(?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_khoans_service=begin ?:=crud.edit_khoans(?,?,?,?,?,?,?);commit; end;
+crud_delete_khoans_service=begin ?:=crud.del_khoans(?,?,?);commit; end;

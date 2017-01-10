@@ -1,0 +1,3 @@
+provinces_id=Id
+provinces_province_name=Province_Name
+provinces_country_id=Country_Id

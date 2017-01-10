@@ -1,0 +1,101 @@
+<table id="nganhangs" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.nganhangs_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="maso_label">${n.i18n.nganhangs_maso}</td>
+		<td>
+			<input  type="text" class="form-control" name="maso" id="maso"><span id="maso_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="ten_label">${n.i18n.nganhangs_ten}</td>
+		<td>
+			<input  type="text" class="form-control" name="ten" id="ten"><span id="ten_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="diachi_label">${n.i18n.nganhangs_diachi}</td>
+		<td>
+			<input  type="text" class="form-control" name="diachi" id="diachi"><span id="diachi_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="taikhoan_label">${n.i18n.nganhangs_taikhoan}</td>
+		<td>
+			<input  type="text" class="form-control" name="taikhoan" id="taikhoan"><span id="taikhoan_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="dienthoai_label">${n.i18n.nganhangs_dienthoai}</td>
+		<td>
+			<input  type="text" class="form-control" name="dienthoai" id="dienthoai"><span id="dienthoai_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="sofax_label">${n.i18n.nganhangs_sofax}</td>
+		<td>
+			<input  type="text" class="form-control" name="sofax" id="sofax"><span id="sofax_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="lanhdao_label">${n.i18n.nganhangs_lanhdao}</td>
+		<td>
+			<input  type="text" class="form-control" name="lanhdao" id="lanhdao"><span id="lanhdao_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.nganhangs_ma_tinh}</td>
+		<td>
+			<select class="form-control" name="ma_tinh" id="ma_tinh">
+				#foreach ($i in $u.qry("crud_search_nganhang_ma_tinh_service","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span></td>
+		<td></td><td></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<div id="pageinfo"></div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);	
+					getData(1,$('#cboSetPageRec').val());
+								
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=nganhangs/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&id='+$('#id').val()+'&maso='+$('#maso').val()+'&ten='+$('#ten').val()+'&diachi='+$('#diachi').val()+'&taikhoan='+$('#taikhoan').val()+'&dienthoai='+$('#dienthoai').val()+'&sofax='+$('#sofax').val()+'&lanhdao='+$('#lanhdao').val()+'&ma_tinh='+$('#ma_tinh').val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+	};
+
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());
+		});
+	$('#doSearch').click();
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=nganhangs/new.html';
+		});
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nganhangs/edit.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nganhangs/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

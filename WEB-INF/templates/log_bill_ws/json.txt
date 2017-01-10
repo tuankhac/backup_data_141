@@ -1,0 +1,4 @@
+crud_new_log_bill_ws_service=begin ?:=crud.new_log_bill_ws(?,?);commit; end;
+crud_search_log_bill_ws_service=begin ?:= crud.search_log_bill_ws(?,?,?,?) ;end;
+crud_edit_log_bill_ws_service=begin ?:=crud.edit_log_bill_ws(?,?);commit; end;
+crud_delete_log_bill_ws_service=begin ?:=crud.del_log_bill_ws(?,?,?);commit; end;

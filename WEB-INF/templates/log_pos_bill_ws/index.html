@@ -1,0 +1,50 @@
+<div class="nav-tabs-custom">
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><b>LOG POS</b></a></li>
+      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false"><b>LOG BILL WS</b></a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab_1">
+		<section class="content-header"><h1></h1></section> 
+         <div class="box-body no-padding">
+			<div id ="data_list_log_pos"></div>
+         </div>
+      </div>
+	 <!-- tab pane ---------------------tab2	--> 
+	  <div class="tab-pane" id="tab_2">
+		<section class="content-header"><h1></h1></section> 
+		<div class ="box-body no-padding">
+			<div id ="data_list_log_bill_ws"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	//upload file from local to server	
+	$(function(){
+	});
+	var isFirst = true;
+	$(document).ready(function(){
+		//transparent border-top cho main tag
+		$(".box.box-primary").attr("id","id_main");
+		$("#id_main").css("border-top","transparent");
+		$.ajax({
+			url: "crud_exec.jsp?crud_type=log_pos/index.html&province=$!{province}",
+			success: function(data){ 				
+				$('#data_list_log_pos').html(data);		
+				
+			}
+		});
+		
+		 $('li').click(function(){
+			if(isFirst){
+			 $.ajax({
+					url: "crud_exec.jsp?crud_type=log_bill_ws/index.html&province=$!{province}",
+					success: function(data){ 				
+						$('#data_list_log_bill_ws').html(data);													
+					}
+				});
+				isFirst = false;
+			}
+		 });
+	});
+</script>

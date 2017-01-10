@@ -1,0 +1,4 @@
+crud_new_phieu_q42015_service=begin ?:=crud.new_phieu_q42015(?,?,?,?,?,?,?,?,?);commit; end;
+crud_search_phieu_q42015_service=begin ?:= crud.search_phieu_q42015(?,?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_phieu_q42015_service=begin ?:=crud.edit_phieu_q42015(?,?,?,?,?,?,?,?,?);commit; end;
+crud_delete_phieu_q42015_service=begin ?:=crud.del_phieu_q42015(?,?,?);commit; end;

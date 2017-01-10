@@ -1,0 +1,3 @@
+#set ($list = $u.qry("chuyentuyens_ten_diachi_theo_mst","default",["${mst}" ],1))
+#set ($i = $list[0] )
+{"NAME":"$!i['NAME']", "DIACHI":"$!i['DIACHI']", "MA_NV":"$!i['MA_NV']" }

@@ -1,0 +1,5 @@
+#set ($list = $u.qry("get_ma_cqt_ql_by_province","default",["$!{ma_tinh}"],1) )
+#set ($k = 0 )
+{#foreach ($i in $list )
+	<option value="$!i['ID']">$!i['NAME']</option>
+#end}

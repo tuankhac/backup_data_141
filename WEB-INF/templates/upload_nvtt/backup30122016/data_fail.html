@@ -1,0 +1,21 @@
+#set ($countRecords = $u.val("get_count_records","default",["$!{table_name}","0","$!{t_id}","$!{province}","0"],5))
+<h4>${n.i18n.result_2}</h4>
+<table width="100%" class='table table-condensed table-striped table-bordered' id="fail_data">
+   <tr>
+      <th align=center>MST</th>
+      <th align=center>MA_NV</th>
+      <th align=center>LOG MESSAGE</th>
+   </tr>
+   #set ($list =$u.ref("get_records_table","default",["$!{table_name}","0","$!{t_id}","$!{record_per_page}","$!{page_index}","${province}","0"],7) )
+   #foreach ($i in $list)
+   <tr>
+      <td align=left name='mst'>$!i["MST"]</td>
+      <td align=left name='ma_nv'>$!i["MA_NV"]</td>
+      <td align=left name='log_msg'>$!i["LOG_MSG"]</td>
+   </tr>
+   #end
+</table>
+<script>
+	$("#total").html($countRecords);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+</script>

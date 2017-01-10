@@ -1,0 +1,4 @@
+crud_new_chukynos_service=begin ?:=crud.new_chukynos(?,?,?,?,?,?);commit; end;
+crud_search_chukynos_service=begin ?:= crud.search_chukynos(?,?,?,?,?,?,?,?) ;end;
+crud_edit_chukynos_service=begin ?:=crud.edit_chukynos(?,?,?,?,?,?);commit; end;
+crud_delete_chukynos_service=begin ?:=crud.del_chukynos(?,?,?);commit; end;

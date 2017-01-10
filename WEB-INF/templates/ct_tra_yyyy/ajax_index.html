@@ -1,0 +1,46 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_mst}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_ten_nnt}</th>
+		<!--th align=center>${n.i18n.ct_tra_yyyy_mota_diachi}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_ma_cq_thu}</th-->
+		<th align=center>${n.i18n.ct_tra_yyyy_kythue}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_chuky}</th>
+		<!--th align=center>${n.i18n.ct_tra_yyyy_ma_chuong}</th-->
+		<th align=center>${n.i18n.ct_tra_yyyy_ma_tmuc}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_tientra}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_nguoigachno_id}</th>
+		<th align=center>${n.i18n.ct_tra_yyyy_id}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_ct_tra_yyyy_service","default",["$!{ma_tinh}","$!{mst}","$!{ten_nnt}","$!{mota_diachi}","$!{ma_cq_thu}","$!{kythue}","$!{chuky}","$!{ma_chuong}","$!{ma_tmuc}","$!{tientra}","$!{nguoigachno_id}","$!{id}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="ct_tra_yyyy_rad"></td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<!--td align=left name='mota_diachi'>$!i["MOTA_DIACHI"]</td>
+		<td align=left name='ma_cq_thu'>$!i["MA_CQ_THU"]</td-->
+		<td align=left name='kythue'>$!i["KYTHUE"]</td>
+		<td align=left name='chuky'>$!i["CHUKY"]</td>
+		<!--td align=left name='ma_chuong'>$!i["MA_CHUONG"]</td-->
+		<td align=left name='ma_tmuc'>$!i["MA_TMUC"]</td>
+		<td align=center name='tientra'>$!i["TIENTRA"]</td>
+		<td align=left name='nguoigachno_id'>$!i["NGUOIGACHNO_ID"]</td>
+		<td align=center name='id'>$!i["ID"]</td>
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_ct_tra_yyyy_service","default",["$!{ma_tinh}","$!{mst}","$!{ten_nnt}","$!{mota_diachi}","$!{ma_cq_thu}","$!{kythue}","$!{chuky}","$!{ma_chuong}","$!{ma_tmuc}","$!{tientra}","$!{nguoigachno_id}","$!{id}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],17) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+
+<script>
+var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+	$('#ajax_ct_tra_yyyy :radio').change(function(){	
+		$('#ajax_ct_tra_yyyy :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

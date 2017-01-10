@@ -1,0 +1,28 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.donvi_qls_id}</th>
+		<th align=center>${n.i18n.donvi_qls_ma_tinh}</th>
+		<th align=center>${n.i18n.donvi_qls_ten_dv}</th>
+		<th align=center>${n.i18n.donvi_qls_tel}</th>
+		<th align=center>${n.i18n.donvi_qls_fax}</th>
+		<th align=center>${n.i18n.donvi_qls_notes}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_donvi_qls_service","default",["$!{id}","$!{ma_tinh}","$!{ten_dv}","$!{tel}","$!{fax}","$!{notes}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],10) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="donvi_qls_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='ma_tinh'>$!i["MA_TINH"]</td>
+		<td align=left name='ten_dv'>$!i["TEN_DV"]</td>
+		<td align=left name='tel'>$!i["TEL"]</td>
+		<td align=left name='fax'>$!i["FAX"]</td>
+		<td align=left name='notes'>$!i["NOTES"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_donvi_qls :radio').change(function(){	
+		$('#ajax_donvi_qls :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

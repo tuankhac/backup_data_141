@@ -1,0 +1,51 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;<input type="checkbox" name="select_all" value="1" id="ckbCheckAll"></th>
+		<th align=center>${n.i18n.phieuhuys_mst}</th>
+		<th align=center>${n.i18n.hctt_name}</th>
+        <th align=center>${n.i18n.inOffline_dia_chi}</th>
+        <th align=center>${n.i18n.inoffline_chuky}</th>   	
+        <th align=center>${n.i18n.nnts_con_no}</th>
+        <th align=center></th>		
+	</tr>
+#set ($list = $u.ref("get_receipt_pay","default",["$!{ma_nv}","$!{mathue}","$!{tieumuc}","$!{chuky}","$!{kyhieu}","$!{seri}","$!{param.province}","1","${page_index}","${record_per_page}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center>#if ($!i["TRANG_THAI"]==0)<input type="checkbox" id='$!i["MST"]_$!i["KYTHUE"]' name="nnts_rad" onclick="tong_tien()" class="checkBoxClass" value='$!i["MST"]/$!i["KYTHUE"]' >#end</td>
+		<td align=center>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+        <td align=left name='mota_diachi'>$!i["MOTA_DIACHI"]</td>
+        <td align=left name='kythue'>$!i["KYTHUE"]<input type="hidden" id='f$!i["MST"]_$!i["KYTHUE"]' value='$!i["MST"],$!i["KYTHUE"]' /></td>       		
+		<td align="right" name='ngay_qdinh'><input readonly="readonly" type="text" class="form-control" name="tien_tra" value='$!i["NOCUOI"]' id='i$!i["MST"]_$!i["KYTHUE"]' ></td>
+        <td width="3%">#if ($!i["TRANG_THAI"]==1)<a class="fa fa-check-square-o" href="#" title="Đã thanh toán"></a> #elseif ($!i["DEM"]==1)<small class="label label-danger"> <a href="#" title="Đã thanh toán bằng hình thức khác"><font style="color:#FFF"> X </font></a> </small>#end</td>
+        
+	</tr>
+#end
+</table>
+<script>
+$('input[name="nnts_rad"]').change(function(){	
+		$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+	}); 
+	
+
+    $("#ckbCheckAll").change(function(){
+    	$(".checkBoxClass").prop('checked', $(this).prop("checked"));
+    	
+    	$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+		
+		tong_tien();
+    });		
+</script>
+

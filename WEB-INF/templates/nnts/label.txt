@@ -1,0 +1,13 @@
+nnts_mst=Mst
+nnts_ten_nnt=Ten_Nnt
+nnts_loai_nnt=Loai_Nnt
+nnts_so=So
+nnts_chuong=Chuong
+nnts_ma_cqt_ql=Ma_Cqt_Ql
+nnts_mota_diachi=Mota_Diachi
+nnts_ma_tinh=Ma_Tinh
+nnts_ma_huyen=Ma_Huyen
+nnts_ma_xa=Ma_Xa
+nnts_mobile=Mobile
+nnts_email=Email
+nnts_ma_nv=Ma_Nv

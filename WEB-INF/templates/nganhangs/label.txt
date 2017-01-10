@@ -1,0 +1,9 @@
+nganhangs_id=Id
+nganhangs_maso=Maso
+nganhangs_ten=Ten
+nganhangs_diachi=Diachi
+nganhangs_taikhoan=Taikhoan
+nganhangs_dienthoai=Dienthoai
+nganhangs_sofax=Sofax
+nganhangs_lanhdao=Lanhdao
+nganhangs_ma_tinh=Ma_Tinh

@@ -1,0 +1,35 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>STT</th>
+ 		<th align=center>${n.i18n.phieuhuys_mst}</th>
+		<th align=center>${n.i18n.phieuhuys_ma_tmuc}</th>
+		<th align=center>${n.i18n.phieuhuys_httt_id}</th>
+		<th align=center>${n.i18n.phieuhuys_ngay_tt}</th>
+		
+		<th align=center>${n.i18n.phieuhuys_ngay_huy}</th>
+ 
+	</tr>
+ 
+#set ($list = $u.ref("crud_search_phieuhuys_service","default",["$!{ma_tinh}","$!{tu_ngay}","$!{den_ngay}","$!{ma_cq_thu}","$!{ma_bc}","$!{quaythu_id}","$!{nguoi_huy}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],11) )
+#foreach ($i in $list)
+	<tr>
+		<td align=center name='stt'>$!i["STT"]</td>
+ 		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='tentieumuc'>$!i["TENTIEUMUC"]</td>
+		<td align=center name='httt_id'>$!i["HTTT_NAME"]</td>
+		<td align=center name='ngay_tt'>$!i["NGAY_TT"]</td>
+		
+		<td align=center name='ngay_huy'>$!i["NGAY_HUY"]</td>
+ 
+	</tr>
+#end
+</table>
+<script>
+	var count = 0;
+	var page_ = "$!{page_index}";
+	var record_ = (record_per_page*(page_-1));
+ 	$('td[name="stt"]').each(function(){	
+		count=count+1 ;
+		$(this).html(record_+count);
+	});
+</script>

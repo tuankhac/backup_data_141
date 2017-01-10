@@ -1,0 +1,4 @@
+crud_new_districts_service=begin ?:=crud.new_districts(?,?,?,?,?);commit; end;
+crud_search_districts_service=begin ?:= crud.search_districts(?,?,?,?,?,?,?) ;end;
+crud_edit_districts_service=begin ?:=crud.edit_districts(?,?,?,?,?);commit; end;
+crud_delete_districts_service=begin ?:=crud.del_districts(?,?,?);commit; end;

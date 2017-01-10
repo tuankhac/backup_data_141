@@ -1,0 +1,34 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.user_info_id}</th>
+		<th align=center>${n.i18n.user_info_first_name}</th>
+		<th align=center>${n.i18n.user_info_last_name}</th>
+		<th align=center>${n.i18n.user_info_mobile}</th>
+		<th align=center>Staff</th>
+		<th align=center>${n.i18n.user_info_email}</th>
+		<th align=center>Serial Pos</th>
+		<th align=center>Serial Card</th>
+		<th align=center>${n.i18n.user_info_status_id}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_user_info_service","default",["$!{id}","$!{password}","$!{first_name}","$!{last_name}","$!{mobile}","$!{department}","$!{email}","$!{gender}","$!{status_id}","$!{staff}","$!{created_date}","$!{modified_date}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],16) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="user_info_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='first_name'>$!i["FIRST_NAME"]</td>
+		<td align=left name='last_name'>$!i["LAST_NAME"]</td>
+		<td align=left name='mobile'>$!i["MOBILE"]</td>
+		<td align=left name='department'>$!i["STAFF"]</td>
+		<td align=left name='email'>$!i["EMAIL"]</td>
+		<td align=center name='serial_pos'>$!i["SERIAL_POS"]</td>
+		<td align=center name='serial_card'>$!i["SERIAL_CARD"]</td>
+		<td align=left name='status_id'>$!i["STATUS_ID"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_user_info :radio').change(function(){	
+		$('#ajax_user_info :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

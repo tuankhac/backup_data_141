@@ -1,0 +1,115 @@
+<table id="bangphieutra_q42015" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.bangphieutra_timkiem.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.bangphieutra_q42015_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="" id="ma_tinh_label">${n.i18n.bangphieutra_q42015_quaythu_id}<font>*</font></td>
+		<td>
+        	<select class="form-control" name="quaythu_id" id="quaythu_id">
+            	<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("danh_sach_quaythu","default",["${province}"],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="quaythu_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.bangphieutra_q42015_mst}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_bc_label">${n.i18n.bangphieutra_q42015_ma_bc}<font>*</font></td>
+		<td>
+			<select class="form-control" name="ma_bc" id="ma_bc">
+            	<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("danh_sach_buu_cuc_thu","default",["${province}"],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="ma_bc_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="httt_id_label">${n.i18n.bangphieutra_q42015_httt_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="httt_id" id="httt_id"><span id="httt_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="nguoigachno_id_label">${n.i18n.bangphieutra_q42015_nguoigachno_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="nguoigachno_id" id="nguoigachno_id"><span id="nguoigachno_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_tt_label">${n.i18n.bangphieutra_q42015_ngay_tt}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_tt" id="ngay_tt"><span id="ngay_tt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_thuc_label">${n.i18n.bangphieutra_q42015_ngay_thuc}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_thuc" id="ngay_thuc"><span id="ngay_thuc_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> Xem chi tiết và thực hiện xóa phiếu &gt;</button>&nbsp;
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<script type="text/javascript">
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=bangphieutra/ajax_index.html&record_per_page=500&page_index=1'+'&id='+$('#id').val()+'&ma_tinh=${province}&mst='+$('#mst').val()+'&ma_bc='+$('#ma_bc').val()+'&httt_id='+$('#httt_id').val()+'&nguoigachno_id='+$('#nguoigachno_id').val()+'&ngay_tt='+$('#ngay_tt').val()+'&ngay_thuc='+$('#ngay_thuc').val()+'&quaythu_id='+$('#quaythu_id').val(),
+				success: function(data){ 
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+			});
+		});
+	$('#doSearch').click();
+		$('#goDelete').click(function(){
+			var type = "$!{type}";
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud_popup.jsp?crud_type=bangphieutra/delete.html&type='+type+'&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.bangphieutra_q42015_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#httt_id').blur(function(){
+			if ($('#httt_id').val()*1==$('#httt_id').val()){
+				$('#httt_id_msg').html('');
+				$('#httt_id_msg').attr('style','display:none');
+			}else{
+				$('#httt_id_msg').html('${n.i18n.bangphieutra_q42015_httt_id} ${n.i18n.crud_is_number_message}');
+				$('#httt_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_tt').blur(function(){
+			if ($('#ngay_tt').val()=='' || patternValidate($('#ngay_tt'),'dd/mm/yyyy')){
+				$('#ngay_tt_msg').html('');
+				$('#ngay_tt_msg').attr('style','display:none');
+			}else{
+				$('#ngay_tt_msg').html('${n.i18n.bangphieutra_q42015_ngay_tt} dạng dd/mm/yyyy');
+				$('#ngay_tt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_thuc').blur(function(){
+			if ($('#ngay_thuc').val()=='' || patternValidate($('#ngay_thuc'),'dd/mm/yyyy')){
+				$('#ngay_thuc_msg').html('');
+				$('#ngay_thuc_msg').attr('style','display:none');
+			}else{
+				$('#ngay_thuc_msg').html('${n.i18n.bangphieutra_q42015_ngay_thuc} dạng dd/mm/yyyy');
+				$('#ngay_thuc_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_tt').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_thuc').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

@@ -1,0 +1,7 @@
+#set ($list = $u.qry("ketquaphats_search_user_id_service","default",["${ma_tinh}","${ma_dvi}","${ma_bc}","${quaythu_id}"],4) )
+#set ($k = 0 )
+{
+#foreach ($i in $list )
+	#if ($k!=0),#end "$!i['ID']":"$!i['LAST_NAME']"
+	#set ($k=$k+1)
+#end}

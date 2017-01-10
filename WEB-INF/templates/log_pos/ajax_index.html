@@ -1,0 +1,33 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th style = "text-align:center;">${n.i18n.log_pos_id}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_content}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_taxcode}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_order_id}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_type_card}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_log_date}</th>
+		<th style = "text-align:center;">${n.i18n.log_pos_loguser}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_log_pos_service","default",["$!{id}","$!{content}","$!{taxcode}","$!{order_id}","$!{type_card}","$!{log_date}","$!{loguser}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}","$!{table}","$!{province}","1"],14) )
+#foreach ($i in $list)
+	<tr>
+		<td>$!i["ID"]</td>
+		<td>$!i["CONTENT"]</td>
+		<td>$!i["TAXCODE"]</td>
+		<td>$!i["ORDER_ID"]</td>
+		<td>$!i["TYPE_CARD"]</td>
+		<td>$!i["LOGDATE"]</td>
+		<td>$!i["LOGUSER"]</td>
+	</tr>
+#end
+</table>
+#set ($lis = $u.ref("crud_search_log_pos_service","default",["$!{id}","$!{content}","$!{taxcode}","$!{order_id}","$!{type_card}","$!{log_date}","$!{loguser}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}","$!{table}","$!{province}","2"],14) )
+#foreach ($i in $lis)
+	#set ($val_page = $!i["RECORD"])
+#end
+<script>
+	var total_ = $!{val_page};
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+	
+</script>

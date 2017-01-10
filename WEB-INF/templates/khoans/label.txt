@@ -1,0 +1,5 @@
+khoans_id=Id
+khoans_tenkhoan=Tenkhoan
+khoans_ma_loai=Ma_Loai
+khoans_hieu_luc_tu=Hieu_Luc_Tu
+khoans_hieu_luc_den=Hieu_Luc_Den

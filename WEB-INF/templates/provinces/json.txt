@@ -1,0 +1,4 @@
+crud_new_provinces_service=begin ?:=crud.new_provinces(?,?,?,?,?);commit; end;
+crud_search_provinces_service=begin ?:= crud.search_provinces(?,?,?,?,?,?,?) ;end;
+crud_edit_provinces_service=begin ?:=crud.edit_provinces(?,?,?,?,?);commit; end;
+crud_delete_provinces_service=begin ?:=crud.del_provinces(?,?,?);commit; end;

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table table-striped">
+      <thead>     
+        <tr>
+          <th>${n.i18n.crud_info_no_cuoi_ky}</th>
+          <th>${n.i18n.thongtin_kythue}</th>
+          <th>${n.i18n.crud_info_chuong}</th>
+          <!--th>${n.i18n.crud_info_muc}</th-->
+          <th>${n.i18n.crud_info_da_tra}</th>     
+        </tr>
+      </thead>
+      <tbody>
+		#set ($list = $u.ref("crud_search_ct_no_kythue_service","default",["$!{mst}","$!{ma_tinh}",""],3) )
+		#foreach ($i in $list)
+			<tr>
+				<td align=left name='no_cuoi_ky'>$!i["NO_CUOI_KY"]</td>
+				<td align=left name='kythue'>$!i["KYTHUE"]</td>
+				<td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td>
+				<!--td align=left name='ma_tmuc'>$!i["TENTIEUMUC"]</td-->
+				<td align=left name='da_tra'>$!i["TIEN_TRA"]</td>
+			</tr>
+		#end
+      </tbody>
+    </table>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+

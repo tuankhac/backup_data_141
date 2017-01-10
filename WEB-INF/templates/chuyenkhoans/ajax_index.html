@@ -1,0 +1,32 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.chuyenkhoans_mst}</th>
+		<th align=center>${n.i18n.chuyenkhoans_sophieu}</th>
+		<th align=center>${n.i18n.chuyenkhoans_tien}</th>	
+		<th align=center>${n.i18n.chuyenkhoans_chukyno}</th>
+		<th align=center>${n.i18n.chuyenkhoans_nganhang_ph}</th>
+		<th align=center>${n.i18n.chuyenkhoans_nganhang_dvh}</th>
+		<th align=center>${n.i18n.chuyenkhoans_ngay_th}</th>
+
+	</tr>
+#set ($list = $u.ref("crud_search_chuyenkhoans_service","default",["$!{mst}","$!{phieu_id}","$!{so_bl}","$!{so_ct}","$!{tien}","$!{thue}","$!{loaitien_id}","$!{chukyno}","$!{hinhthuctt_id}","$!{nganhang_ph}","$!{nganhang_dvh}","$!{ngaynhan}","$!{tamthu}","$!{phat}","$!{lephinganhang}","$!{ghichu}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],20) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['PHIEU_ID']" name="chuyenkhoans_rad"></td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='phieu_id'>$!i["PHIEU_ID"]</td>
+		<td align=center name='tien'>$!i["TIEN"]</td>
+		<td align=left name='chukyno'>$!i["CHUKYNO"]</td>
+		<td align=center name='nganhang_ph'>$!i["NGANHANG_PH"]</td>
+		<td align=center name='nganhang_dvh'>$!i["NGANHANG_DVH"]</td>
+		<td align=center name='ngay_th'>$!i["NGAYNHAN"]</td>
+	</tr>
+#end
+</table>
+<script>
+
+	$('#ajax_chuyenkhoans :radio').change(function(){	
+		$('#ajax_chuyenkhoans :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

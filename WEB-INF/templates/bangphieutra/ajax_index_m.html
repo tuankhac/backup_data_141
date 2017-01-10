@@ -1,0 +1,16 @@
+<div class="box-body" >
+	<div class="box box-body" style="background:#fcfcfc">
+		<div class="col-xs-3"><b>${n.i18n.bangphieutra_q42015_tientra}</b></div>
+		<div class="col-xs-3"><b>${n.i18n.bangphieutra_q42015_nguoigachno_id}</b></div>
+		<div class="col-xs-3"><b>${n.i18n.bangphieutra_q42015_ngay_tt}</b></div>
+
+	</div>
+#set ($list = $u.ref("crud_search_bangphieutra_q42015_service","default",["","","$!{mst}","","","","","","","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	<div class="row table-bordered" style="background:#fcfcfc">	
+		<div class="col-xs-3"><span style="padding-left:15px">$!i["TIEN_TRA"]</span></div>		
+		<div class="col-xs-3">$!i["NGUOIGACHNO_ID"]</div>	
+		<div class="col-xs-3">$!i["NGAY_TT1"]</div>					
+	</div>
+#end
+</div>

@@ -1,0 +1,35 @@
+#if ( $!{count} == 1 || $!{count} == "1")
+ <tr>
+<th><input type="checkbox" id="check_all"  ></th> <th>Tên cột trong file Excel</th><th>Tên cột trong bảng</th>
+</tr>
+ #end
+
+<tr>
+	<td ><input type="checkbox" name="cb_xls_col" value="$!{count}"   ></td>
+	<td name="col_title">$!{col_name}</td>
+	<td name="select_col">
+		<select class='form-control' name='col_tt' id='col_tt'> 
+			<option value=''>${n.i18n.curd_info_khong_chon}</option>
+			#set ($list = $u.qry('upload_tt_get_column_name_service','default',[],0) )
+			#set ($k = 0 )
+			#set ($a=5)
+			#foreach ($i in $list )
+			#set ($k=$k+1)
+				#if ($k==$!{count})
+					#if ($k==4 || $k==10)
+						<option value="$!k" selected>$!i['COLUMN_NAME'] (mm/dd/yyyy)</option>
+					#else
+						<option value="$!k" selected>$!i['COLUMN_NAME']</option>
+					#end
+				#else
+					#if ($k==4 || $k==10)
+						<option value="$!k"  >$!i['COLUMN_NAME'] (mm/dd/yyyy)</option>
+					#else
+						<option value="$!k"  >$!i['COLUMN_NAME']</option>
+					#end
+				#end
+			#end
+		</select>
+	</td>
+</tr>	
+ 

@@ -1,0 +1,147 @@
+﻿<html>
+<body>
+	<div class="box-header with-border">
+		<h3 class="box-title" style="font-weight:bold;color:#039">BÁO CÁO LỊCH SỬ DỮ LIỆU THUẾ</h3>
+	  	<div class="box-tools"></div>
+	</div><!-- /.box-header -->
+	<div class="box-body no-padding">                    
+		<table id="nnts" class='table table-condensed'>
+			
+		<tr>
+			<td width=8% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_start_date}</td>
+			<td>
+				<input  type="text" class="form-control" name="tu_ngay" id="tu_ngay"><span id="tungay_msg"></span></td>
+			<td width=12% title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_end_date}</td>
+			<td>
+				<input  type="text" class="form-control" name="den_ngay" id="den_ngay"><span id="denngay_msg"></span></td>
+		</tr>
+		<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_unit}</td>
+			<td>
+				<select class="form-control" name="donviql_id" id="donviql_id" onchange="selectUnit()">
+					<option value="">${n.i18n.curd_info_khong_chon}</option>
+					#foreach ($i in $u.qry("crud_search_buucucthus_donviql_id_service","default",[${province}],1) )
+					<option value="$!i['ID']">$!i['NAME']</option>
+					#end
+				</select><span id="donviql_id_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_post}</td>
+			<td id="tdbuucucthu">
+				<select class="form-control" name="mabc_id" id="mabc_id" onchange="selectCounter()">
+					<option value="">${n.i18n.curd_info_khong_chon}</option>
+					#foreach ($i in $u.qry("crud_report_info_post","default",[${province}],1) )
+					<option value="$!i['ID']">$!i['NAME']</option>
+					#end
+				</select><span id="mabc_id_msg"></span></td>
+			</tr>
+		<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_counter}</td>
+			<td id="tdquaythu">
+				<select class="form-control" name="quaythu" id="quaythu" onchange="selectDebter()">
+					<option value="">${n.i18n.curd_info_khong_chon}</option>
+					#foreach ($i in $u.qry("crud_report_info_counter","default",[${province}],1) )
+					<option value="$!i['ID']">$!i['NAME']</option>
+					#end
+				</select><span id="quaythu_msg"></span></td>
+			
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.tinhhinh_thuthue_kythue}</td>
+			<td id="tdkythu">
+				<select class="form-control" name="kythu" id="kythu">
+					<option value="">${n.i18n.curd_info_khong_chon}</option>
+					#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) )                   					
+					<option value="$!i['ID']">$!i['NAME']</option>				
+					#end
+				</select><span id="kythue_msg"></span></td>
+
+		</tr>
+		<tr>
+			
+			<td colspan=4 align=center><input type="radio" id="danhba" name="loaibc" value="1" checked> Danh bạ khách hàng &nbsp;&nbsp;&nbsp;
+				<input type="radio" id="chitiet" name="loaibc" value="2"> Chi tiết tiểu mục thuế&nbsp;&nbsp;&nbsp;
+				</td>
+		</tr>
+				
+		</table>
+	</div>
+	<div class="col-md-12" style="text-align:center"><span id="result"></span>			
+		<div class="btn-group">											
+			<button onclick="print_tax()" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} lịch sử</button>
+		</div>  
+		<div class="btn-group">											
+			<button onclick="print_tax_xls()" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} excel</button>
+		</div>  
+				
+		<p style="height:11px"></p>
+	</div><!-- /.col -->   
+	
+</body>
+</html>
+<script type="text/javascript">
+	$('#tu_ngay').datepicker({format:"dd/mm/yyyy"});
+	$('#den_ngay').datepicker({format:"dd/mm/yyyy"});
+	$("#tu_ngay").datepicker().datepicker("setDate", "01/01/2016");
+	$("#den_ngay").datepicker().datepicker("setDate", new Date());
+	$(document).ready(function(){		
+	});
+			
+function selectUnit(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=report_info_debt/ajax_buucuc_donvi.html&ma_dv='+$("#donviql_id").val()+'&ma_tinh=${province}',
+			success: function(data){ 
+				$("#tdbuucucthu").html(data);
+				selectCounter();
+			}
+		});
+	}
+
+	function selectCounter(){
+		if ($("#mabc_id").val()==""){
+				$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/ajax_quaythu_buucuc_all.html&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdquaythu").html(data);
+					selectDebter();
+				}
+			});
+		}else{
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/ajax_quaythu_buucuc.html&ma_bc='+$("#mabc_id").val()+'&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdquaythu").html(data);
+					selectDebter();
+				}
+			});
+		}
+	}	
+
+	function print_tax(){	
+		var jfile;		
+		
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		if ($("#danhba").is(":checked")) {
+			jfile ="report_his_cus";
+        }else{
+			jfile ="report_his_cus_detail";
+		}
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tu_ngay').val()+"&DEN_NGAY="+$('#den_ngay').val()+"&MA_DV="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&MA_QUAY="+$('#quaythu').val()+"&KYTHU="+$('#kythu').val();
+		window.open(s_);
+	}
+	
+	function print_tax_xls(){	
+		var jfile;		
+		
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		if ($("#danhba").is(":checked")) {
+			jfile ="report_his_cus_xls";
+        }else{
+			jfile ="report_his_cus_detail_xls";
+		}
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=xls&AGENT=${province}&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tu_ngay').val()+"&DEN_NGAY="+$('#den_ngay').val()+"&MA_DV="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&MA_QUAY="+$('#quaythu').val()+"&KYTHU="+$('#kythu').val();
+		window.open(s_);
+	}
+	
+	
+</script>

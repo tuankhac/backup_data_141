@@ -1,0 +1,58 @@
+<html>
+<head>
+    <title>Thông tin người nộp thuế</title>
+    <script src="/assets/bootstrap/plugins/iCheck/tabcontent.js" type="text/javascript"></script>
+	<link href="/assets/bootstrap/plugins/iCheck/tabcontent.css" rel="stylesheet" type="text/css" />
+
+	<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+	<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+	<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+	<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body style="background:#F6F9FC; font-family:Arial;">
+    <div id="div_tab">
+        <ul class="tabs" data-persist="true">
+            
+            
+			
+			<li><a href="#view2" selected>Danh bạ nộp thuế</a></li>
+            <li><a href="#view1">Thông tin nộp thuế</a></li>
+        </ul>
+        <div class="tabcontents">
+            <div id="view1">
+            </div>
+            <div id="view2">
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+			options.async = false;
+		});
+
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/danh_ba_ng_nop_thue/index.html',
+				timeout: 500,
+				success: function(data){ 
+					$('#view1').html(data);
+				}
+			});			
+	
+	
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/index.html',
+				timeout: 1000,
+				success: function(data){ 					
+					$('#view2').html(data);			
+			
+				}
+			});			
+	});
+</script>

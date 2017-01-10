@@ -1,0 +1,4 @@
+#set ($list = $u.ref("tai_quay_nnt_info","default",["$!{mst}","$!{ma_tinh}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],4) )
+#foreach ($i in $list)
+{"MST":"$!i["MST"]","TEN_NNT":"$!i["TEN_NNT"]","MOTA_DIACHI":"$!i["MOTA_DIACHI"]","MOBILE":"$!i["TB_MOBILE"]","ID_NV":"$!i["ID_NV"]","TEN_NV":"$!i["TEN_NV"]","DT_NV":"$!i["DT_NV"]","SOTIEN":"$!i["SOTIEN"]","TIEN_TRA":"$!i["TIEN_TRA"]","EMAIL":"$!i["EMAIL"]"};
+#end

@@ -1,0 +1,144 @@
+<table id="ct_tra_yyyy" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.ct_tra_yyyy_mst}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.ct_tra_yyyy_ten_nnt}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' name="ten_nnt" id="ten_nnt" style='vertical-align:top'></textarea><span id="ten_nnt_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.ct_tra_yyyy_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>		
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_cq_thu_label">${n.i18n.ct_tra_yyyy_ma_cq_thu}</td>
+		<td>
+			<input  type="text" class="form-control" name="ma_cq_thu" id="ma_cq_thu"><span id="ma_cq_thu_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="kythue_label">${n.i18n.ct_tra_yyyy_kythue}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="kythue" id="kythue"><span id="kythue_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="chuky_label">${n.i18n.ct_tra_yyyy_chuky}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="chuky" id="chuky"><span id="chuky_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_chuong_label">${n.i18n.ct_tra_yyyy_ma_chuong}</td>
+		<td>
+			<input  type="text" class="form-control" name="ma_chuong" id="ma_chuong"><span id="ma_chuong_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_tmuc_label">${n.i18n.ct_tra_yyyy_ma_tmuc}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="ma_tmuc" id="ma_tmuc"><span id="ma_tmuc_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tientra_label">${n.i18n.ct_tra_yyyy_tientra}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="tientra" id="tientra"><span id="tientra_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="nguoigachno_id_label">${n.i18n.ct_tra_yyyy_nguoigachno_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="nguoigachno_id" id="nguoigachno_id"><span id="nguoigachno_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="mota_diachi_label">${n.i18n.ct_tra_yyyy_mota_diachi}</td>
+		<td colspan='4'>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' name="mota_diachi" id="mota_diachi" style='vertical-align:top'></textarea><span id="mota_diachi_msg"></span></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;						
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table>
+<section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<div id="pageinfo"></div>
+<div class="modal fade" id="spamModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">     	
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Ảnh đại diện</h4>
+			</div>
+			<div class="modal-body">
+				<img class="img-responsive img-rounded center" id="show_img" src="#" alt='no avatar' />
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-primary" type="button">Thoát</button>
+					<!-- <button class="btn btn-primary" type="button" onclick="updatePolicy()">Cập nhật</button> -->
+				</div>
+			</div>
+			<div id="alert" align="center" style="color:#FF0000"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	console.log("${param.province}");
+	var ma_tinh='${param.province}';
+	console.log(ma_tinh);
+	
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);
+					getData(1,$('#cboSetPageRec').val());									
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=ct_tra_yyyy/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&ma_tinh='+ma_tinh+'&mst='+$('#mst').val()+'&ten_nnt='+$('#ten_nnt').val()+'&mota_diachi='+$('#mota_diachi').val()+'&ma_cq_thu='+$('#ma_cq_thu').val()+'&kythue='+$('#kythue').val()+'&chuky='+$('#chuky').val()+'&ma_chuong='+$('#ma_chuong').val()+'&ma_tmuc='+$('#ma_tmuc').val()+'&tientra='+$('#tientra').val()+'&nguoigachno_id='+$('#nguoigachno_id').val()+'&id='+$('#id').val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+		};
+	
+	$(function(){
+		$('#doSearch').click(function(){
+				$('#result').html('${n.i18n.crud_process_message}');
+				getData(1,$('#cboSetPageRec').val());
+		});
+		$('#doSearch').click();
+		
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=ct_tra_yyyy/delete.html&ma_tinh='+ma_tinh+'&id='+$(':radio:checked').parent().parent().children("[name='id']").text()+'&mst='+$(':radio:checked').parent().parent().children("[name='mst']").text()+'&kythue='+$(':radio:checked').parent().parent().children("[name='kythue']").text()+'&ma_tmuc='+$(':radio:checked').parent().parent().children("[name='ma_tmuc']").text()+'&chuky='+$(':radio:checked').parent().parent().children("[name='chuky']").text()+'&nguoigachno_id='+$(':radio:checked').parent().parent().children("[name='nguoigachno_id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		
+		$('#ten_nnt').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ten_nnt&content="+$('#ten_nnt').val(),'selectFile',700,280);
+		});
+		$('#mota_diachi').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=mota_diachi&content="+$('#mota_diachi').val(),'selectFile',700,280);
+		});
+		$('#tientra').blur(function(){
+			if ($('#tientra').val()*1==$('#tientra').val()){
+				$('#tientra_msg').html('');
+				$('#tientra_msg').attr('style','display:none');
+			}else{
+				$('#tientra_msg').html('${n.i18n.ct_tra_yyyy_tientra} ${n.i18n.crud_is_number_message}');
+				$('#tientra_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.ct_tra_yyyy_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+	});
+
+</script>

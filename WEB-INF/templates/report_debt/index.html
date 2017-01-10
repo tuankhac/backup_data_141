@@ -1,0 +1,228 @@
+<table id="chuyenkhoans" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.curd_report_title_dept.toUpperCase()}</b></th></tr>
+	<input type="hidden" id="phieu_id" name="phieu_id">
+	<tr>
+		<td width=8% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_start_date}</td>
+		<td>
+			<input  type="text" class="form-control" name="tungay" id="tungay"><span id="tungay_msg"></span></td>
+		<td width=12% title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_end_date}</td>
+		<td>
+			<input  type="text" class="form-control" name="denngay" id="denngay"><span id="denngay_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_unit}</td>
+		<td>
+			<select class="form-control" name="donviql_id" id="donviql_id" onchange="selectUnit()">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_search_buucucthus_donviql_id_service","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="donviql_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_post}</td>
+		<td id="tdbuucucthu">
+			<select class="form-control" name="mabc_id" id="mabc_id" onchange="selectCounter()">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_post","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="mabc_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_counter}</td>
+		<td id="tdquaythu">
+			<select class="form-control" name="quaythu" id="quaythu" onchange="selectDebter()">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_counter","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="quaythu_msg"></span></td>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.curd_report_nguoi_gach_no}</td>
+		<td id="tdnguoigachno">
+			<select class="form-control" name="nguoigachno" id="nguoigachno" onchange="selectStaff()">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_nguoi_gach_no","default",[${province}],1) )               					
+				<option value="$!i['ID']" #if ($!i['ID']=="$!{request.UserPrincipal.name}")selected#end>$!i['NAME']</option>				
+                #end
+			</select><span id="nguoigachno_msg"></span></td>
+
+	</tr>
+	
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.tinhhinh_thuthue_duongthu}</td>
+		<td id="tdduongthu">
+			<select class="form-control" name="duongthu" id="duongthu">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_staff","default",[${province}],1) )               					
+				<option value="$!i['ID']">$!i['NAME']</option>				
+                #end				
+			</select><span id="duongthu_msg"></span></td>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.tinhhinh_thuthue_kythue}</td>
+		<td id="tdkythu">
+			<select class="form-control" name="kythu" id="kythu">
+				<option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) )                   					
+				<option value="$!i['ID']">$!i['NAME']</option>				
+                #end
+			</select><span id="kythue_msg"></span></td>
+	</tr>
+
+	<tr id='control'>
+		<td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary" onclick="list_debt()"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;		
+			<button class="btn btn-primary" name="cmdPrint" id="cmdPrint" onclick="print_list_debt()"><i class="fa fa-print"></i> ${n.i18n.curd_report_print} &gt;</button>&nbsp;		
+			<button class="btn btn-primary"  onclick="print_list_debt_excel()"><i class="fa fa-print"></i> ${n.i18n.curd_report_excel_output} &gt;</button>&nbsp;&nbsp;&nbsp;
+			<input type="radio" id="tonghop" name="loaibc" value="1" checked> Tổng hợp&nbsp;&nbsp;&nbsp;
+				<input type="radio" id="chitiet" name="loaibc" value="2"> Chi tiết
+	</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<div id="pageinfo"></div>
+<script type="text/javascript">	
+
+	$(document).ready(function(){
+		$('#tungay,#denngay').datepicker({format:"dd/mm/yyyy"});
+		$("#tungay,#denngay").datepicker().datepicker("setDate", new Date());
+	});
+	
+	function selectUnit(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=report_debt/ajax_buucuc_donvi.html&ma_dv='+$("#donviql_id").val()+'&ma_tinh=${province}',
+			success: function(data){ 
+				$("#tdbuucucthu").html(data);
+				selectCounter();
+			}
+		});
+	}
+
+	function selectCounter(){
+		if ($("#mabc_id").val()==""){
+				$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_quaythu_buucuc_all.html&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdquaythu").html(data);
+					selectDebter();
+				}
+			});
+		}else{
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_quaythu_buucuc.html&ma_bc='+$("#mabc_id").val()+'&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdquaythu").html(data);
+					selectDebter();
+				}
+			});
+		}
+	}
+	
+	function selectDebter(){	
+		if ($("#quaythu").val()==""){
+				$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_nguoigachno_quaythu_all.html&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdnguoigachno").html(data);
+					selectStaff();
+				}
+			});
+		}else{
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_nguoigachno_quaythu.html&ma_quay='+$("#quaythu").val()+'&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdnguoigachno").html(data);
+					selectStaff();
+				}
+			});
+		}
+	}
+	
+	function selectStaff(){
+		if ($("#nguoigachno").val()==""){
+				$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_duongthu_nguoigachno_all.html&ma_tinh=${province}',
+				success: function(data){ 
+					$("#tdduongthu").html(data);
+				}
+			});
+		}else{			
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=report_debt/ajax_duongthu_nguoigachno.html&nguoigachno='+$("#nguoigachno").val()+'&ma_tinh=${province}',
+				success: function(data){ 				
+					$("#tdduongthu").html(data);
+				}
+			});
+		}
+	}
+
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);
+					getData(1,$('#cboSetPageRec').val());									
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=report_debt/ajax_index_tra.html&record_per_page='+pageRec+'&page_index='+pageNum+'&TU_NGAY='+$("#tungay").val()+'&DEN_NGAY='+$("#denngay").val()+'&AGENT=${province}&MA_DV='+$("#donviql_id").val()+'&MA_BC='+$("#mabc_id").val()+'&MA_QUAY='+$("#quaythu").val()+'&MA_GACH='+$("#nguoigachno").val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+		};
+	
+	function list_debt(){	
+		$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());
+	}
+	function print_list_debt(){	
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		
+		var jfile;
+		if ($("#tonghop").is(":checked")) {
+			jfile = "list_info_debt_sum";
+		}
+		else{
+			if ("${province}"=="79TTT"){				
+				jfile = "list_info_debt_hcm";
+			} else {
+				jfile = "list_info_debt";
+			}
+		}
+		
+		s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=pdf&AGENT=${province}&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&MA_DV="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&MA_QUAY="+$('#quaythu').val()+"&MA_NV="+$('#nguoigachno').val()+"&DUONGTHU="+$('#duongthu').val()+"&KYTHU="+$('#kythu').val();
+		
+		window.open(s_);
+	}
+	
+	function print_list_debt_excel(){	
+		var jpPath = "E:/tax/Server/webapps/ROOT/WEB-INF/templates/jasper/";
+		var jfile;
+		
+		if ($("#tonghop").is(":checked")) {
+			if ("${province}"=="79TTT"){				
+				jfile = "list_info_debt_excel_hcm";
+			} else{
+				jfile = "list_info_debt_sum_xls";
+			}
+		}
+		else{
+			if ("${province}"=="79TTT"){				
+				jfile = "list_info_debt_excel_hcm_v";
+			} else {
+				jfile = "list_info_debt_excel";
+			}
+		}
+		
+		s_ = window.location.protocol+"//"+window.location.host
+				+"/report/?jasperFile=jasper/"+jfile+"&jasperExportType=xls&AGENT=${province}&IMAGE_PATH="+jpPath+"&TU_NGAY="+$('#tungay').val()+"&DEN_NGAY="+$('#denngay').val()+"&MA_DV="+$('#donviql_id').val()+"&MA_BC="+$('#mabc_id').val()+"&MA_QUAY="+$('#quaythu').val()+"&MA_NV="+$('#nguoigachno').val()+"&DUONGTHU="+$('#duongthu').val()+"&KYTHU="+$('#kythu').val();
+		window.open(s_);
+	}
+
+</script>

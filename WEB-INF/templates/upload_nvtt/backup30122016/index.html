@@ -1,0 +1,438 @@
+#set ($list = $u.qry('get_coquanthus','default',["${province}"],1))
+<style type="text/css">
+.modal {
+    display:	none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+ 
+}
+.center{
+        z-index: 1000;
+        margin: 200px auto;
+        width: 140px;
+        border-radius: 10px;
+        filter: alpha(opacity=100);
+        opacity: 1;
+        -moz-opacity: 1;
+}
+.center img {
+	height: 100px;
+	width: 100px;
+}
+ 
+body.loading {
+    overflow: hidden;   
+}
+ 
+body.loading .modal {
+    display: block;
+}
+
+</style>
+<div class="nav-tabs-custom">
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><b>Upload</b></a></li>
+      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false"><b>Export Mã NV NULL</b></a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab_1">
+         <div id="parent" style="overflow: hidden;" >
+            <section class="content-header">
+               <h1>
+               </h1>
+            </section> 
+            <div class ="box-body no-padding">
+               <div class = "col-md-8">
+                  <div  class ="box box box-primary" style="float: left;">
+                     <table id="upload" class='table table-condensed' >
+                        <tr>
+                           <th colspan='6'><b>${n.i18n.upload_title}</b></th>
+                        </tr>
+                        <tr>
+                           <td title="" id="id_label"><label for="ds_stb">File upload</label></td>
+                           <form id="uploadForm"  target="iframe">
+                              <td>
+                                 <input type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control" name="file_upload" id="file_upload"  onchange="checkCondition();">
+                                 <span id="file_msg"><font color="#dbd3c4">${n.i18n.format_file}</font></span>
+                              </td>
+                           </form>
+                        </tr>
+						<tr>
+							<td width="30%"><b>Cơ quan thu</b></td>
+							<td colspan ='2'>
+								<select data-placeholder="Chọn cơ quan" class="form-control"  id="co_quan" name="co_quan">
+								<option value="">Không chọn</option>
+								#foreach ($i in $list)	
+									<option value='$!i['CQT_TMS']'>$!i['TEN_CQT']</option>
+								#end	
+								</select>
+							</td>
+						 </tr>
+						<tr>
+						<td><b>Kiểu upload</b></td>
+						<td>
+							<select name= "upload_type" id = "upload_type" class="form-control">
+							<option value="">Không chọn</option>
+							<option value="1">Upload MST chưa gán NV thu</option>
+							<option value="2">Cập nhật NVT cho MST </option>
+							</select>
+						</td>
+						</tr>
+                        <tr>
+                           <td><b>Sheet dữ liệu trong Excel</b></td>
+                           <td><input type="text" class="form-control" id="sheet_dl"  value="1"  /></td>
+                        </tr>
+                        <tr id='control'>
+                           <td colspan='4' align='center'><font id="result"></font>
+                              <button  disabled name="btn_upload" id="btn_upload" class="btn btn-primary" onclick="submit_upload()"><i class="fa fa-upload" aria-hidden="true"></i> ${n.i18n.do_upload}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button disabled  class="btn btn-primary" name="btn_insert_data" id="btn_insert_data" onclick ="insertData();"><i class="fa fa-plus-square"></i> ${n.i18n.inser_data}</button>&nbsp;
+                           </td>
+                        </tr>
+                     </table>
+                     <span ><font color ="#ff3333">(*)Lưu ý:  File upload chỉ chứa 2 trường MST,MA NV</font></span> 
+                     <iframe id="iframe" name ="iframe" width ="0" height="0" frameborder="0"></iframe>
+                  </div>
+               </div>
+               <div class = "col-md-4">
+                  <div id = "log_msg" style="float: right;"> </div>
+               </div>
+            </div>
+         </div>
+         <div class="box box box-primary">
+            <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto">
+               <div id="r_parent" style="overflow: hidden;" >
+                  <div  style="width: 47%;float: left;">
+                     <div id="pageinfoL"></div>
+                     <div id="left">		
+                     </div>
+                  </div>
+                  <div style="width: 47%;float: right;" >
+                     <div id="pageinfoR"></div>
+                     <div id="right"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+	 <!-- tab pane ---------------------tab2	--> 
+	  <div class="tab-pane" id="tab_2">
+		<section class="content-header"><h1></h1></section> 
+		<div class ="box-body no-padding">
+		<div class = "col-md-8">
+			<div  class ="box box box-primary" style="float: left;">
+			   <table id="upload" class='table table-condensed' >
+				 <tr>
+				   <th colspan='6'><b>${n.i18n.export}</b></th>
+				 </tr>
+				 <tr>
+					<td width="30%">Cơ quan thu</td>
+					<td colspan ='2'>
+						<select data-placeholder="Chọn cơ quan" class="form-control"  id="col_name" name="col_name">
+						<option>Không chọn</option>
+						#foreach ($i in $list )	
+							<option value='$!i['CQT_TMS']'>$!i['TEN_CQT']</option>
+						#end	
+						</select>
+					</td>
+				 </tr>
+				 <tr id="column_name"></tr>
+				 <tr>
+				 <td>&nbsp;</td>
+				 <td><input checked type="radio" name= "radio_button" id= "khong_chon" value = "1"> Không chọn (All)</input></td>
+				 <td><input type="radio" name= "radio_button" id= "ds_null" value = "2" > Danh sách NULL</input></td>
+				 <td><input type="radio" name= "radio_button" id= "theo_ten" value = "3"> Tên nhân viên</input></td>
+				 </tr>
+				 <tr id="tr_format" style="display:none;">
+					<td>Chọn định dạng export</td>
+					<td>
+						<select class="form-control" id="format_export">
+							<option value="">Không chọn</option>
+							<!-- <option value="csv">CSV</option> -->
+							<option value="xls">XLS</option>
+							<option value="xlsx">XLSX</option>
+						</select>
+					</td>
+				</tr>
+				 <tr id="tr_doExport" style="display:none;" >
+					<td colspan="6" align="center"><button class="btn btn-primary" id="doExport" name= "doExport"><i class="fa fa-plus-square"></i>&nbsp;Export</button>
+					</td>
+				</tr>
+				</table>
+				<div id="result_msg"></div>
+			</div>
+		</div>
+		</div>
+	  </div>
+   </div>
+</div>
+<div class="modal" style="display: none">
+   <div class="center">
+       <img alt="" src="style/img/loading_2.gif" />
+   </div>
+</div>
+<script type="text/javascript">
+	//upload file from local to server	
+	var form = $('#uploadForm');
+	function submit_upload(){		
+		if ($('#file_upload').val() == '') {
+			alert('Vui lòng chọn tệp!');
+			return;
+		}
+		if ($('#co_quan').val() == '') {
+			alert('Vui lòng chọn cơ quan thu!');
+			return;
+		}
+		if ($('#sheet_dl').val() == '') {
+			alert('Vui lòng chọn sheet dữ liệu!');
+			return;
+		}
+		
+		if ($('#upload_type').val() == '') {
+			alert('Vui lòng chọn kiểu upload!');
+			return;
+		}
+		
+		var formData = new FormData();
+		var file = $('#file_upload')[0].files[0];
+		var fullPath = document.getElementById('file_upload').value;
+		formData.append("sheet_numb", $("#sheet_dl").val());
+		formData.append("co_quan", $("#co_quan").val());
+		formData.append("ma_tinh", "${province}");
+		formData.append("user", "$!{request.userPrincipal.name}");
+		formData.append("user_ip", "$!{request.RemoteAddr}");
+		//formData.append("upload_type",$("#upload_type").val());
+		formData.append("file_attach", file);
+		var u = 'upload_manv_null/upload_process.jsp';
+		$("#btn_upload").prop("disabled",true);
+		$(".modal").show();
+		$.ajax({
+			type : "POST",
+			url : u,
+			cache : false,
+			enctype : 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function (data) {
+				eval('data=' + data);
+				if (data.RESULT == "OK") {
+					$('#log_msg').html(data.VALUE);
+					$("#btn_upload").prop("disabled",true);
+					$("#btn_insert_data").prop("disabled",false);
+					UpdateLog();
+					$(".modal").hide();
+				}else{
+					$(".modal").hide();
+					alert(data.VALUE);
+				}
+				$('#pageinfoL,#pageinfoR,#left,#right').html("");
+			},
+			error : function (jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			}
+		});
+	}
+	//kiem tra file da load
+	function checkCondition(){
+		var input = document.getElementById("file_upload");
+		if(input.value != ""){
+			$("#btn_upload").prop("disabled",false);
+			$("#btn_insert_data").prop("disabled",true);
+		}else{
+			$("#btn_upload,#btn_insert_data").prop("disabled",true);
+		}
+	}
+	
+	function getDataR(pageNum,pageRec){
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=upload_nvtt/data_fail.html&table_name=UPLOAD_MST_MANV_TEMP&record_per_page='+pageRec+'&page_index='+pageNum+'&t_id='+$('#seq').text()+'&province=${province}',
+			cache: false,
+			success : function(data){
+				$('#right').html(data);
+				setPage(pageNum,$("#page").html());
+			}
+		});
+	}	
+	
+	function getDataL(pageNum,pageRec){
+		
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=upload_nvtt/data_success.html&table_name=UPLOAD_MST_MANV_TEMP&record_per_page='+pageRec+'&page_index='+pageNum+'&t_id='+$('#seq').text()+'&province=${province}',
+			cache: false,
+			success : function(data){
+				$('#left').html(data);
+				setPage1(pageNum,$("#page1").html());
+			}
+		});
+	}
+	
+	function UpdateLog(){
+		$.ajax({
+			type : 'post',
+			async : false,
+			url	: 'crud_exec.jsp?crud_type=upload_nvtt/import.html&t_id='+$('#seq').text()+'&type='+$("#upload_type").val()+'&province=${province}',
+			complete : function(data){
+				if(data.statusText == "OK"){
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=upload_nvtt/PageRec.html',
+						success: function(data){ 					
+							$('#pageinfoR').html(data);
+							getDataR(1,$("#cboSetPageRec").val());	
+						}
+					});
+					
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=upload_nvtt/PageRecL.html',
+						success: function(data){ 					
+							$('#pageinfoL').html(data);
+							getDataL(1,$("#cboSetPageRec1").val());					
+						}
+					});
+					
+					//goi 2 ajax de call note 
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=upload_nvtt/note_value.html&ma_tinh=${province}&t_id='+$('#seq').text()+'&input=1',
+						success: function(data){ 					
+							$('#inserted_records').html(data);
+						}
+					});
+					
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=upload_nvtt/note_value.html&ma_tinh=${province}&t_id='+$('#seq').text()+'&input=0',
+						success: function(data){ 					
+							$('#failed_records').html(data);
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	function insertData(){
+		//them phan insert vao day
+		if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+		//alert("Insert thành công");
+		$.ajax({
+			type : 'post',
+			url	: 'crud_exec.jsp?crud_type=upload_nvtt/log.html&table_name=UPLOAD_MST_MANV_TEMP&t_id='+$('#seq').text()+'&type='+$("#upload_type").val()+'&province=${province}',
+			success : function(data){
+				$('#log_msg').html(data);
+				if($("#inserted_records").text() > 0){
+					alert("Insert thành công");
+				}
+				else{
+					alert("Insert thất bại. Lỗi "+ $("#inserted_records").text());
+				}
+			}
+		});
+				
+		//&table_name=UPLOAD_MST_MANV_TEMP&record_per_page=10&page_index=1
+		document.getElementById("file_upload").value = "";
+		document.getElementById("sheet_dl").value = "1";
+		document.getElementById("co_quan").value = "";
+		document.getElementById("upload_type").value = "";
+		$("#btn_upload").prop("disabled",true);
+		$("#btn_insert_data").prop("disabled",true);
+	}
+	
+	$(function(){
+		//transparent border-top cho main tag
+		$(".box.box-primary").attr("id","id_main");
+		$("#id_main").css("border-top","transparent");
+		//$("#co_quan").chosen({ width : "100%"});
+		
+		/*Cac chuc nang cho tab 1 */
+		//khi da upload tc thi cap nhat cac button
+		$("form").on('DOMSubtreeModified', "span", function () {
+			var res = "${n.i18n.upload_file_sucess}";
+			var temp =  $(this).text();
+			if(temp == res){
+				$("#btn_upload").prop("disabled",true);
+				$("#btn_insert_data").prop("disabled",false);
+			}
+		});
+		//khi change value thi cap nhat cac button
+		$("#upload_type,#sheet_dl,#co_quan").on("change",function(){
+			var sheet_value = $('#sheet_dl').val();
+			if($("#upload_type").val() != "" && $("#co_quan").val() != "" && $("#file_upload").val() != ""  && sheet_value != 0){
+				$("#btn_upload").prop("disabled",false);
+			} else 
+			if($("#upload_type").val() == "" || $("#co_quan").val() == ""){
+				$("#btn_upload").prop("disabled",true);
+			}
+			$("#btn_insert_data").prop("disabled",true);
+		});
+		
+		$("#pageinfoL").on('DOMSubtreeModified', "#ds_pages1", function () {
+			if(typeof  $('#total1').text() !== 'undefined' &&  typeof  $('#ds_pages1').text() !== 'undefined'){
+				a =  parseInt($('#total1').text()) * parseInt($('#ds_pages1').text());
+				if( a == 0){
+					$("#btn_insert_data").prop("disabled",true);
+					alert("Bạn không thể insert vì không có bản ghi nào thỏa mãn");
+				}
+			}
+		});
+		
+		/* Cac chuc nang cho tab 2 */
+		//get nhan vien theo tinh
+		ajax_goi_nhan_vien();
+		
+		$("#col_name").on("change",function(){
+			ajax_goi_nhan_vien();
+			//col = $("#col_name").val();
+			//data = col + "," +$("#tbl_name").val() +","+ $("#format_export").val();
+			if($("#col_name").val() != ""){
+				$("#tr_format").css("display","table-row");
+			}
+			if($("#col_name").val() == null){
+				$("#tr_format").css("display","none");
+				$("#tr_doExport").css("display","none");
+				$("#format_export").val("");
+			}
+			
+			if($("input:radio[name ='radio_button']:checked").val() == "3")
+				$("#nhan_vien").prop("disabled",false);
+		});	
+		//jquery chosen
+		
+	});
+	function ajax_goi_nhan_vien(){
+		$.ajax({
+			type : "POST",
+			url : 'crud_exec.jsp?crud_type=upload_nvtt/ajax_get_column.html&ma_tinh=${province}&co_quan='+ $("#col_name").val() ,
+			cache : false,
+			processData : false,
+			contentType : false,
+			async: false,
+			success : function (data) {
+				$("#column_name").html(data);
+			}
+		});
+	}
+	$("#doExport").click(function(){
+			var condition = $("input[type='radio']:checked").val();
+			var filter = 0;
+			var cW;
+			if(condition == 1){
+				cW = "$!{province},"+$("#col_name").val();
+			}else if(condition == 2){
+				cW = "$!{province},"+$("#col_name").val();
+			}else if(condition == 3){
+				cW = "$!{province},"+$("#col_name").val()+","+$("#nhan_vien").val();
+			}
+			
+			if(condition == 3){
+				if($("#nhan_vien").val() == ""){
+					alert("Bạn chưa chỉ định nhân viên thu");
+					return;
+				}
+			}
+			//console.log(" param "+ data + " filter "+ filter +"condition "+ condition + "cw : "+cW);
+			//if (!confirm("Bạn chắc chắn muốn tiếp tục")) return ;
+			window.open("/Export?param="+data+"&filter=0&condition="+condition+"&cW="+cW);
+		});
+</script>

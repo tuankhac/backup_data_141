@@ -1,0 +1,3 @@
+nhatky_thus_mst=Mst
+nhatky_thus_lydos=Lydos
+nhatky_thus_ngayhen_tt=Ngayhen_Tt

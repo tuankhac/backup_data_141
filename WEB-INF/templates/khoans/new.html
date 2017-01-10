@@ -1,0 +1,65 @@
+<table id="khoans" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.khoans_id}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="tenkhoan_label">${n.i18n.khoans_tenkhoan}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="tenkhoan" id="tenkhoan" style='vertical-align:top'></textarea><span id="tenkhoan_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_loai_label">${n.i18n.khoans_ma_loai}</td>
+		<td>			<input  type="text" class="form-control" name="ma_loai" id="ma_loai"><span id="ma_loai_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="hieu_luc_tu_label">${n.i18n.khoans_hieu_luc_tu}</td>
+		<td>			<input  type="text" class="form-control" name="hieu_luc_tu" id="hieu_luc_tu"><span id="hieu_luc_tu_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="hieu_luc_den_label">${n.i18n.khoans_hieu_luc_den}</td>
+		<td>			<input  type="text" class="form-control" name="hieu_luc_den" id="hieu_luc_den"><span id="hieu_luc_den_msg"></span></td>
+		<td></td><td></td>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&tenkhoan='+$('#tenkhoan').val()+'&ma_loai='+$('#ma_loai').val()+'&hieu_luc_tu='+$('#hieu_luc_tu').val()+'&hieu_luc_den='+$('#hieu_luc_den').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=khoans/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=khoans/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.khoans_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tenkhoan').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=tenkhoan&content="+$('#tenkhoan').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

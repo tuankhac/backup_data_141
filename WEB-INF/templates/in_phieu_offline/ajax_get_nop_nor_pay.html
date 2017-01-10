@@ -1,0 +1,2 @@
+#set ($list1 = $u.ref("get_receipt_pay","default",["$!{ma_nv}","$!{mathue}","$!{tieumuc}","$!{chuky}","$!{kyhieu}","$!{seri}","$!{param.province}","2","","${record_per_page}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+{"NOP":"$!list1[0]['NOP']'", "NOR":"$!list1[0]['NOR']"} 

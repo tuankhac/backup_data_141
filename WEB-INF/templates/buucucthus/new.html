@@ -1,0 +1,111 @@
+<table id="buucucthus" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.buucucthus_id}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="" id="ma_tinh_label">${n.i18n.buucucthus_ma_tinh}<font>*</font></td>
+		<td>			<select class="form-control" name="ma_tinh" id="ma_tinh">
+				#foreach ($i in $u.qry("crud_search_buucucthus_ma_tinh_service","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected #end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="tenbuucuc_label">${n.i18n.buucucthus_tenbuucuc}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="tenbuucuc" id="tenbuucuc"><span id="tenbuucuc_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="diachi_label">${n.i18n.buucucthus_diachi}</td>
+		<td>			<input  type="text" class="form-control" name="diachi" id="diachi"><span id="diachi_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="tel_label">${n.i18n.buucucthus_tel}</td>
+		<td>			<input  type="text" class="form-control" name="tel" id="tel"><span id="tel_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="fax_label">${n.i18n.buucucthus_fax}</td>
+		<td>			<input  type="text" class="form-control" name="fax" id="fax"><span id="fax_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="" id="donviql_id_label">${n.i18n.buucucthus_donviql_id}<font>*</font></td>
+		<td>			<select class="form-control" name="donviql_id" id="donviql_id">
+				#foreach ($i in $u.qry("crud_search_buucucthus_donviql_id_service","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="donviql_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 2000 ${n.i18n.crud_valid_length_postfix}" id="notes_label">${n.i18n.buucucthus_notes}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="notes" id="notes" style='vertical-align:top'></textarea><span id="notes_msg"></span></td>
+		</tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&id='+$('#id').val()+'&ma_tinh='+$('#ma_tinh').val()+'&tenbuucuc='+$('#tenbuucuc').val()+'&diachi='+$('#diachi').val()+'&tel='+$('#tel').val()+'&fax='+$('#fax').val()+'&donviql_id='+$('#donviql_id').val()+'&notes='+$('#notes').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=buucucthus/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=buucucthus/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.buucucthus_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ma_tinh').blur(function(){
+			if ($('#ma_tinh').val()!=''){
+				$('#ma_tinh_msg').html('');
+				$('#ma_tinh_msg').attr('style','display:none');
+			}else{
+				$('#ma_tinh_msg').html('${n.i18n.crud_required_message} ${n.i18n.buucucthus_ma_tinh}');
+				$('#ma_tinh_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tenbuucuc').blur(function(){
+			if ($('#tenbuucuc').val()!=''){
+				$('#tenbuucuc_msg').html('');
+				$('#tenbuucuc_msg').attr('style','display:none');
+			}else{
+				$('#tenbuucuc_msg').html('${n.i18n.crud_required_message} ${n.i18n.buucucthus_tenbuucuc}');
+				$('#tenbuucuc_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#donviql_id').blur(function(){
+			if ($('#donviql_id').val()!=''){
+				$('#donviql_id_msg').html('');
+				$('#donviql_id_msg').attr('style','display:none');
+			}else{
+				$('#donviql_id_msg').html('${n.i18n.crud_required_message} ${n.i18n.buucucthus_donviql_id}');
+				$('#donviql_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#notes').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=notes&content="+$('#notes').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

@@ -1,0 +1,488 @@
+<table id="tien_nop" class='table table-condensed'>
+	<tr><th colspan='4'><b>THÊM MỚI</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label">${n.i18n.phieuhuys_mst}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst" maxlength="20"><span id="ma_st_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.hctt_name}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="2_ten_nnt" id="2_ten_nnt" maxlength="300"><span id="ten_msg"></span></td>
+		</tr>
+		
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="mota_diachi_label">${n.i18n.hctt_mota_diachi}<font color=red>*</font>:</td>
+		<td>
+			<select class="form-control" name="6_ma_tinh" id="6_ma_tinh" onchange="doGetMaHUYEN()" onclick="doGetMaCQT_QL()" disabled>
+				<option value="">Chọn tỉnh/thành phố</option>
+				#foreach ($i in $u.qry("get_ma_tinh","default",[],0) )               	
+				<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span>
+		</td>
+		<td><div id="load_ma_huyen"></div></td>
+		<td><div id="load_ma_xa"></div></td>
+		</tr>
+	
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="so_nha_label">${n.i18n.hctt_so_nha}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="9_so_nha" id="9_so_nha" maxlength="100"><span id="so_nha_msg"></span></td>
+		<td></td>
+		<td>
+			
+		</td>
+		</tr>
+	<tr> <!--ma tinh, ma huyen tt-->
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="diachi_tt_label">${n.i18n.hctt_diachi_tt}<font color=red>*</font>:</td>
+		<td><select class="form-control" name="11_ma_tinh_tt" id="11_ma_tinh_tt" onchange="doGetMaHUYEN_TT()" onclick="doGetMaNV()">
+				<option value="">Chọn tỉnh/thành phố</option>
+				#foreach ($i in $u.qry("get_ma_tinh_tt","default",[],0) )               	
+				<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_tt_msg"></span></td>
+		<td><div id="load_ma_huyen_tt"></div></td>
+		<td><div id="load_ma_xa_tt"></div></td>
+	</tr>
+	
+	<tr >
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="so_nha_tt_label">${n.i18n.hctt_so_nha_tt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="14_so_nha_tt" id="14_so_nha_tt" maxlength="100"><span id="so_nha_tt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.hctt_mobile}:</td>
+		<td><input  type="text" class="form-control" name="15_mobile" id="15_mobile" maxlength="11"><span id="mobile_msg"></span></td>
+		</tr>
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.hctt_email}:</td>
+		<td><input  type="text" class="form-control" name="16_email" id="16_email" maxlength="40"><span id="email_msg"></span>			</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.hctt_ma_nv}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="17_ma_nv" id="17_ma_nv" maxlength="40"><span id="ma_nv_msg"></span>
+
+		</td>
+		</tr>
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ma_unt_label">${n.i18n.hctt_ma_unt}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="19_ma_unt" id="19_ma_unt" maxlength="20"><span id="ma_unt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ten_unt_label">${n.i18n.hctt_ten_unt}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="20_ten_unt" id="20_ten_unt" maxlength="100"><span id="ten_unt_msg"></span></td>
+		</tr>
+	
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ma_cqt_ql_label">${n.i18n.hctt_ma_cqt_ql}<font color=red>*</font>:</td>
+		<td><input type="text" class="form-control" name="4_ma_cqt_ql" id="4_ma_cqt_ql"><span id="ma_cqt_ql_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="kbnn_label">${n.i18n.hctt_kbnn}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="24_kbnn" id="24_kbnn"><span id="kbnn_msg"></span></td>			
+		<td></td>
+		<td></td>
+		</tr>
+
+	<!--tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="sobl_unt_label">${n.i18n.hctt_sobl_unt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="27_sobl_unt" id="27_sobl_unt" maxlength="20"><span id="sobl_unt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ngaybl_unt_label">${n.i18n.hctt_ngaybl_unt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="28_ngaybl_unt" id="28_ngaybl_unt" maxlength="11"><span id="ngaybl_unt_msg"></span></td>
+		</tr-->
+		<tr><td colspan="4" align=center><font id="result" color=red></font></td></tr>
+	<tr id='control'><td colspan='4' align='center'>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+	<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	
+	
+	$(function(){
+		$('#doNew').click(function(){
+		
+		if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+		var vma_cqt_ql = $("#4_ma_cqt_ql").val() == undefined ? '' : $("#4_ma_cqt_ql").val().trim();
+			vma_cqt_ql = vma_cqt_ql.replace(/ /g, '%20');
+		
+		var vma_tinh = $("#6_ma_tinh").val() == undefined ? '' : $("#6_ma_tinh").val().trim();
+		vma_tinh = vma_tinh.replace(/ /g, '%20');
+		
+		var vma_huyen = $("#7_ma_huyen").val() == undefined ? '' : $("#7_ma_huyen").val().trim();
+		vma_huyen = vma_huyen.replace(/ /g, '%20');
+		
+		var vma_xa = $("#8_ma_xa").val() == undefined ? '' : $("#8_ma_xa").val().trim();
+		vma_xa = vma_xa.replace(/ /g, '%20');
+		
+		var vma_tinh_tt = $("#11_ma_tinh_tt").val() == undefined ? '' : $("#11_ma_tinh_tt").val().trim();
+		vma_tinh_tt = vma_tinh_tt.replace(/ /g, '%20');
+		
+		var vma_huyen_tt = $("#12_ma_huyen_tt").val() == undefined ? '' : $("#12_ma_huyen_tt").val().trim();
+		vma_huyen_tt = vma_huyen_tt.replace(/ /g, '%20');
+		
+		var vma_xa_tt = $("#13_ma_xa_tt").val() == undefined ? '' : $("#13_ma_xa_tt").val().trim();
+		vma_xa_tt = vma_xa_tt.replace(/ /g, '%20');	
+		
+			
+			if (Validate()){
+			
+			var m1 = $("#17_ma_nv").val();
+			var ten_nv= m1.substring(m1.lastIndexOf("-")+1); 
+			var split_manv = m1.split("-");
+			var ma_nv = split_manv[0];
+			
+			var m2 = $("#24_kbnn").val();
+			var ten_kbnn= m2.substring(m2.lastIndexOf("-")+1); 
+			var split_makbnn = m2.split("-");
+			var ma_kbnn = split_makbnn[0];
+			
+			var m3 = $("#4_ma_cqt_ql").val();
+			var ten_ma_cqt_ql= m3.substring(m3.lastIndexOf("-")+1); 
+			var split_ma_cqt_ql = m3.split("-");
+			var ma_ma_cqt_ql = split_ma_cqt_ql[0];
+			var sobl_ ="";
+			var ngaybl_ ="";
+			
+			var exec='&mst='+$('#1_mst').val()
+			+'&ten_nnt='+$('#2_ten_nnt').val()
+			+'&ma_cqt_ql='+ma_ma_cqt_ql
+			+'&ma_tinh='+vma_tinh
+			+'&ma_huyen='+vma_huyen
+			+'&ma_xa='+vma_xa
+			+'&so_nha='+$('#9_so_nha').val()
+			
+			+'&ma_tinh_tt='+vma_tinh_tt
+			+'&ma_huyen_tt='+vma_huyen_tt
+			+'&ma_xa_tt='+vma_xa_tt
+			
+			+'&so_nha_tt='+$('#14_so_nha_tt').val()
+			+'&mobile='+$('#15_mobile').val()
+			+'&email='+$('#16_email').val()
+			+'&ma_nv='+ma_nv
+			+'&ma_unt='+$('#19_ma_unt').val()
+			+'&ten_unt='+$('#20_ten_unt').val()
+			+'&kbnn='+ma_kbnn
+			+'&so_bl='+sobl_
+			+'&ngay_bl='+ngaybl_;
+			
+			
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/new_exec.html'+exec,
+				success: function(data){ 				
+					data = data.trim();
+					if (data=="1.0" || data=="1" ||data==1){
+						$('#result').attr('style',' color:#006600; font-weight:bold;');
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else if(data == "DUPLICATE"){
+						$('#result').html("Dữ liệu đã tồn tại.");
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+			}
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/index.html';
+		});
+		
+	});
+
+	function Validate(){
+	/*Mã số thuế*/
+		var pn0 = $('#1_mst').val();
+					if (/\'/.test(pn0) || pn0=='' ) {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.phieuhuys_mst} và ${n.i18n.knhapnhaydon}");
+						$("#1_mst").focus();
+						return false;
+					}
+					 
+		$("#1_mst").on("keypress", function(event) {var englishAlphabetAndWhiteSpace = /[A-Za-z0-9_-\s]/g;
+				   
+				var key = String.fromCharCode(event.which);
+					if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+						return true;
+					}
+					return false;
+				});
+
+				$('#1_mst').on("paste",function(e)
+				{
+					e.preventDefault();
+				});
+		
+	/*Họ tên*/
+				var pn1 = $('#2_ten_nnt').val();
+					if (/\'/.test(pn1) || pn1=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_name} và ${n.i18n.knhapnhaydon}");
+						$("#2_ten_nnt").focus();
+						return false;
+					}
+	/*ma_cqt_ql*/
+				var pn = $('#4_ma_cqt_ql').val();
+					if (/\'/.test(pn) || pn=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_cqt_ql} và ${n.i18n.knhapnhaydon}");
+						$("#4_ma_cqt_ql").focus();
+						return false;
+					}	
+	/*6_ma_tinh*/
+				var test_6_ma_tinh = $('#6_ma_tinh').val();
+					if (test_6_ma_tinh=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_tinh}");
+						$("#6_ma_tinh").focus();
+						return false;
+					}		
+	/*7_ma_huyen*/
+				var test_7_ma_huyen = $('#7_ma_huyen').val();
+					if (test_7_ma_huyen=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_huyen}");
+						$("#7_ma_huyen").focus();
+						return false;
+					}		
+	/*8_ma_xa*/
+				var test_8_ma_xa = $('#8_ma_xa').val();
+					if (test_8_ma_xa=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_xa}");
+						$("#8_ma_xa").focus();
+						return false;
+					}										
+	/*Số nhà*/	
+				var pn2 = $('#9_so_nha').val();
+					if (/\'/.test(pn2) || pn2=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_so_nha} và ${n.i18n.knhapnhaydon}");
+						$("#9_so_nha").focus();
+						return false;
+					}
+	/*11_ma_tinh_tt
+				var test_11_ma_tinh_tt = $('#11_ma_tinh_tt').val();
+					if (test_11_ma_tinh_tt=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_tinh}");
+						$("#11_ma_tinh_tt").focus();
+						return false;
+					}
+				*/
+	/*12_ma_huyen_tt
+				var test_12_ma_huyen_tt = $('#12_ma_huyen_tt').val();
+					if (test_12_ma_huyen_tt=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_huyen}");
+						$("#12_ma_huyen_tt").focus();
+						return false;
+					}
+				*/
+	/*13_ma_xa_tt
+				var test_13_ma_xa_tt = $('#13_ma_xa_tt').val();
+					if (test_13_ma_xa_tt=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_xa}");
+						$("#13_ma_xa_tt").focus();
+						return false;
+					}	
+				*/
+	/*Số nhà thanh toán
+				var pn3 = $('#14_so_nha_tt').val();
+					if (/\'/.test(pn3) || pn3=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_so_nha_tt} và ${n.i18n.knhapnhaydon}");
+						$("#14_so_nha_tt").focus();
+						return false;
+					}
+				*/
+	/*Số điện thoại		
+				var rePhoneNumber = new RegExp(/^\s?(01|09|1|9)\d{8,9}$/);
+					var phone =  $('#15_mobile').val();
+					if (!rePhoneNumber.test(phone)) {
+					$('#result').html("Vui lòng nhập số thuê bao theo dạng: 01234567890 hoặc 0908909999");
+					document.getElementById ("15_mobile").focus();
+					return false;
+					} 
+				*/		  
+	/*Email
+				var email = document.getElementById('16_email');
+					var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+					if (!filter.test(email.value)) {
+					$('#result').html("${n.i18n.required_format_mail}");	 
+					document.getElementById('16_email').focus();
+					return false;
+					}
+				*/	
+	/*Nhân viên*/	
+				var pn5 = $('#17_ma_nv').val();
+					if (/\'/.test(pn5) || pn5=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_nv} và ${n.i18n.knhapnhaydon}");
+						$("#17_ma_nv").focus();
+						return false;
+					}	
+	/*Mã giao unt*/
+				$("#19_ma_unt").on("keypress", function(event) {var englishAlphabetAndWhiteSpace = /[A-Za-z0-9_-\s]/g;				   
+					var key = String.fromCharCode(event.which);
+					if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || englishAlphabetAndWhiteSpace.test(key)) {
+						return true;
+					}
+					return false;
+				});
+
+				$('#19_ma_unt').on("paste",function(e)
+				{
+					e.preventDefault();
+				});
+				
+				var pn6 = $('#19_ma_unt').val();
+					if (/\'/.test(pn6) || pn6=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ma_unt} và ${n.i18n.knhapnhaydon}");
+						$("#19_ma_unt").focus();
+						return false;
+					}	
+	/*Tên unt*/
+				var pn7 = $('#20_ten_unt').val();
+					if (/\'/.test(pn7) || pn7=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_ten_unt} và ${n.i18n.knhapnhaydon}");
+						$("#20_ten_unt").focus();
+						return false;
+					}	
+	/*Kho bạc*/
+				var pn8 = $('#24_kbnn').val();
+					if (/\'/.test(pn8) || pn8=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_kbnn} và ${n.i18n.knhapnhaydon}");
+						$('#24_kbnn').focus();
+						return false;
+					}	
+	/*Số biên lai unt
+				var pn9 = $('#27_sobl_unt').val();
+					if (/\'/.test(pn9) || pn9=='') {
+						$('#result').html("${n.i18n.required_message} ${n.i18n.hctt_sobl_unt} và ${n.i18n.knhapnhaydon}");
+						$('#27_sobl_unt').focus();
+						return false;
+					}	
+				*/
+		
+	/*Ngày biên lai unt	
+		
+				re = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+				var time = $("#28_ngaybl_unt").val();
+				if(!time.match(re)) {
+				  $('#result').html("${n.i18n.format_date}");
+					$('#28_ngaybl_unt').focus();
+				  return false;
+				}
+				*/
+		return true;
+	}
+	
+	/*-------------------------------------------------------------------------------------------*/
+	
+	$(document).ready(function(){
+		doGetMaHUYEN();
+		doGetMaHUYEN_TT();
+	});
+	
+	function doGetMaHUYEN(){
+		if ($("#7_ma_huyen").val()==""){    $("#load_ma_huyen").html("");   return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_district_by_province.html&province_id='+$("#6_ma_tinh").val(),
+			success: function(data){ 
+				$("#load_ma_huyen").html(data);
+			}
+		});
+		doGetMaCQT_QL();
+	}
+	function doGetMaXA(){
+		if ($("#8_ma_xa").val()==""){  $("#load_ma_xa").html("");  return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_town_name_by_district.html&district_id='+$("#7_ma_huyen").val(),
+			success: function(data){ 
+				$("#load_ma_xa").html(data);
+			}
+		});
+		
+	}
+	
+	function doGetMaCQT_QL(){
+		var mt = $("#6_ma_tinh").val() == undefined ? '' : $("#6_ma_tinh").val().trim();
+		var ma_cqt_ql= $("#4_ma_cqt_ql").val() == undefined ? '' : $("#4_ma_cqt_ql").val().trim();
+		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_ma_cqt_ql_by_province.html&provin_id='+$("#6_ma_tinh").val(),
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#4_ma_cqt_ql').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {					
+						ma_cqt_ql = suggestion.data;						
+					}
+				});
+			}
+		});
+		
+		doGetKBNN();
+		
+	}
+	function doGetMaHUYEN_TT(){
+		if ($("#12_ma_huyen_tt").val()==""){    $("#load_ma_huyen_tt").html("");   return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_district_tt_by_province_tt.html&province_id='+$("#11_ma_tinh_tt").val(),
+			success: function(data){ 
+				$("#load_ma_huyen_tt").html(data);
+			}
+		});
+	}
+	function doGetMaXA_TT(){
+		if ($("#13_ma_xa_tt").val()==""){  $("#load_ma_xa_tt").html("");  return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_town_name_tt_by_district_tt.html&district_id='+$("#12_ma_huyen_tt").val(),
+			success: function(data){ 
+				$("#load_ma_xa_tt").html(data);
+			}
+		});
+	}
+	function doGetMaNV(){
+	
+		var mt = $("#11_ma_tinh_tt").val() == undefined ? '' : $("#11_ma_tinh_tt").val().trim();
+		var ma_nv= $("#17_ma_nv").val() == undefined ? '' : $("#17_ma_nv").val().trim();
+			
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_manv_by_tinh.html&province_id='+$("#6_ma_tinh").val(),
+				success: function(data){ 
+					eval('data='+data);
+					var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+					$('#17_ma_nv').autocomplete({
+						lookup: mapNV,
+						onSelect: function (suggestion) {						
+							ma_nv = suggestion.data;							
+						}
+					});
+				}
+			});
+	
+	}
+	
+	function doGetDIA_BAN(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_dia_ban_by_province.html&province_id='+$("#6_ma_tinh").val(),success: function(data){ 
+				$("#load_dia_ban").html(data);
+			}
+		});
+	}
+	function doGetKBNN(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_kbnn.html&provin_id='+$("#6_ma_tinh").val(),
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#24_kbnn').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {					
+ 						kbnn = suggestion.data; 						
+					}
+				});
+			}
+		});
+
+	}
+	/*-------------------------------------------------------------------------------------------*/
+
+</script>

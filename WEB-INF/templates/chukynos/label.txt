@@ -1,0 +1,4 @@
+chukynos_id=Id
+chukynos_ten_chukyno=Ten_Chukyno
+chukynos_is_active=Is_Active
+chukynos_status=Status

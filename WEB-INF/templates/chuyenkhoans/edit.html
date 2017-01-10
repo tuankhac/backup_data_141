@@ -1,0 +1,329 @@
+#set ($v = $u.ref("crud_search_chuyenkhoans_service","default",["$!{mst}","$!{phieu_id}","$!{so_bl}","$!{so_ct}","$!{tien}","$!{thue}","$!{loaitien_id}","$!{chukyno}","$!{hinhthuctt_id}","$!{nganhang_ph}","$!{nganhang_dvh}","$!{ngaynhan}","$!{tamthu}","$!{phat}","$!{lephinganhang}","$!{ghichu}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],20)[0] )
+	<table id="chuyenkhoans" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_edit_button_message.toUpperCase()}</b></th></tr>	
+		
+		<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.chuyenkhoans_mst}</td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst" value='$!v["MST"]'><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="so_bl_label">${n.i18n.chuyenkhoans_so_bl}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="so_bl" id="so_bl" value='$!v["SO_BL"]'><span id="so_bl_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="so_ct_label">${n.i18n.chuyenkhoans_so_ct}</td>
+		<td>
+			<input  type="text" class="form-control" name="so_ct" id="so_ct" value='$!v["SO_CT"]'><span id="so_ct_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_label">${n.i18n.chuyenkhoans_tien}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="tien" id="tien" value='$!v["TIEN"]'><span id="tien_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="thue_label">${n.i18n.chuyenkhoans_thue}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="thue" id="thue" value='$!v["THUE"]'><span id="thue_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="loaitien_id_label">${n.i18n.chuyenkhoans_loaitien_id}<font>*</font></td>
+		<td>
+			<select class="form-control" name="loaitien_id" id="loaitien_id" value='$!v["LOAITIEN_ID"]'>				               	
+				<option value="1">VND</option>
+				<option value="2">USD</option>
+			</select>
+			<span id="loaitien_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="chukyno_label">${n.i18n.chuyenkhoans_chukyno}</td>
+		<td>
+			<select class="form-control" name="chukyno" id="chukyno" value='$!v["CHUKYNO"]'>
+				#foreach ($i in $u.qry("danh_sach_chu_ky_thu","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="chukyno_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="hinhthuctt_id_label">${n.i18n.chuyenkhoans_hinhthuctt_id}</td>
+		<td>
+			<select class="form-control" name="hinhthuctt_id" id="hinhthuctt_id" value='$!v["HINHTHUCTT_ID"]'>
+				#foreach ($i in $u.qry("crud_search_hinhthuc_service","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="hinhthuctt_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="nganhang_ph_label">${n.i18n.chuyenkhoans_nganhang_ph}</td>
+		<td>
+			<select class="form-control" name="nganhang_ph" id="nganhang_ph" value='$!v["NGANHANG_PH"]'>
+				<option value="">Kh&#244;ng ch&#7885;n</option>
+				#foreach ($i in $u.qry("crud_search_nganhang_service","default",[$!{param.province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!v['NGANHANG_PH']")selected#end>$!i['TEN']</option>
+                #end
+			</select><span id="nganhang_ph_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="nganhang_dvh_label">${n.i18n.chuyenkhoans_nganhang_dvh}</td>
+		<td>		
+			<select class="form-control" name="nganhang_dvh" id="nganhang_dvh" value='$!v["NGANHANG_DVH"]'>
+				<option value="">Kh&#244;ng ch&#7885;n</option>
+				#foreach ($i in $u.qry("crud_search_nganhang_service","default",[$!{param.province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!v['NGANHANG_PH']")selected#end>$!i['TEN']</option>
+                #end
+			</select><span id="nganhang_dvh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tamthu_label">${n.i18n.chuyenkhoans_tamthu}</td>
+		<td>
+			<input  type="text" class="form-control" name="tamthu" id="tamthu" value='$!v["TAMTHU"]'><span id="tamthu_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngaynhan_label">${n.i18n.chuyenkhoans_ngaynhan}</td>
+		<td>
+			<input  type="text" class="form-control" name="ngaynhan" id="ngaynhan" value='$!v["NGAYNHAN"]'><span id="ngaynhan_msg"></span></td>
+		</tr>
+
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="phat_label">${n.i18n.chuyenkhoans_phat}</td>
+		<td>
+			<input  type="text" class="form-control" name="phat" id="phat" value='$!v["PHAT"]'><span id="phat_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="lephinganhang_label">${n.i18n.chuyenkhoans_lephinganhang}</td>
+		<td>
+			<input  type="text" class="form-control" name="lephinganhang" id="lephinganhang" value='$!v["LEPHINGANHANG"]'><span id="lephinganhang_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="ghichu_label">${n.i18n.chuyenkhoans_ghichu}</td>
+		<td colspan=3>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="ghichu" id="ghichu" style='vertical-align:top'>$!v["GHICHU"]</textarea><span id="ghichu_msg"></span></td>		
+	</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doEdit" id="doEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doReset" id="doReset"><i class="fa fa-reply"></i> ${n.i18n.crud_reset_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+
+		var orginData={mst:'$!v["MST"]',so_bl:'$!v["SO_BL"]',so_ct:'$!v["SO_CT"]',tien:'$!v["TIEN"]',thue:'$!v["THUE"]',loaitien_id:'$!v["LOAITIEN_ID"]',chukyno:'$!v["CHUKYNO"]',phieu_id:'$!v["PHIEU_ID"]',hinhthuctt_id:'$!v["HINHTHUCTT_ID"]',nganhang_ph:'$!v["NGANHANG_PH"]',nganhang_dvh:'$!v["NGANHANG_DVH"]',ngaynhan:'$!v["NGAYNHAN"]',ngay_tt:'$!v["NGAY_TT"]',nguoi_th:'$!v["NGUOI_TH"]',may_th:'$!v["MAY_TH"]',ngay_th:'$!v["NGAY_TH"]',tamthu:'$!v["TAMTHU"]',trangthai:'$!v["TRANGTHAI"]',phat:'$!v["PHAT"]',lephinganhang:'$!v["LEPHINGANHANG"]',ghichu:'$!v["GHICHU"]'};
+		$('#doEdit').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&mst='+$('#mst').val()+'&phieu_id='+'${phieu_id}'+'&so_bl='+$('#so_bl').val()+'&so_ct='+$('#so_ct').val()+'&tien='+$('#tien').val()+'&thue='+$('#thue').val()+'&loaitien_id='+$('#loaitien_id').val()+'&chukyno='+$('#chukyno').val()+'&hinhthuctt_id='+$('#hinhthuctt_id').val()+'&nganhang_ph='+$('#nganhang_ph').val()+'&nganhang_dvh='+$('#nganhang_dvh').val()+'&ngaynhan='+$('#ngaynhan').val()+'&tamthu='+$('#tamthu').val()+'&phat='+$('#phat').val()+'&lephinganhang='+$('#lephinganhang').val()+'&ghichu='+$('#ghichu').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=chuyenkhoans/edit_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_edit_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doReset').click(function(){
+			$("input:text").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("textarea").each(function(){$(this).val( orginData[$(this).attr('id')] )});
+			$("select").each(function(){$(this).attr('selectedIndex',orginData[$(this).attr('id')]);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=chuyenkhoans/index.html';
+		});
+		$('#so_bl').blur(function(){
+			if ($('#so_bl').val()!=''){
+				$('#so_bl_msg').html('');
+				$('#so_bl_msg').attr('style','display:none');
+			}else{
+				$('#so_bl_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_so_bl}');
+				$('#so_bl_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#so_bl').val()*1==$('#so_bl').val()){
+				$('#so_bl_msg').html('');
+				$('#so_bl_msg').attr('style','display:none');
+			}else{
+				$('#so_bl_msg').html('${n.i18n.chuyenkhoans_so_bl} ${n.i18n.crud_is_number_message}');
+				$('#so_bl_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tien').blur(function(){
+			if ($('#tien').val()!=''){
+				$('#tien_msg').html('');
+				$('#tien_msg').attr('style','display:none');
+			}else{
+				$('#tien_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_tien}');
+				$('#tien_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#tien').val()*1==$('#tien').val()){
+				$('#tien_msg').html('');
+				$('#tien_msg').attr('style','display:none');
+			}else{
+				$('#tien_msg').html('${n.i18n.chuyenkhoans_tien} ${n.i18n.crud_is_number_message}');
+				$('#tien_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#thue').blur(function(){
+			if ($('#thue').val()!=''){
+				$('#thue_msg').html('');
+				$('#thue_msg').attr('style','display:none');
+			}else{
+				$('#thue_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_thue}');
+				$('#thue_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#thue').val()*1==$('#thue').val()){
+				$('#thue_msg').html('');
+				$('#thue_msg').attr('style','display:none');
+			}else{
+				$('#thue_msg').html('${n.i18n.chuyenkhoans_thue} ${n.i18n.crud_is_number_message}');
+				$('#thue_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#loaitien_id').blur(function(){
+			if ($('#loaitien_id').val()!=''){
+				$('#loaitien_id_msg').html('');
+				$('#loaitien_id_msg').attr('style','display:none');
+			}else{
+				$('#loaitien_id_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_loaitien_id}');
+				$('#loaitien_id_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#loaitien_id').val()*1==$('#loaitien_id').val()){
+				$('#loaitien_id_msg').html('');
+				$('#loaitien_id_msg').attr('style','display:none');
+			}else{
+				$('#loaitien_id_msg').html('${n.i18n.chuyenkhoans_loaitien_id} ${n.i18n.crud_is_number_message}');
+				$('#loaitien_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#phieu_id').blur(function(){
+			if ($('#phieu_id').val()*1==$('#phieu_id').val()){
+				$('#phieu_id_msg').html('');
+				$('#phieu_id_msg').attr('style','display:none');
+			}else{
+				$('#phieu_id_msg').html('${n.i18n.chuyenkhoans_phieu_id} ${n.i18n.crud_is_number_message}');
+				$('#phieu_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#hinhthuctt_id').blur(function(){
+			if ($('#hinhthuctt_id').val()*1==$('#hinhthuctt_id').val()){
+				$('#hinhthuctt_id_msg').html('');
+				$('#hinhthuctt_id_msg').attr('style','display:none');
+			}else{
+				$('#hinhthuctt_id_msg').html('${n.i18n.chuyenkhoans_hinhthuctt_id} ${n.i18n.crud_is_number_message}');
+				$('#hinhthuctt_id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#nganhang_ph').blur(function(){
+			if ($('#nganhang_ph').val()*1==$('#nganhang_ph').val()){
+				$('#nganhang_ph_msg').html('');
+				$('#nganhang_ph_msg').attr('style','display:none');
+			}else{
+				$('#nganhang_ph_msg').html('${n.i18n.chuyenkhoans_nganhang_ph} ${n.i18n.crud_is_number_message}');
+				$('#nganhang_ph_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#nganhang_dvh').blur(function(){
+			if ($('#nganhang_dvh').val()*1==$('#nganhang_dvh').val()){
+				$('#nganhang_dvh_msg').html('');
+				$('#nganhang_dvh_msg').attr('style','display:none');
+			}else{
+				$('#nganhang_dvh_msg').html('${n.i18n.chuyenkhoans_nganhang_dvh} ${n.i18n.crud_is_number_message}');
+				$('#nganhang_dvh_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngaynhan').blur(function(){
+			if ($('#ngaynhan').val()=='' || patternValidate($('#ngaynhan'),'dd/mm/yyyy')){
+				$('#ngaynhan_msg').html('');
+				$('#ngaynhan_msg').attr('style','display:none');
+			}else{
+				$('#ngaynhan_msg').html('${n.i18n.chuyenkhoans_ngaynhan} dạng dd/mm/yyyy');
+				$('#ngaynhan_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_tt').blur(function(){
+			if ($('#ngay_tt').val()=='' || patternValidate($('#ngay_tt'),'dd/mm/yyyy')){
+				$('#ngay_tt_msg').html('');
+				$('#ngay_tt_msg').attr('style','display:none');
+			}else{
+				$('#ngay_tt_msg').html('${n.i18n.chuyenkhoans_ngay_tt} dạng dd/mm/yyyy');
+				$('#ngay_tt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_th').blur(function(){
+			if ($('#ngay_th').val()!=''){
+				$('#ngay_th_msg').html('');
+				$('#ngay_th_msg').attr('style','display:none');
+			}else{
+				$('#ngay_th_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_ngay_th}');
+				$('#ngay_th_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#ngay_th').val()=='' || patternValidate($('#ngay_th'),'dd/mm/yyyy')){
+				$('#ngay_th_msg').html('');
+				$('#ngay_th_msg').attr('style','display:none');
+			}else{
+				$('#ngay_th_msg').html('${n.i18n.chuyenkhoans_ngay_th} dạng dd/mm/yyyy');
+				$('#ngay_th_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tamthu').blur(function(){
+			if ($('#tamthu').val()*1==$('#tamthu').val()){
+				$('#tamthu_msg').html('');
+				$('#tamthu_msg').attr('style','display:none');
+			}else{
+				$('#tamthu_msg').html('${n.i18n.chuyenkhoans_tamthu} ${n.i18n.crud_is_number_message}');
+				$('#tamthu_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#trangthai').blur(function(){
+			if ($('#trangthai').val()!=''){
+				$('#trangthai_msg').html('');
+				$('#trangthai_msg').attr('style','display:none');
+			}else{
+				$('#trangthai_msg').html('${n.i18n.crud_required_message} ${n.i18n.chuyenkhoans_trangthai}');
+				$('#trangthai_msg').attr('style','display:block');
+				return false;
+			}
+			if ($('#trangthai').val()*1==$('#trangthai').val()){
+				$('#trangthai_msg').html('');
+				$('#trangthai_msg').attr('style','display:none');
+			}else{
+				$('#trangthai_msg').html('${n.i18n.chuyenkhoans_trangthai} ${n.i18n.crud_is_number_message}');
+				$('#trangthai_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#phat').blur(function(){
+			if ($('#phat').val()*1==$('#phat').val()){
+				$('#phat_msg').html('');
+				$('#phat_msg').attr('style','display:none');
+			}else{
+				$('#phat_msg').html('${n.i18n.chuyenkhoans_phat} ${n.i18n.crud_is_number_message}');
+				$('#phat_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#lephinganhang').blur(function(){
+			if ($('#lephinganhang').val()*1==$('#lephinganhang').val()){
+				$('#lephinganhang_msg').html('');
+				$('#lephinganhang_msg').attr('style','display:none');
+			}else{
+				$('#lephinganhang_msg').html('${n.i18n.chuyenkhoans_lephinganhang} ${n.i18n.crud_is_number_message}');
+				$('#lephinganhang_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ghichu').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ghichu&content="+$('#ghichu').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+		$('#ngaynhan').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_tt').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_th').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

@@ -1,0 +1,34 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>STT</th>
+  		<th align=center>${n.i18n.ketquaphats_mst}</th>
+		<th align=center>${n.i18n.ketquaphats_chungtu_id}</th>
+		<th align=center>${n.i18n.ketquaphats_chuky}</th>
+		<th align=center>${n.i18n.ketquaphats_ngay_nhap}</th>
+		<th align=center>${n.i18n.ketquaphats_ketqua}</th>
+ 
+	</tr>
+ 
+#set ($list = $u.ref("crud_search_report_ketquaphats_service","default",["$!{ma_tinh}","$!{tu_ngay}","$!{den_ngay}","$!{ma_cq_thu}","$!{ma_bc}","$!{quaythu_id}","$!{nguoi_huy}","$!{duong_thu}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+#foreach ($i in $list)
+	<tr>
+		<td align=left name='stt'></td>
+  		<td align=left name='MST'>$!i["MST"]</td>
+		<td align=left name='CHUNGTU_NAME'>$!i["CHUNGTU_NAME"]</td>
+		<td align=center name='CHUKY'>$!i["CHUKY"]</td>
+		<td align=center name='NGAY_NHAP'>$!i["NGAY_NHAP"]</td>
+		
+		<td align=center name='KET_QUA'>$!i["KET_QUA"]</td>
+ 
+	</tr>
+#end
+</table>
+ <script>
+	var count = 0;
+	var page_ = "$!{page_index}";
+	var record_ = (record_per_page*(page_-1));
+ 	$('td[name="stt"]').each(function(){	
+		count=count+1 ;
+		$(this).html(record_+count);
+	});
+</script>

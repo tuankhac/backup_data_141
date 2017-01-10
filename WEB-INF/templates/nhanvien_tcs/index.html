@@ -1,0 +1,197 @@
+<table id="nhanvien_tcs" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.nhanvien_tcs_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="" id="ma_tinh_label">${n.i18n.nhanvien_tcs_ma_tinh}<font>*</font></td>
+		<td>
+			<select class="form-control" name="ma_tinh" id="ma_tinh" default="${param.province}">
+				#foreach ($i in $u.qry("crud_search_nhanvien_tcs_ma_tinh_service","default",[${province}],1) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="so_cmnd_label">${n.i18n.nhanvien_tcs_so_cmnd}</td>
+		<td>
+			<input  type="text" class="form-control" name="so_cmnd" id="so_cmnd"><span id="so_cmnd_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ten_nv_label">${n.i18n.nhanvien_tcs_ten_nv}</td>
+		<td>
+			<input  type="text" class="form-control" name="ten_nv" id="ten_nv"><span id="ten_nv_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="diachi_label">${n.i18n.nhanvien_tcs_diachi}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="diachi" id="diachi" style='vertical-align:top'></textarea><span id="diachi_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_bl_label">${n.i18n.nhanvien_tcs_nguoi_bl}</td>
+		<td>
+			<input  type="text" class="form-control" name="nguoi_bl" id="nguoi_bl"><span id="nguoi_bl_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_dc_label">${n.i18n.nhanvien_tcs_tien_dc}</td>
+		<td>
+			<input  type="text" class="form-control" name="tien_dc" id="tien_dc"><span id="tien_dc_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="so_hd_label">${n.i18n.nhanvien_tcs_so_hd}</td>
+		<td>
+			<input  type="text" class="form-control" name="so_hd" id="so_hd"><span id="so_hd_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_bs_label">${n.i18n.nhanvien_tcs_tien_bs}</td>
+		<td>
+			<input  type="text" class="form-control" name="tien_bs" id="tien_bs"><span id="tien_bs_msg"></span></td>
+		<td title="" id="mabc_id_label">${n.i18n.nhanvien_tcs_mabc_id}<font>*</font></td>
+		<td>
+			<select class="form-control" name="mabc_id" id="mabc_id">
+				<option value="">Không chọn</option>
+				#foreach ($i in $u.qry("crud_search_nhanvien_tcs_mabc_id_service","default",[${province}],1) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="mabc_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.nhanvien_tcs_mobile}</td>
+		<td>
+			<input  type="text" class="form-control" name="mobile" id="mobile"><span id="mobile_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.nhanvien_tcs_email}</td>
+		<td>
+			<input  type="text" class="form-control" name="email" id="email"><span id="email_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_hd_label">${n.i18n.nhanvien_tcs_ngay_hd}</td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_hd" id="ngay_hd"><span id="ngay_hd_msg"></span></td>	
+		</tr>
+
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;			
+
+		</td></tr>
+</table>
+<section class="content">
+	<div class="box box-primary"><div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div>
+</section>
+<div id="pageinfo"></div>
+<div class="modal fade" id="spamModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">     	
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Ảnh đại diện</h4>
+			</div>
+			<div class="modal-body">
+			<img class="img-responsive img-rounded center" id="show_img" src="#" alt='no avatar' />
+			<div class="modal-footer">
+				<button data-dismiss="modal" class="btn btn-primary" type="button">Thoát</button>
+				<!-- <button class="btn btn-primary" type="button" onclick="updatePolicy()">Cập nhật</button> -->
+			</div>
+			<div id="alert" align="center" style="color:#FF0000"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var nv_tcs_id="";
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);
+					getData(1,$('#cboSetPageRec').val());									
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=nhanvien_tcs/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&id='+$('#id').val()+'&ma_tinh='+$('#ma_tinh').val()+'&so_cmnd='+$('#so_cmnd').val()+'&ten_nv='+$('#ten_nv').val()+'&diachi='+$('#diachi').val()+'&nguoi_bl='+$('#nguoi_bl').val()+'&tien_dc='+$('#tien_dc').val()+'&so_hd='+$('#so_hd').val()+'&ngay_hd='+$('#ngay_hd').val()+'&mabc_id='+$('#mabc_id').val()+'&mobile='+$('#mobile').val()+'&email='+$('#email').val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+		};
+		
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());
+		});
+					
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=nhanvien_tcs/new.html';
+		});
+		
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nhanvien_tcs/edit.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text()+'&ma_tinh='+$('#ma_tinh').val();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nhanvien_tcs/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text()+'&ma_tinh='+$('#ma_tinh').val();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+
+		$('#diachi').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=diachi&content="+$('#diachi').val(),'selectFile',700,280);
+		});
+		
+		$('#tien_dc').blur(function(){
+			if ($('#tien_dc').val()*1==$('#tien_dc').val()){
+				$('#tien_dc_msg').html('');
+				$('#tien_dc_msg').attr('style','display:none');
+			}else{
+				$('#tien_dc_msg').html('${n.i18n.nhanvien_tcs_tien_dc} ${n.i18n.crud_is_number_message}');
+				$('#tien_dc_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		
+		$('#tien_bs').blur(function(){
+			if ($('#tien_bs').val()*1==$('#tien_bs').val()){
+				$('#tien_bs_msg').html('');
+				$('#tien_bs_msg').attr('style','display:none');
+			}else{
+				$('#tien_bs_msg').html('${n.i18n.nhanvien_tcs_tien_bs} ${n.i18n.crud_is_number_message}');
+				$('#tien_bs_msg').attr('style','display:block');
+				return false;
+			}
+		});
+
+		
+		$('#ngay_hd').blur(function(){
+			if ($('#ngay_hd').val()=='' || patternValidate($('#ngay_hd'),'dd/mm/yyyy')){
+				$('#ngay_hd_msg').html('');
+				$('#ngay_hd_msg').attr('style','display:none');
+			}else{
+				$('#ngay_hd_msg').html('${n.i18n.nhanvien_tcs_ngay_hd} dạng dd/mm/yyyy');
+				$('#ngay_hd_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		
+		$('#email').blur(function(){
+			if ($('#email').val()*1==$('#email').val()){
+				$('#email_msg').html('');
+				$('#email_msg').attr('style','display:none');
+			}else{
+				$('#email_msg').html('${n.i18n.nhanvien_tcs_email} ${n.i18n.crud_is_number_message}');
+				$('#email_msg').attr('style','display:block');
+				return false;
+			}
+			});
+		});
+		
+		$(document).ready(function(){
+		$('#ngay_hd').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

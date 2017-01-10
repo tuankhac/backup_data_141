@@ -1,0 +1,39 @@
+##khi chac chan thuc hien thi dong thoi se hien log
+#set($val = $u.val("Insert2DB","default",["$!{t_id}","$!{province}","$!{type}"],3))
+#set($Integer = 0)
+
+<div class = "box box box-primary">
+<table width="70%" class='table table-condensed'>
+	#set ($val1 = $u.val("get_count_records","default",["$!{table_name}","","$!{t_id}","$!{province}","0"],5))
+	
+	#if(!$val.contains("Loi thuc hien"))
+		#set ($v1 = $Integer.parseInt($val1.replace(".0","")))
+		#set ($v = $Integer.parseInt($val.replace(".0","")))
+		#set ($v3 = $v1 - $v)
+		<tr><th><strong>Insert thành công</strong></th></tr>
+		<tr>
+			<td align=left id='t_id'>ID : <span id ="seq">$!{t_id} <span></td>
+		</tr>
+		<tr>
+			<td align=left>Tổng số bản ghi :<span id='sum_records'> $v1 </span></td>
+		</tr>
+		<tr>
+			<td align=left>Số bản ghi hợp lệ :<span id='inserted_records'> $v </span></td>
+		</tr>
+		<tr>
+			<td align=left>Số bản ghi không hợp lệ :<span id='failed_records'> $v3</span></td>
+		</tr>
+	#else
+		<tr><th><strong>Insert thất bại</strong></th></tr>
+		<tr>
+			<td align=left id='t_id'>ID : <span id ="seq">$!{t_id} <span></td>
+		</tr>
+		<!-- <tr>
+			<td align=left>Tổng số bản ghi :<span id='sum_records'> $val1 </span></td>
+		</tr> -->
+		<tr>
+			<td align=left><font color = "red" >Lỗi :<span id='inserted_records'> $val  </font></span></td>
+		</tr>
+	#end
+</table>
+</div>

@@ -1,0 +1,15 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>Chương</th>
+		<th align=center>Tiểu mục</th>
+		<th align=center>Số tiền</th>
+	</tr>
+#set ($list = $u.ref("crud_search_bangphieutra_uynhiem_chuong","default",["$!{ma_tinh}","$!{kho_bac}","$!{phuong}","$!{ngay_tt}","$!{loaithue}","1000000","1"],7) )
+#foreach ($i in $list)
+	<tr>
+		<td align=left name='id'>$!i["TEN_CHUONG"]</td>
+		<td align=left name='mst'>$!i["TENTIEUMUC"]</td>
+		<td align=left name='ma_tinh' style="font-weight:bold;color:#C30">$!i["TIENTRA"]</td>
+	</tr>
+#end
+</table>

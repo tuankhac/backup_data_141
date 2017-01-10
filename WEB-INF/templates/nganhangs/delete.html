@@ -1,0 +1,68 @@
+#set ($v = $u.ref("crud_search_nganhangs_service","default",["$!{id}","$!{maso}","$!{ten}","$!{diachi}","$!{taikhoan}","$!{dienthoai}","$!{sofax}","$!{lanhdao}","$!{ma_tinh}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0] )
+	<table id="nganhangs" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.nganhangs_id}<font>*</font></td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="maso_label">${n.i18n.nganhangs_maso}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MASO"]' name="maso" id="maso"><span id="maso_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="ten_label">${n.i18n.nganhangs_ten}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["TEN"]' name="ten" id="ten"><span id="ten_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 200 ${n.i18n.crud_valid_length_postfix}" id="diachi_label">${n.i18n.nganhangs_diachi}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["DIACHI"]' name="diachi" id="diachi"><span id="diachi_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="taikhoan_label">${n.i18n.nganhangs_taikhoan}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["TAIKHOAN"]' name="taikhoan" id="taikhoan"><span id="taikhoan_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="dienthoai_label">${n.i18n.nganhangs_dienthoai}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["DIENTHOAI"]' name="dienthoai" id="dienthoai"><span id="dienthoai_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="sofax_label">${n.i18n.nganhangs_sofax}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["SOFAX"]' name="sofax" id="sofax"><span id="sofax_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 50 ${n.i18n.crud_valid_length_postfix}" id="lanhdao_label">${n.i18n.nganhangs_lanhdao}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["LANHDAO"]' name="lanhdao" id="lanhdao"><span id="lanhdao_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.nganhangs_ma_tinh}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_TINH"]' name="ma_tinh" id="ma_tinh"><span id="ma_tinh_msg"></span></td>
+		<td></td><td></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=nganhangs/delete_exec.html&id=${id}',
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nganhangs/index.html';
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()!=''){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.crud_required_message} ${n.i18n.nganhangs_id}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

@@ -1,0 +1,3 @@
+districts_id=Id
+districts_district_name=District_Name
+districts_province_id=Province_Id

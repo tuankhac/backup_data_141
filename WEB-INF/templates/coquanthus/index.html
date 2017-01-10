@@ -1,0 +1,110 @@
+<table id="coquanthus" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.coquanthus_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="cqt_qlt_label">${n.i18n.coquanthus_cqt_qlt}</td>
+		<td>
+			<input  type="text" class="form-control" name="cqt_qlt" id="cqt_qlt"><span id="cqt_qlt_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="cqt_tms_label">${n.i18n.coquanthus_cqt_tms}</td>
+		<td>
+			<input  type="text" class="form-control" name="cqt_tms" id="cqt_tms"><span id="cqt_tms_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="ten_cqt_label">${n.i18n.coquanthus_ten_cqt}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="ten_cqt" id="ten_cqt" style='vertical-align:top'></textarea><span id="ten_cqt_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.coquanthus_ma_tinh}</td>
+		<td>
+			<input  type="text" class="form-control" name="ma_tinh" id="ma_tinh"><span id="ma_tinh_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_huyen_label">${n.i18n.coquanthus_ma_huyen}</td>
+		<td>
+			<input  type="text" class="form-control" name="ma_huyen" id="ma_huyen"><span id="ma_huyen_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_quoc_gia_label">${n.i18n.coquanthus_ma_quoc_gia}</td>
+		<td>
+			<input  type="text" class="form-control" name="ma_quoc_gia" id="ma_quoc_gia"><span id="ma_quoc_gia_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="hieu_luc_tu_label">${n.i18n.coquanthus_hieu_luc_tu}</td>
+		<td>
+			<input  type="text" class="form-control" name="hieu_luc_tu" id="hieu_luc_tu"><span id="hieu_luc_tu_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="hieu_luc_den_label">${n.i18n.coquanthus_hieu_luc_den}</td>
+		<td>
+			<input  type="text" class="form-control" name="hieu_luc_den" id="hieu_luc_den"><span id="hieu_luc_den_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 500 ${n.i18n.crud_valid_length_postfix}" id="shkb_label">${n.i18n.coquanthus_shkb}</td>
+		<td>
+			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="shkb" id="shkb" style='vertical-align:top'></textarea><span id="shkb_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table>
+<section class="content">
+	<div class="box box-primary"><div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div>
+</section>
+<div id="pageinfo"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);		
+					getData(1,$('#cboSetPageRec').val());						
+				}
+			});
+		
+	});
+	
+	function getData(pageNum,pageRec){			
+			var url_= 'crud_exec.jsp?crud_type=coquanthus/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&id='+$('#id').val()+'&cqt_qlt='+$('#cqt_qlt').val()+'&cqt_tms='+$('#cqt_tms').val()+'&ten_cqt='+$('#ten_cqt').val()+'&ma_tinh='+$('#ma_tinh').val()+'&ma_huyen='+$('#ma_huyen').val()+'&ma_quoc_gia='+$('#ma_quoc_gia').val()+'&hieu_luc_tu='+$('#hieu_luc_tu').val()+'&hieu_luc_den='+$('#hieu_luc_den').val()+'&shkb='+$('#shkb').val();
+			$.ajax({
+				url: url_,
+				success: function(data){ 				
+					$('#data-list').html(data);													
+					$('#result').html('');
+					setPage(pageNum,$("#page").html());
+				}
+			});
+	};
+
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());	
+		});
+		$('#doSearch').click();
+		
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=coquanthus/new.html';
+		});
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=coquanthus/edit.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=coquanthus/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#ten_cqt').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ten_cqt&content="+$('#ten_cqt').val(),'selectFile',700,280);
+		});
+		$('#shkb').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=shkb&content="+$('#shkb').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

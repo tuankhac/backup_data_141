@@ -1,0 +1,40 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.ketquaphats_id}</th>
+		<th align=center>${n.i18n.ketquaphats_mst}</th>
+		<th align=center>${n.i18n.ketquaphats_chungtu_id}</th>
+		<th align=center>${n.i18n.ketquaphats_ngay_phat}</th>
+		<th align=center>${n.i18n.ketquaphats_ngay_nhap}</th>
+		<th align=center>${n.i18n.ketquaphats_nguoi_nhan}</th>
+		<th align=center>Người nhập</th>
+		<th align=center>${n.i18n.ketquaphats_trang_thai}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_ketquaphats_service","default",["$!{id}","$!{mst}","$!{ckn}","$!{chungtu_id}","$!{ma_nv}","$!{bill}","$!{ngay_phat}","$!{ngay_nhap}","$!{nguoi_nhan}","$!{lan_phat}","$!{lan_thu}","$!{trang_thai}","$!{ma_daily}","$!{diem_thu}","$!{ghichu}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],20) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="ketquaphats_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=center name='chungtu_id'>$!i["CHUNGTU_ID"]</td>
+		<td align=center name='ngay_phat'>$!i["NGAY_PHAT"]</td>
+		<td align=center name='ngay_nhap'>$!i["NGAY_NHAP"]</td>
+		<td align=left name='nguoi_nhan'>$!i["NGUOI_NHAN"]</td>
+		<td align=left name='nguoi_nhan'>$!i["NGUOI_NHAP"]</td>
+		<td align=center name='trang_thai'>$!i["TRANG_THAI"]</td>
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_ketquaphats_service","default",["$!{id}","$!{mst}","$!{ckn}","$!{chungtu_id}","$!{ma_nv}","$!{bill}","$!{ngay_phat}","$!{ngay_nhap}","$!{nguoi_nhan}","$!{lan_phat}","$!{lan_thu}","$!{trang_thai}","$!{ma_daily}","$!{diem_thu}","$!{ghichu}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],20) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+<script>
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+	
+	$('#ajax_chuongs :radio').change(function(){	
+		$('#ajax_chuongs :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

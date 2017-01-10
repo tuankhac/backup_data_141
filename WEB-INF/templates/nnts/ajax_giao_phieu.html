@@ -1,0 +1,57 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align="center"><input type="checkbox" id="ckbCheckAll" /></th>
+		<th align="center">${n.i18n.nnts_mst}</th>
+		<th align="center">${n.i18n.nnts_ten_nnt}</th>
+		<!--th align="center">${n.i18n.nnts_so}</th>
+		<th align="center">${n.i18n.nnts_chuong}</th-->
+		<th align="center">${n.i18n.nnts_ma_cqt_ql}</th>
+		<!--th align="center">${n.i18n.nnts_mobile}</th-->
+        <th align="center">Đã giao</th>
+        <th align="center">Chưa giao</th>
+		<th align="center">Kỳ thuế</th>
+	</tr>
+#set ($list = $u.ref("crud_search_nnts_kythue_service","default",["$!{ma_nv}","${province}","","1","20","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],8) )
+#foreach ($i in $list)
+	<tr>
+	<td width='22px' align=center><input class="checkBoxClass" type="checkbox" id="$!i['MST']$!i['KYTHUE']" name="nnts_rad" onclick="tong_tien()" value='$!i["MST"]'></td>
+		<td align=left name='mst_$!i["MST"]' value='$!i["MST"]'>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<!--td align=left name='so'>$!i["SO"]</td>
+		<td align=left name='chuong'>$!i["CHUONG"]</td-->
+		<td align=left name='ma_cqt_ql'>$!i["MA_CQT_QL"]</td>
+		<!--td align=left name='mobile'>$!i["MOBILE"]</td-->
+        <td align="center" name='dagiao'>$!i["DA_GIAO"]</td>
+        <td align="right" name='sotien' >$!i["SOTIEN"]<input type="hidden" id="st$!i['MST']$!i['KYTHUE']" value="$!i['SOTIEN']"/></td>
+		<td align="right" name='kythue'>$!i["KYTHUE"]<input type="hidden" id="k$!i['MST']$!i['KYTHUE']" value="$!i['MST']:$!i['KYTHUE']"/></td>
+	</tr>
+#end
+</table>
+<script>
+	$("#ckbCheckAll").click(function () {
+		$(".checkBoxClass").prop('checked', $(this).prop("checked"));
+		
+		$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+		
+		tong_tien();
+	});	
+	
+	$('input[name="nnts_rad"]').change(function(){	
+		$('input[name="nnts_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				$(this).parent().parent().css('background-color','#FC3');
+			}else{
+				$(this).parent().parent().css("background","#fff");}
+			}
+		);
+	});
+	
+	
+</script>
+

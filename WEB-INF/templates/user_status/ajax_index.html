@@ -1,0 +1,20 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.user_status_id}</th>
+		<th align=center>${n.i18n.user_status_status_name}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_user_status_service","default",["$!{id}","$!{status_name}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],6) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="user_status_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='status_name'>$!i["STATUS_NAME"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_user_status :radio').change(function(){	
+		$('#ajax_user_status :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

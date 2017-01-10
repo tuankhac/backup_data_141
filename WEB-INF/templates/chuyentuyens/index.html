@@ -1,0 +1,199 @@
+<table id="chuyentuyens" class='table table-condensed'>
+	<tr><th colspan='4'><b>BIẾN ĐỘNG ĐƯỜNG THU</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.chuyentuyens_mst}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ten_label">${n.i18n.chuyentuyens_ten}</td>
+		<td>			<input  type="text" class="form-control" name="ten" id="ten"><span id="ten_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="dia_chi_label">${n.i18n.chuyentuyens_dia_chi}</td>
+		<td colspan="3">			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="dia_chi" id="dia_chi" style='vertical-align:top'></textarea><span id="dia_chi_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_cu_label">${n.i18n.chuyentuyens_ma_nv_cu}</td>
+		<td>			<input  type="text" class="form-control" name="ma_nv_cu" id="ma_nv_cu"><span id="ma_nv_cu_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.chuyentuyens_ma_nv}</td>
+		<td>			<input  type="text" class="form-control" name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="kieu_label">${n.i18n.chuyentuyens_kieu}<font>*</font></td>
+		<td>
+			<div class="radio">
+				<label class="radio-inline"><input type="radio" name="kieu_rad" value="0" checked>Chuyển tuyến online</label>
+			</div>
+			<div class="radio">
+			<label class="radio-inline"><input type="radio" name="kieu_rad" value="1">Chuyển tuyến kỳ sau</label>
+			</div>
+			<span id="kieu_msg"></span>
+		</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 1000 ${n.i18n.crud_valid_length_postfix}" id="noidung_label">${n.i18n.chuyentuyens_noidung}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="noidung" id="noidung" style='vertical-align:top'></textarea><span id="noidung_msg"></span></td>
+		</tr>
+	<tr hidden>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_cn_label">${n.i18n.chuyentuyens_nguoi_cn}</td>
+		<td>			<input  type="text" class="form-control" name="nguoi_cn" id="nguoi_cn"><span id="nguoi_cn_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_cn_label">${n.i18n.chuyentuyens_ngay_cn}</td>
+		<td>			<input  type="text" class="form-control" name="ngay_cn" id="ngay_cn"><span id="ngay_cn_msg"></span></td>
+		</tr>
+	<tr hidden>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ip_cn_label">${n.i18n.chuyentuyens_ip_cn}</td>
+		<td>			<input  type="text" class="form-control" name="ip_cn" id="ip_cn"><span id="ip_cn_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.chuyentuyens_id}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		</tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<!--<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;-->
+		</td>
+	</tr></table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div><div id="div_page_section2" class=""></div></div></section>
+<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	var mst="",ma_nv="",ma_nv_cu="";
+	var record_per_page=20, page=1, nor=0;;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	var tasks = {
+		#set ($list = $u.qry("chuyentuyens_danh_sach_mst_theo_tinh","default",["${province}" ],1) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+	};
+	var tasksArray = $.map(tasks, function (value, key) { return { value: value, data: key }; });
+	$('#mst').autocomplete({
+		lookup: tasksArray,
+		onSelect: function (suggestion) {
+			mst = suggestion.data;
+			getTenDiaChi();
+		}
+	});
+	function getTenDiaChi(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=chuyentuyens/ajax_get_ten_diachi.html&mst='+mst,
+			success: function(data){ 
+				eval('obj='+data);
+				$("#ten").val(obj.NAME);
+				$("#dia_chi").val(obj.DIACHI);
+				$("#ma_nv_cu").val(obj.MA_NV);
+			}
+		});
+	}
+	//Autocomplete Đường thu cũ
+	var jsonMaNvCu = {
+		#set ($list = $u.qry("chuyentuyens_danh_sach_duongthuscu_theo_tinh","default",["${province}" ],1) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+	};
+	var mapNvCu = $.map(jsonMaNvCu, function (value, key) { return { value: value, data: key }; });
+	$('#ma_nv_cu').autocomplete({
+		lookup: mapNvCu,
+		onSelect: function (suggestion) {
+			$('#ma_nv_cu').val(suggestion.data);
+		}
+	});
+	//Autocomplete Đường thu mới
+	var jsonMaNvMoi = {
+		#set ($list = $u.qry("chuyentuyens_danh_sach_duongthusmoi_theo_tinh","default",["${province}" ],1) )
+		#set ($k = 0 )
+		#foreach ($i in $list )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end
+	};
+	var mapNvMoi = $.map(jsonMaNvMoi, function (value, key) { return { value: value, data: key }; });
+	$('#ma_nv').autocomplete({
+		lookup: mapNvMoi,
+		onSelect: function (suggestion) {
+			$('#ma_nv').val(suggestion.data);
+		}
+	});
+	$(function(){
+		doSearch();
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var kieu_rad = $("input:radio[name ='kieu_rad']:checked").val();
+
+			$('#result').html('${n.i18n.crud_process_message}');
+			var obj ={mst:mst,ten:$('#ten').val(),ma_tinh:'${province}',ma_nv_cu:$('#ma_nv_cu').val(),ma_nv:$('#ma_nv').val(),kieu:kieu_rad,noidung:$('#noidung').val(),dia_chi:$('#dia_chi').val()};
+		
+			$.ajax({
+				type:'POST',
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data:obj,
+				url: 'crud_exec.jsp?crud_type=chuyentuyens/new_exec.html',
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+						doSearch();
+					}else if(data == "MST_NOT_NULL"){
+						$('#result').html("Mã số thuế không được để trống.");
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		function doSearch(){
+			var kieu_rad = $("input:radio[name ='kieu_rad']:checked").val();
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=chuyentuyens/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+				success: function(data){ 
+					eval('data='+data);
+					nor = data.NOR*1;
+					$('#data-list').html(data);
+					onStartSearch(data.NOR);
+				}
+			});
+		};
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		
+	});
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	//Ham nay tu dong duoc goi sau khi click vao cac so...:
+	function onGetData(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=chuyentuyens/ajax_index.html'+getParams(page,record_per_page),
+			timeout: 1000,
+			success: function(data){ 
+				if(data!=''){
+					$('#data-list').html(data);
+ 				}
+				if(nor==0 && data!=''){
+					$('#result').attr('style',' color:red; font-weight:bold;');
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+	var kieu_rad = $("input:radio[name ='kieu_rad']:checked").val();
+		var exec='&record_per_page='+record_per_page+'&page_index='+page+'&mst='+mst+'&ten='+$('#ten').val()+'&ma_tinh=${province}'+'&dia_chi='+$('#dia_chi').val()+'&ma_nv_cu='+$('#ma_nv_cu').val()+'&ma_nv='+$('#ma_nv').val()+'&kieu='+kieu_rad+'&noidung='+$('#noidung').val()+'&nguoi_cn='+$('#nguoi_cn').val()+'&ngay_cn='+$('#ngay_cn').val()+'&ip_cn='+$('#ip_cn').val()+'&id=';
+		return exec;
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+	$(document).ready(function(){
+		$('#ngay_cn').datepicker({format:"dd/mm/yyyy"});
+
+	});
+</script>

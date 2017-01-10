@@ -1,0 +1,6 @@
+<select class="form-control" name="RoleMenus" id="RoleMenus" style="width:100%;height:160px" multiple="multiple">
+    #set ($list = $u.qry("crud_get_duongthus_granted_service","default",["${param.id_user_info}"],1) )
+    #foreach ($i in $list)
+    <option value="$!i['MA_NV']">$!i['MA_NV']</option>
+    #end
+</select>

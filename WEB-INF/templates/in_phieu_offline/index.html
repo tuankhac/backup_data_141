@@ -1,0 +1,530 @@
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+<div style="width:100%" id="mainTab" class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#in_dulieu" data-toggle="tab">In dữ liệu</a></li>
+    <li><a href="#in_gachno" data-toggle="tab">Thanh toán</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="in_dulieu" class="tab-pane fade in active">
+      <table id="chuyenkhoans" class='table table-condensed'>
+        <tr>
+          <th ><b>${n.i18n.inoffline_search_inphieu_offline_message.toUpperCase()}</b> </th>
+          <td colspan='3' align="left">
+          &nbsp;<input type="radio" id="KieuIn1" value="1" name="radKieuIn" checked="checked"/> ${n.i18n.inOffline_inthuong}&nbsp;&nbsp;&nbsp;<input type="radio" id="KieuIn2" value="2" name="radKieuIn" /> ${n.i18n.inOffline_inlai}</td>
+        </tr>
+        <tr>
+          <td width=15% title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.inoffline_hinhthuc}</td>
+          <td colspan="3">&nbsp;<input type="radio" id="hinhthuc_0" value="0" name="radHinhThuc" checked="checked"/>
+            &nbsp;
+            <label id="lab_hinhthuc_nv"> ${n.i18n.inoffline_hinhthuc_nv}</label>
+            &nbsp;&nbsp;&nbsp;
+            <input type="radio" id="hinhthuc_1" value="1" name="radHinhThuc"/>
+            &nbsp;
+            <label id="lab_hinhthuc_kh">${n.i18n.inoffline_hinhthuc_kh}</label>
+            &nbsp;&nbsp;&nbsp;
+           <!-- <!input type="radio" id="hinhthuc_2" value="2" name="radHinhThuc"/>
+            &nbsp;
+            <label id="lab_hinhthuc_tm">${n.i18n.inoffline_hinhthuc_tieumuc}</label>-->
+           </td>
+        </tr>
+        <tr id="inoffline_view_0" >
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="so_ct_label">${n.i18n.inoffline_nhanvientcs}</td>
+          <td width="35%"><input  type="text" class="form-control" name="ma_nv" id="ma_nv">
+            <span id="ma_nv_msg"></span></td>
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_label">${n.i18n.inoffline_chuky}</td>
+          <td width="35%"><select class="form-control" name="cboChuKy0" id="cboChuKy0" style="width:100%">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) ) 
+					<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+            </select>
+            <span id="chuky_msg"></span></td>
+        </tr>
+        <tr id="inoffline_view_1">
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="thue_label">${n.i18n.inoffline_mst}</td>
+          <td width="35%"><input  type="text" class="form-control" name="thue" id="thue">
+            <span id="thue_msg"></span></td>
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="loaitien_id_label">${n.i18n.inoffline_chuky}</td>
+          <td width="35%"><select class="form-control" name="cboChuKy1" id="cboChuKy1" style="width:100%">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) ) 
+                  <option value="$!i['ID']">$!i['NAME']</option>
+                #end
+            </select>
+           </td>
+        </tr>
+        <tr id="inoffline_view_2">
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="chukyno_label">${n.i18n.inoffline_tieumuc}</td>
+          <td width="35%"><select class="form-control" name="tieumuc" id="tieumuc">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+              
+				#foreach ($i in $u.qry("crud_get_list_tieumuc_gip","default",[],0) )
+               	
+              <option value="$!i['ID']" >$!i['NAME']</option>
+              
+                #end
+			
+            </select>
+            <span id="chukyno_msg"></span></td>
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="hinhthuctt_id_label">${n.i18n.inoffline_chuky}</td>
+          <td width="35%"><select class="form-control" name="cboChuKy2" id="cboChuKy2" style="width:100%">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+              
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) ) 
+               	
+              <option value="$!i['ID']">$!i['NAME']</option>
+              
+                #end
+			
+            </select>
+            <span id="hinhthuctt_id_msg"></span></td>
+        </tr>
+        <tr id='control'>
+          <td colspan='4' align='center'><font id="result"></font>
+            <button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>
+            &nbsp;
+            <button class="btn btn-primary" name="goPrint" id="goPrint"><i class="fa fa-print"></i> ${n.i18n.crud_print_button_message} &gt;</button>
+            &nbsp; </td>
+        </tr>
+      </table>
+      <section class="content">
+        <div class="box box-primary">
+          <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"> </div>
+          <div id="div_page_section2" class=""></div>
+        </div>
+      </section>
+    </div>
+    <div class="tab-pane fade" id="in_gachno">
+      <table id="chuyenkhoans" class='table table-condensed'>
+        <tr>
+          <th colspan='4'><b>${n.i18n.inOffline_thanh_toan_title.toUpperCase()}</b></th>
+        </tr>
+        <tr><td colspan='4'>
+        	#set ($list = $u.qry("tai_quay_thong_tin_nguoi_gach_no","default",["${request.userPrincipal.name}"],1)[0])
+            Chu kỳ: <small class="label label-success">$!list["CKN"]</small> - Người gạch: <small class="label label-success">$!list["HOVATEN"]</small> - Quầy: <small class="label label-danger">$!list["TENQUAY"]</small> - Bưu cục: <small class="label label-danger">$!list["TENBUUCUC"]</small>
+        </td></tr>
+        <tr>
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" >${n.i18n.inoffline_nhanvientcs}</td>
+          <td width="35%"><input  type="text" class="form-control" name="txtMaNv" id="txtMaNv">
+            <span id="txtMaNv_msg"></span></td>
+          <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}">${n.i18n.inoffline_chuky}</td>
+          <td width="35%"><select class="form-control" name="cboChuKy" id="cboChuKy" style="width:100%">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+              
+				#foreach ($i in $u.qry("crud_report_info_cycle","default",[],0) ) 
+               	
+              <option value="$!i['ID']">$!i['NAME']</option>
+              
+                #end
+			
+            </select>
+            <span id="chuky_msg"></span></td>
+        </tr>
+        <tr><td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="txtMaSoThue_label">${n.i18n.inoffline_mst}</td>
+          <td width="35%"><input  type="text" class="form-control" name="txtMaSoThue" id="txtMaSoThue">
+            <span id="txtMaSoThue_msg"></span></td>
+            <td width="15%" title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="cboTieuMuc_label">${n.i18n.inoffline_tieumuc}</td>
+          <td width="35%"><select class="form-control" name="cboTieuMuc" id="cboTieuMuc">
+              <option value="">${n.i18n.curd_info_khong_chon}</option>
+              
+				#foreach ($i in $u.qry("crud_get_list_tieumuc_gip","default",[],0) )
+               	
+              <option value="$!i['ID']" >$!i['NAME']</option>
+              
+                #end
+			
+            </select>
+            <span id="cboTieuMuc_msg"></span></td> 
+          </tr>
+          <tr>
+          	<td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" >${n.i18n.inOffline_ky_hieu} / ${n.i18n.inOffline_seri}</td>
+          	<td width="35%"><table width="100%"><tr width="100%"><td><input  type="text" class="form-control" name="txtKyHieu" id="txtKyHieu" ></td><td> <input type="text" class="form-control" name="txtSeri" id="txtSeri"></td></tr></table>
+            <span id="txtKyHieu_msg"></span></td>
+            <td width="15%" title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" >${n.i18n.curd_info_tong_ma_tt}: <small class="label label-success"><i class="fa fa-dashcube"></i> <font id="tong_phieu">0</font></small>&nbsp;<small class="label label-primary"><i class="fa fa-dashcube"></i> <font id="tong_mst">0</font></small></td>
+          	<td width="35%" > ${n.i18n.curd_info_tong_tien_tt}:<small class="label label-danger" ><i class="fa fa-usd"></i> <font id="tong_tien">0</font></small></td>
+          </tr>
+          <tr id='control'>
+          <td colspan='4' align='center'><font id="result1"></font>
+            <button name="doGetData" id="doGetData" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.inOffline_layds}</button>
+            &nbsp;
+            <button class="btn btn-primary" name="goAction" id="goAction" ><i class="fa fa-caret-square-o-right"></i> ${n.i18n.inOffline_thanhtoan} &gt;</button>
+            <button class="btn btn-primary" name="goDelete" id="goDelete" onclick="openWindow('crud_popup.jsp?crud_type=bangphieutra/index.html&type=1','phieu_da_gach_no',920,540,'')" ><i class="fa fa-trash-o"></i> ${n.i18n.inOffline_xoa_phieu}</button>
+            &nbsp; </td>
+        </tr> 
+      </table>
+      <section class="content">
+        <div class="box box-primary">
+          <div class="box-body no-padding" id='data-list-action' style="overflow:auto;margin:auto"> </div>
+          <div id="div_page_section3" class=""></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	var ma_nv="";
+	var ma_nv_2="";
+	var record_per_page=20, page=1, nor=0;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	
+	var Objphieu, Inv_no, Serial_no;
+
+	function tong_tien(){
+		var c=0,s=0,r=0,ss="";
+		$('input[name="nnts_rad"]:checked').each(function(){
+			c+=1;
+			s+=$("#i"+$(this).attr('id')).val().replace(/,/g,"")*1;		
+				
+			if (ss != $(this).val()) {
+				r+=1; ss = $(this).val();
+			};
+		});
+		$("#tong_mst").text(r);
+		$("#tong_phieu").text(c);
+		$("#tong_tien").text(fnumber(s+""));
+	}
+	function reset_text()
+	{
+		$("#tong_mst").text("");
+		$("#tong_phieu").text("");
+		$("#tong_tien").text("");
+	}
+	function thanh_toan(){
+		$("#result1").text("${n.i18n.crud_process_message}");	
+		$("#goAction").attr('disabled' , true);
+		
+		var text="",msts="";
+		var sum_tien=0;
+		$("#result1").text('${n.i18n.crud_process_message}');
+		$('input[name="nnts_rad"]:checked').each(function(){
+			var tien=$("#i"+$(this).attr("id")).val().replace(/,/g,"")*1;
+			sum_tien = sum_tien + tien;					
+			var t=$("#f"+$(this).attr("id")).val();
+			text+=t+"|";			
+		});
+	
+		if (sum_tien==0){ alert('${n.i18n.crud_confirm_value_money}');$("#result1").text(''); return;}		
+		
+		if (text.length > 4300){ 
+			alert('${n.i18n.crud_confirm_value_payment}'); 
+			$("#result1").text("");
+			$("#goAction").attr('disabled' , false);
+			return;
+		}
+		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_check_pay_offline.html&ma_tinh=${province}&text_list='+text.substring(0,text.length-1),
+			cache:false,
+			async: false,
+			success: function(data){ 
+				var next=false;
+				$("#result1").text('');
+				if (data=data*1){
+					if (data*1==0){
+						alert("Có lỗi trong quá trình kiểm tra dữ liệu!");
+						next=false;
+					}
+					else next=true;
+				}
+				else {
+					if (confirm("Các phiếu "+data+" đã được thanh toán bằng hình thức khác, bạn có muốn bỏ qua thanh toán các phiếu này và thanh toán tiếp ?")) next=true;
+				}
+				if (next){
+					$.ajax({
+						url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_pay_offline.html&ma_tinh=${province}&ma_bc=$!list["MABC_ID"]&quaythu=$!list["QUAYTHU_ID"]&text_list='+text.substring(0,text.length-1),
+						cache:false,
+						async: false,
+						success: function(data){
+							if(data==data*1){								
+								alert("Gạch nợ thành công!");
+								onGetDataPay(1,100);
+								
+							}else{
+								$("#result1").text("Gạch nợ lỗi: "+data+"!");
+							}
+							$("#goAction").removeAttr('disabled');
+						}
+					});					
+				}
+			}
+		});
+	}
+	
+
+	$(function(){
+		
+		$('#doSearch').click(function(){			
+			if (check_validate()) {
+				$('#result').html('${n.i18n.crud_process_message}');
+				$.ajax({
+					url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+					success: function(data){					
+						eval('data='+data);
+						nor = data.NOR*1;
+						$('#data-list').html(data);
+						$('#result').html('');
+						onStartSearch(data.NOR);
+					}
+				});
+			}
+		});
+		$('#doGetData').click(function(){			
+			if (check_validate2()) {
+				$('#result1').html('${n.i18n.crud_process_message}');
+				onGetDataPay(1,100);
+				/*$.ajax({
+					url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_get_nop_nor_pay.html'+getParamsPay(page,record_per_page),
+					success: function(data){					
+						eval('data='+data);
+						nor1 = data.NOR*1;
+						$('#data-list-action').html(data);
+						$('#result1').html('');
+						onStartSearchPay(data.NOR);
+					}
+				});*/
+			}
+		});
+		$('#goAction').click(function(){			
+			thanh_toan();
+		});
+		$('#goPrint').click(function(){
+			var loai= $("input[type='radio'][name='radKieuIn']:checked");
+			var loaival;
+			if (loai.length > 0) {
+				loaival = loai.val();			
+			}	
+			$('#result').html('${n.i18n.crud_process_message}');
+			var jpPath = '${pathroot}' + "WEB-INF/templates/jasper/";
+			s_ = window.location.protocol+"//"+window.location.host
+			+"/report/?jasperFile=jasper/InPhieu_Offline_sub&jasperExportType=pdf&AGENT=${province}"+"&TYPE_PRINT="+loaival+"&IMAGE_PATH="+jpPath+getParamsPrint(page,record_per_page);			
+			window.open(s_);
+			$('#result').html('');
+		});
+		//$('#doSearch').click();
+		$('#hinhthuc_0').click(function(){
+			view_search();
+		});
+		$('#hinhthuc_1').click(function(){
+			view_search();
+		});
+	/*	$('#hinhthuc_2').click(function(){
+			view_search();
+		});*/
+		
+		
+			
+	
+	});
+	$(document).ready(function(){
+		view_search();
+		});
+	function view_search(){
+		var hinhthucname= $("input[type='radio'][name='radHinhThuc']:checked");
+		var hinhthucval;
+		if (hinhthucname.length > 0) {
+			hinhthucval = hinhthucname.val();			
+		}
+		if (hinhthucval==0){
+			$("#inoffline_view_0").css("display","");
+			$("#inoffline_view_1").css("display","none");
+			$("#inoffline_view_2").css("display","none");
+			$("#lab_hinhthuc_nv").attr("class","label label-success");
+			$("#lab_hinhthuc_kh").removeAttr("class");
+			$("#lab_hinhthuc_tm").removeAttr("class");
+		}
+		else if (hinhthucval==1){
+			$("#inoffline_view_0").css("display","none");
+			$("#inoffline_view_1").css("display","");
+			$("#inoffline_view_2").css("display","none");
+			$("#lab_hinhthuc_nv").removeAttr("class");
+			$("#lab_hinhthuc_kh").attr("class","label label-success");
+			$("#lab_hinhthuc_tm").removeAttr("class");
+		} else {
+			$("#inoffline_view_0").css("display","none");
+			$("#inoffline_view_1").css("display","none");
+			$("#inoffline_view_2").css("display","");
+			$("#lab_hinhthuc_nv").removeAttr("class");
+			$("#lab_hinhthuc_kh").removeAttr("class");
+			$("#lab_hinhthuc_tm").attr("class","label label-success");
+			
+		}
+	}
+	function check_validate()
+	{
+		var hinhthucname= $("input[type='radio'][name='radHinhThuc']:checked");
+		var hinhthucval;
+		if (hinhthucname.length > 0) {
+			hinhthucval = hinhthucname.val();			
+		}
+		if ((hinhthucval==0)&&($("#ma_nv").val()=="")){
+			//var al= '${n.i18n.inoffline_validate_nv}';
+			alert("Bạn phải nhập nhân viên thu cước!");
+			$("#ma_nv").focus();
+			return false;
+		}
+		else if ((hinhthucval==1)&&($("#thue").val()=="")){
+			alert("Bạn phải nhập mã số thuế!");
+			$("#thue").focus();
+			return false;
+		} else if ((hinhthucval==2)&&($("#tieumuc").val()=="")) {
+			alert("Bạn phải chọn loại thuế!");
+			return false;
+		}
+		return true;
+	}
+		function check_validate2()
+		{
+		
+			if (($("#txtMaNv").val()!="")&&(ma_nv_2=="")){
+				alert("Mã nhân viên không đúng, bạn phải chọn lại mã nhân viên!");
+				$("#txtMaNv").focus();
+				return false;
+			}
+			if (($("#txtMaSoThue").val()=="")&&($("#cboChuKy").val()=="")){
+				alert("Bạn phải chọn chu kỳ thanh toán!");
+				return false;
+			}
+			if (($("#txtMaNv").val()=="")&&($("#txtMaSoThue").val()=="")&&($("#cboTieuMuc").val()=="")&&($("#txtKyHieu").val()=="")&&($("#txtSeri").val()=="")){
+				//var al= '${n.i18n.inoffline_validate_nv}';
+				alert("Bạn phải chọn một điều kiện tìm kiếm!");
+				$("#txtMaNv").focus();
+				return false;
+			}
+			
+			return true;
+		}
+	
+	
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+	function onGetData(page, size){		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_index.html'+getParams(page,record_per_page),			
+			success: function(data){				
+				if(data!=''){					
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+				if(nor==0 && data!=''){
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	/*function pClickPay(ps_page_id,ps_rec_per_page) {
+		objPage1.setCurrentPage(ps_page_id);
+		objPage1.setRecPerPage(ps_rec_per_page);
+		objPage1.returnDataCount(objPage1.getTotalRec());
+	}
+	function onStartSearchPay(total){
+		objPage1.setCurrentPage(1);
+		objPage1.returnDataCount(total);
+	}*/
+	function onGetDataPay(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=in_phieu_offline/ajax_index_pay.html'+getParamsPay(page,record_per_page),			
+			success: function(data){				
+				if(data!=''){
+					$('#result1').html('');
+					$('#data-list-action').html(data);
+					
+					reset_text();
+				}
+				else {
+					$('#result1').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+		var exec="";
+		var hinhthucname= $("input[type='radio'][name='radHinhThuc']:checked");
+		var hinhthucval;
+		if (hinhthucname.length > 0) {
+			hinhthucval = hinhthucname.val();			
+		}
+		var loai= $("input[type='radio'][name='radKieuIn']:checked");
+		var loaival;
+		if (loai.length > 0) {
+			loaival = loai.val();			
+		}
+		if (hinhthucval==0){
+			exec='&record_per_page='+record_per_page+'&page_index='+page+'&ma_nv='+ma_nv+'&chuky='+$("#cboChuKy0").val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}&type_print='+loaival;
+		}
+		else if (hinhthucval==1){
+			
+			exec='&record_per_page='+record_per_page+'&page_index='+page+'&mathue='+$("#thue").val()+'&chuky='+$("#cboChuKy1").val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}&type_print='+loaival;
+		} else {
+			exec='&record_per_page='+record_per_page+'&page_index='+page+'&tieumuc='+$("#tieumuc").val()+'&chuky='+$("#cboChuKy2").val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}&type_print='+loaival;
+			
+			
+		}
+		return exec;
+	}
+	function getParamsPrint(page,record_per_page){
+		var exec="";
+		var hinhthucname= $("input[type='radio'][name='radHinhThuc']:checked");
+		var hinhthucval;
+		if (hinhthucname.length > 0) {
+			hinhthucval = hinhthucname.val();			
+		}
+		var loai= $("input[type='radio'][name='radKieuIn']:checked");
+		var loaival;
+		if (loai.length > 0) {
+			loaival = loai.val();			
+		}
+		if (hinhthucval==0){
+			exec='&MA_NV='+ma_nv+'&CHUKY='+$("#cboChuKy0").val()+'&USERID=$!{request.UserPrincipal.name}&USERIP=$!{request.RemoteAddr}&TYPE_PRINT='+loaival;
+		}
+		else if (hinhthucval==1){			
+			exec='&MATHUE='+$("#thue").val()+'&CHUKY='+$("#cboChuKy1").val()+'&USERID=$!{request.UserPrincipal.name}&USERIP=$!{request.RemoteAddr}&TYPE_PRINT='+loaival;
+			
+		} else {
+			exec='&TIEUMUC='+$("#tieumuc").val()+'&CHUKY='+$("#cboChuKy2").val()+'&USERID=$!{request.UserPrincipal.name}&USERIP=$!{request.RemoteAddr}&TYPE_PRINT='+loaival;			
+		}
+		return exec;
+	}
+	function getParamsPay(page,record_per_page){
+		var exec="";
+		exec='&record_per_page='+record_per_page+'&page_index='+page+'&ma_nv='+ma_nv_2+'&mathue='
+		+$("#txtMaSoThue").val()+'&tieumuc='+$("#cboTieuMuc").val()+'&chuky='+$("#cboChuKy").val()
+		+'&kyhieu='+$("#txtKyHieu").val()+'&seri='+$("#txtSeri").val();					
+		return exec;
+	}
+	var tasks = {	
+		#set ($k = 0 )
+		#foreach ($i in $u.qry("danh_sach_nv_tc_theo_tinh","default",["${province}"],1) )
+			#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+			#set ($k=$k+1)
+		#end	
+	};
+	var tasksArray = $.map(tasks, function (value, key) { return { value: value, data: key }; });
+	
+	$('#ma_nv').autocomplete({
+			lookup: tasksArray,
+			onSelect: function (suggestion) {				
+				ma_nv = suggestion.data;
+			}
+	});
+	$('#txtMaNv').autocomplete({
+			lookup: tasksArray,
+			onSelect: function (suggestion) {				
+				ma_nv_2 = suggestion.data;
+			}
+	});
+	
+	
+	
+	
+</script>

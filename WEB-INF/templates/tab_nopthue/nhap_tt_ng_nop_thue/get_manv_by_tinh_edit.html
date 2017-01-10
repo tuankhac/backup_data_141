@@ -1,0 +1,6 @@
+#set ($list = $u.qry("get_manv_by_tinh","default",["$!{province_id}"],1) )
+#set ($k = 0 )
+{#foreach ($i in $list )
+	#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+	#set ($k=$k+1)
+#end}

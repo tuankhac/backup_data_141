@@ -1,0 +1,132 @@
+<table id="nguoigachnos" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_search_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.nguoigachnos_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="" id="ma_tinh_label">${n.i18n.nguoigachnos_ma_tinh}<font>*</font></td>
+		<td>
+			<select class="form-control" name="ma_tinh" id="ma_tinh">
+				#foreach ($i in $u.qry("crud_search_nguoigachnos_ma_tinh_service","default",[],0) )
+               	<option value="$!i['ID']" #if ($!i['ID']=="$!{param.province}")selected#end>$!i['NAME']</option>
+                #end
+			</select><span id="ma_tinh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 60 ${n.i18n.crud_valid_length_postfix}" id="hovaten_label">${n.i18n.nguoigachnos_hovaten}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="hovaten" id="hovaten"><span id="hovaten_msg"></span></td>
+		<td title="" id="mabc_id_label">${n.i18n.nguoigachnos_mabc_id}<font>*</font></td>
+		<td>
+			<select class="form-control" name="mabc_id" id="mabc_id">
+				<option value="">Không chọn</option>
+				#foreach ($i in $u.qry("crud_search_nguoigachnos_mabc_id_service","default",[],0) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="mabc_id_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="quaythu_id_label">${n.i18n.nguoigachnos_quaythu_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="quaythu_id" id="quaythu_id"><span id="quaythu_id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="gn_luingay_label">${n.i18n.nguoigachnos_gn_luingay}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="gn_luingay" id="gn_luingay"><span id="gn_luingay_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="xp_luingay_label">${n.i18n.nguoigachnos_xp_luingay}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="xp_luingay" id="xp_luingay"><span id="xp_luingay_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="seri_label">${n.i18n.nguoigachnos_seri}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="seri" id="seri"><span id="seri_msg"></span></td>
+	</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="seri_label">${n.i18n.nguoigachnos_ky_hieu}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="ky_hieu" id="ky_hieu"><span id="ky_hieu_msg"></span></td>
+	</tr>
+
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td></tr>
+</table>
+<section class="content">
+	<div class="box box-primary"><div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div>
+</section>
+<div id="pageinfo"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+				url: 'crud_exec.jsp?crud_type=common/PageRec.htm',
+				success: function(data){ 					
+					$('#pageinfo').html(data);	
+					getData(1,$('#cboSetPageRec').val());								
+				}
+			});
+		
+	});
+		
+	function getData(pageNum,pageRec){			
+		var url_= 'crud_exec.jsp?crud_type=nguoigachnos/ajax_index.html&record_per_page='+pageRec+'&page_index='+pageNum+'&id='+$('#id').val()+'&ma_tinh='+$('#ma_tinh').val()+'&hovaten='+$('#hovaten').val()+'&mabc_id='+$('#mabc_id').val()+'&quaythu_id='+$('#quaythu_id').val()+'&gn_luingay='+$('#gn_luingay').val()+'&xp_luingay='+$('#xp_luingay').val();
+		$.ajax({
+			url: url_,
+			success: function(data){ 				
+				$('#data-list').html(data);													
+				$('#result').html('');
+				setPage(pageNum,$("#page").html());
+			}
+		});
+	};
+		
+	$(function(){			
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			getData(1,$('#cboSetPageRec').val());
+		});
+
+		$('#doSearch').click();
+
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=nguoigachnos/new.html';
+		});
+		$('#goEdit').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nguoigachnos/edit.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text()+'&ma_tinh='+$('#ma_tinh').val();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=nguoigachnos/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text()+'&ma_tinh='+$('#ma_tinh').val();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#gn_luingay').blur(function(){
+			if ($('#gn_luingay').val()*1==$('#gn_luingay').val()){
+				$('#gn_luingay_msg').html('');
+				$('#gn_luingay_msg').attr('style','display:none');
+			}else{
+				$('#gn_luingay_msg').html('${n.i18n.nguoigachnos_gn_luingay} ${n.i18n.crud_is_number_message}');
+				$('#gn_luingay_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#xp_luingay').blur(function(){
+			if ($('#xp_luingay').val()*1==$('#xp_luingay').val()){
+				$('#xp_luingay_msg').html('');
+				$('#xp_luingay_msg').attr('style','display:none');
+			}else{
+				$('#xp_luingay_msg').html('${n.i18n.nguoigachnos_xp_luingay} ${n.i18n.crud_is_number_message}');
+				$('#xp_luingay_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

@@ -1,0 +1,4 @@
+crud_new_nnt_cks_service=begin ?:=crud.new_nnt_cks(?,?,?,?,?,?,?,?);commit; end;
+crud_search_nnt_cks_service=begin ?:= crud.search_nnt_cks(?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_nnt_cks_service=begin ?:=crud.edit_nnt_cks(?,?,?,?,?,?,?,?);commit; end;
+crud_delete_nnt_cks_service=begin ?:=crud.del_nnt_cks(?,?,?);commit; end;

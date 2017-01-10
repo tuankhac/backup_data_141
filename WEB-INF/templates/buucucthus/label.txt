@@ -1,0 +1,8 @@
+buucucthus_id=Id
+buucucthus_ma_tinh=Ma_Tinh
+buucucthus_tenbuucuc=Tenbuucuc
+buucucthus_diachi=Diachi
+buucucthus_tel=Tel
+buucucthus_fax=Fax
+buucucthus_donviql_id=Donviql_Id
+buucucthus_notes=Notes

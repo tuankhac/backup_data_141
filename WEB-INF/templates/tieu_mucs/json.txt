@@ -1,0 +1,4 @@
+crud_new_tieu_mucs_service=begin ?:=crud.new_tieu_mucs(?,?,?,?,?,?,?);commit; end;
+crud_search_tieu_mucs_service=begin ?:= crud.search_tieu_mucs(?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_tieu_mucs_service=begin ?:=crud.edit_tieu_mucs(?,?,?,?,?,?,?);commit; end;
+crud_delete_tieu_mucs_service=begin ?:=crud.del_tieu_mucs(?,?,?);commit; end;

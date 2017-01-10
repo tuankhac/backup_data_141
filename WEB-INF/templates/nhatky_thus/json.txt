@@ -1,0 +1,4 @@
+crud_new_nhatky_thus_service=begin ?:=crud.new_nhatky_thus(?,?,?,?,?);commit; end;
+crud_search_nhatky_thus_service=begin ?:= crud.search_nhatky_thus(?,?,?,?,?,?,?) ;end;
+crud_edit_nhatky_thus_service=begin ?:=crud.edit_nhatky_thus(?,?,?,?,?);commit; end;
+crud_delete_nhatky_thus_service=begin ?:=crud.del_nhatky_thus(?,?,?);commit; end;

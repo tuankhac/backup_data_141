@@ -1,0 +1,4 @@
+#set ($list = $u.qry("lay_id_ban_ke","default",[$!{chi_cuc_thue},$!{ma_tinh}],2))
+#foreach ($i in $list)
+	$i['ID'],
+#end

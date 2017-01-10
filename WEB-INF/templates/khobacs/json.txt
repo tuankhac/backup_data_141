@@ -1,0 +1,4 @@
+crud_new_khobacs_service=begin ?:=crud.new_khobacs(?,?,?,?,?,?,?);commit; end;
+crud_search_khobacs_service=begin ?:= crud.search_khobacs(?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_khobacs_service=begin ?:=crud.edit_khobacs(?,?,?,?,?,?,?);commit; end;
+crud_delete_khobacs_service=begin ?:=crud.del_khobacs(?,?,?);commit; end;

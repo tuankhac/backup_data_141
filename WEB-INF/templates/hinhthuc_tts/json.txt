@@ -1,0 +1,4 @@
+crud_new_hinhthuc_tts_service=begin ?:=crud.new_hinhthuc_tts(?,?,?,?);commit; end;
+crud_search_hinhthuc_tts_service=begin ?:= crud.search_hinhthuc_tts(?,?,?,?,?,?) ;end;
+crud_edit_hinhthuc_tts_service=begin ?:=crud.edit_hinhthuc_tts(?,?,?,?);commit; end;
+crud_delete_hinhthuc_tts_service=begin ?:=crud.del_hinhthuc_tts(?,?,?);commit; end;

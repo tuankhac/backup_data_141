@@ -1,0 +1,7 @@
+#set ($list = $u.ref("get_info_chart_httt","default",["${tu_ngay}","${den_ngay}","${ma_tinh}"],3) )
+#set ($k = 0 )[
+#foreach ($i in $list )
+#if ($k!=0),#end 
+{name:'$!i["NAME"]', y:$!i["TY_LE"], drilldown:'$!i["NAME"]'}
+#set ($k=$k+1)
+#end]

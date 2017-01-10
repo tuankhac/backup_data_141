@@ -1,0 +1,5 @@
+khobacs_id=Id
+khobacs_ten_kho_bac=Ten_Kho_Bac
+khobacs_ma_tructiep=Ma_Tructiep
+khobacs_hieu_luc_tu=Hieu_Luc_Tu
+khobacs_hieu_luc_den=Hieu_Luc_Den

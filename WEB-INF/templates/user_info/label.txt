@@ -1,0 +1,11 @@
+user_info_id=Id
+user_info_password=Password
+user_info_first_name=First_Name
+user_info_last_name=Last_Name
+user_info_mobile=Mobile
+user_info_department=Department
+user_info_email=Email
+user_info_gender=Gender
+user_info_status_id=Status_Id
+user_info_created_date=Created_Date
+user_info_modified_date=Modified_Date

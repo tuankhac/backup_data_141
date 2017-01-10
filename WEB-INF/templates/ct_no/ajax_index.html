@@ -1,0 +1,19 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>${n.i18n.crud_info_no_cuoi_ky}</th>
+		<th align=center>${n.i18n.crud_info_chuong}</th>
+		<th align=center>${n.i18n.crud_info_muc}</th>
+		<th align=center>${n.i18n.nnts_da_tra}</th>
+		<th align=center>${n.i18n.nnts_con_no}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_ct_no_service","default",["$!{mst}","$!{ma_tinh}"],2) )
+#foreach ($i in $list)
+	<tr>
+		<td align=center name='no_cuoi_ky'>$!i["NO_CUOI_KY"]<input type="hidden" id="fn_$!i["MA_CHUONG"]_$!i["MA_TMUC"]" value="$!{mst},$!{ma_tinh},{TIEN_TRA},$!i["MA_CHUONG"],$!i["MA_CQ_THU"],$!i["MA_TMUC"],$!i["SO_TAIKHOAN_CO"],$!i["SO_QDINH"],$!i["NGAY_QDINH"],$!i["LOAI_TIEN"],$!i["TI_GIA"],$!i["LOAI_THUE"]" /></td>
+		<td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td>
+		<td align=left name='ma_tmuc'>$!i["TENTIEUMUC"]</td>
+		<td align=left name='da_tra'>$!i["TIEN_TRA"]</td>
+		<td align=left name='ngay_qdinh'><input name="tien_tra" style="font-weight:bold;color:#039" type="text" class="form-control" value='$!i["SOTIEN"]' id="n_$!i["MA_CHUONG"]_$!i["MA_TMUC"]" onKeyUp="CalTra(this)"></td>
+	</tr>
+#end
+</table>

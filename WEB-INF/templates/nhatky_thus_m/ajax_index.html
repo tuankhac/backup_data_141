@@ -1,0 +1,29 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.nhatky_thus_mst}</th>
+		<th align=center>${n.i18n.nhatky_thus_luot_nhac}</th>
+		<th align=center>${n.i18n.nhatky_thus_lydos}</th>
+		<th align=center>${n.i18n.nhatky_thus_ngayhen_tt}</th>
+		<th align=center>${n.i18n.chuyenkhoans_hinhthuctt_id}</th>
+		<th align=center>${n.i18n.nnt_cks_nganhang_id}</th>
+		
+	</tr>
+#set ($list = $u.ref("crud_search_nhatky_thus_service","default",["$!{mst}","$!{luotnhac}","$!{lydos}","$!{ngayhen_tt}","$!{hinhthuc}","$!{nganhang}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],10) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['MST']" name="nhatky_thus_rad"></td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='luotnhac'>$!i["LUOT_NHACNO"]</td>
+		<td align=left name='lydos'>$!i["LYDOS"]</td>
+		<td align=center name='ngayhen_tt'>$!i["NGAYHEN_TT"]</td>
+		<td align=center name='hinhthuc'>$!i["HINHTHUC_ID"]</td>
+		<td align=center name='nganhang'>$!i["NGANHANG_ID"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_nhatky_thus :radio').change(function(){	
+		$('#ajax_nhatky_thus :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

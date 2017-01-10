@@ -1,0 +1,37 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th><input type="checkbox" id="ckbCheckAll" /></th>
+		<th align=center>${n.i18n.nnts_mst}</th>
+		<th align=center>${n.i18n.nnts_ten_nnt}</th>
+		<th align=center>${n.i18n.nnts_mota_diachi}</th>
+		<!--th align=center>${n.i18n.nnts_ma_huyen}</th>
+		<th align=center>${n.i18n.nnts_ma_xa}</th-->
+		<th align=center>${n.i18n.nnts_ma_nv}</th>
+		<th align=center>${n.i18n.nnts_ma_t}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_nnts_service","default",["$!{mst}","$!{ten_nnt}","","","","","","$!{ma_tinh}","$!{ma_huyen}","$!{ma_xa}","","","$!{ma_nv}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],18) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input class="checkBoxClass" type="checkbox" id="$!i["MST"]" name="nnts_rad"></td>
+		<td align=left name='mst' id="mst$!i["MST"]">$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<td align=left name='mota_diachi'>$!i["MOTA_DIACHI"]</td>
+		<!--td align=left name='ma_huyen'>$!i["MA_HUYEN"]</td>
+		<td align=left name='ma_xa'>$!i["MA_XA"]</td-->
+		<td align=left name='mobile'>$!i["MA_NV"]</td>
+		<td align=left name='ma_nv'>$!i["MA_T"]</td>
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_nnts_service","default",["$!{mst}","$!{ten_nnt}","","","","","","$!{ma_tinh}","$!{ma_huyen}","$!{ma_xa}","","","$!{ma_nv}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],18) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+<script>
+	$("#ckbCheckAll").click(function () {
+		$(".checkBoxClass").prop('checked', $(this).prop("checked"));
+	});
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);	
+</script>

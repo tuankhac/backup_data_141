@@ -1,0 +1,260 @@
+<html>
+<head>
+<link href="/assets/bootstrap/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+<script src="/assets/bootstrap/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="/assets/bootstrap/plugins/autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
+<link href="/assets/bootstrap/plugins/autocomplete/styles.css" rel="stylesheet" type="text/css" />
+</header>
+
+<table id="menu" class='table table-condensed'>
+	<tr><th colspan='4'><b>THÔNG TIN DANH BẠ KHÁCH HÀNG</b></th></tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label"><b>${n.i18n.phieuhuys_mst}</b></td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst"><span id="ma_st_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label"><b>${n.i18n.hctt_name}</b></td>
+		<td>
+			<input  type="text" class="form-control" name="2_ten_nnt" id="2_ten_nnt"><span id="ten_msg"></span></td>
+	</tr>
+		
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;			
+			<button class="btn btn-primary" name="goNew" id="goNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message} &gt;</button>&nbsp;
+			<button class="btn btn-primary" name="goEdit" id="goEdit"><i class="fa fa-edit"></i> ${n.i18n.crud_edit_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr>
+</table>
+
+<section class="content"><div class="box box-primary">  
+	<div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+		<div id="div_page_section1" class="">
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript">
+	var record_per_page=20, page=1, nor=0;
+	var objPage=new pageTemplates('div_page_section1','div_page_section2','pClick','onGetData');
+	objPage.setRecPerPage(record_per_page);
+	objPage.setTypeTemplate('BOOTSTRAP'); 
+	$(function(){
+		$('#doSearch').click(function(){
+		$('#28_ngaybl_unt').blur(function(){
+			if ($('#28_ngaybl_unt').val()=='' || patternValidate($('#28_ngaybl_unt'),'dd/mm/yyyy')){
+				$('#ngaybl_unt_msg').html('');
+				$('#ngaybl_unt_msg').attr('style','display:none');
+			}else{
+				$('#ngaybl_unt_msg').html('${n.i18n.format_date}');
+				$('#ngaybl_unt_msg').attr('style','display:block');
+				return false;
+			}
+		});
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/ajax_get_nop_nor.html'+getParams(page,record_per_page),
+				success: function(data){ 
+					eval('data='+data);
+					nor = data.NOR*1;
+					$('#data-list').html(data);
+					$('#result').html('');
+					onStartSearch(data.NOR);
+				}
+			});
+		});
+		$('#doSearch').click();
+		$('#goNew').click(function(){
+			window.location.href='crud.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/new.html';
+		});
+		$('#goEdit').click(function(){
+		
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/edit.html&mst='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#goDelete').click(function(){
+		
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/delete.html&mst='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		
+	});
+	function pClick(ps_page_id,ps_rec_per_page) {
+		objPage.setCurrentPage(ps_page_id);
+		objPage.setRecPerPage(ps_rec_per_page);
+		objPage.returnDataCount(objPage.getTotalRec());
+	}
+	//Ham nay tu dong duoc goi sau khi click vao cac so...:
+	function onGetData(page, size){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/ajax_index.html'+getParams(page,record_per_page),
+			timeout: 1000,
+			success: function(data){ 
+				if(data!=''){
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+				if(nor==0 && data!=''){
+					$('#result').html('Không có dữ liệu!');
+				}
+			}
+		});
+	}
+	//Ham tra ve chuoi parameters, truyen vao ajax de lay nop, nor va du lieu hien thi
+	function getParams(page,record_per_page){
+	var vma_tinh = $("#6_ma_tinh").val() == undefined ? '' : $("#6_ma_tinh").val().trim();
+	vma_tinh = vma_tinh.replace(/ /g, '%20');
+	
+	var vma_huyen = $("#7_ma_huyen").val() == undefined ? '' : $("#7_ma_huyen").val().trim();
+	vma_huyen = vma_huyen.replace(/ /g, '%20');
+	
+	var vma_xa = $("#8_ma_xa").val() == undefined ? '' : $("#8_ma_xa").val().trim();
+	vma_xa = vma_xa.replace(/ /g, '%20');
+	
+	var vma_tinh_tt = $("#11_ma_tinh_tt").val() == undefined ? '' : $("#11_ma_tinh_tt").val().trim();
+	vma_tinh_tt = vma_tinh_tt.replace(/ /g, '%20');
+	
+	var vma_huyen_tt = $("#12_ma_huyen_tt").val() == undefined ? '' : $("#12_ma_huyen_tt").val().trim();
+	vma_huyen_tt = vma_huyen_tt.replace(/ /g, '%20');
+	
+	var vma_xa_tt = $("#13_ma_xa_tt").val() == undefined ? '' : $("#13_ma_xa_tt").val().trim();
+	vma_xa_tt = vma_xa_tt.replace(/ /g, '%20');
+	
+	var vma_cqt_ql = $("#4_ma_cqt_ql").val() == undefined ? '' : $("#4_ma_cqt_ql").val().trim();
+	vma_cqt_ql = vma_cqt_ql.replace(/ /g, '%20');
+	
+	var exec='&record_per_page='+record_per_page+
+			'&page_index='+page
+			+'&mst='+$('#1_mst').val()
+			+'&ten_nnt='+$('#2_ten_nnt').val();
+	return exec;
+		
+	}
+	function onStartSearch(total){
+		objPage.setCurrentPage(1);
+		objPage.returnDataCount(total);
+	}
+		/*-------------------------------------------------------------------------------------------*/
+	
+	function doGetMaHUYEN(){
+	if ($("#7_ma_huyen").val()==""){    $("#load_ma_huyen").html("");   return;   }
+	$.ajax({
+		url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_district_by_province.html&province_id='+$("#6_ma_tinh").val(),
+		success: function(data){ 
+			$("#load_ma_huyen").html(data);
+		}
+	});
+	
+	}
+	function doGetMaXA(){
+		if ($("#8_ma_xa").val()==""){  $("#load_ma_xa").html("");  return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_town_name_by_district.html&district_id='+$("#7_ma_huyen").val(),
+			success: function(data){ 
+				$("#load_ma_xa").html(data);
+			}
+		});
+	}
+	function doGetMaCQT_QL(){
+		var mt = $("#6_ma_tinh").val() == undefined ? '' : $("#6_ma_tinh").val().trim();
+		var ma_cqt_ql= $("#4_ma_cqt_ql").val() == undefined ? '' : $("#4_ma_cqt_ql").val().trim();
+			
+			$("#result").html($("#6_ma_tinh").val());
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_ma_cqt_ql_by_province.html&provin_id='+$("#6_ma_tinh").val(),
+				success: function(data){ 
+					eval('data='+data);
+					var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+					$('#4_ma_cqt_ql').autocomplete({
+						lookup: mapNV,
+						onSelect: function (suggestion) {
+							ma_cqt_ql = suggestion.data;							
+						}
+					});
+				}
+			});
+		
+	}
+	function doGetMaHUYEN_TT(){
+		if ($("#12_ma_huyen_tt").val()==""){    $("#load_ma_huyen_tt").html("");   return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_district_tt_by_province_tt.html&province_id='+$("#11_ma_tinh_tt").val(),
+			success: function(data){ 
+				$("#load_ma_huyen_tt").html(data);
+			}
+		});
+	}
+	function doGetMaXA_TT(){
+		if ($("#13_ma_xa_tt").val()==""){  $("#load_ma_xa_tt").html("");  return;   }
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_town_name_tt_by_district_tt.html&district_id='+$("#12_ma_huyen_tt").val(),
+			success: function(data){ 
+				$("#load_ma_xa_tt").html(data);
+			}
+		});
+	}
+	function doGetMaNV(){
+	var mt = $("#6_ma_tinh").val() == undefined ? '' : $("#6_ma_tinh").val().trim();
+	var ma_nv= $("#17_ma_nv").val() == undefined ? '' : $("#17_ma_nv").val().trim();
+		
+		$("#result").html($("#6_ma_tinh").val());
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_manv_by_tinh.html&province_id='+$("#6_ma_tinh").val(),
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#17_ma_nv').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+ 						ma_nv = suggestion.data;
+					}
+				});
+			}
+		});
+	}
+	function doGetDIA_BAN(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_dia_ban_by_province.html&province_id='+$("#6_ma_tinh").val(),success: function(data){ 
+				$("#load_dia_ban").html(data);
+			}
+		});
+	}
+	function doGetKBNN(){
+		var kbnn=""; 
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=tab_nopthue/nhap_tt_ng_nop_thue/get_kbnn.html',
+			success: function(data){ 
+				eval('data='+data);
+				var mapNV = $.map(data, function (value, key) { return { value: value, data: key }; });
+				$('#24_kbnn').autocomplete({
+					lookup: mapNV,
+					onSelect: function (suggestion) {
+						$('#result').html('${n.i18n.crud_process_message}');
+ 						kbnn = suggestion.data;
+
+					}
+				});
+			}
+		});
+
+	}
+	/*-------------------------------------------------------------------------------------------*/
+	$(document).ready(function(){
+
+		doGetMaCQT_QL();
+		doGetMaHUYEN();
+		doGetMaXA();
+		doGetMaHUYEN_TT();
+		doGetMaXA_TT();
+		doGetMaNV();
+		doGetDIA_BAN();
+		doGetKBNN();
+		$('#28_ngaybl_unt').datepicker({format:"dd/mm/yyyy"});
+	
+	});
+</script>

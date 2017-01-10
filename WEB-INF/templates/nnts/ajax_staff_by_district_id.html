@@ -1,0 +1,5 @@
+<select class="form-control" name="ma_xa" id="ma_xa">
+    #foreach ($i in $u.qry("get_staff_by_district","default",["${param.ma_tinh}","${param.kho_bac}"],2) )
+    <option value="$!i['ID']" #if ($!{param.default}==$!i["ID"])selected#end>$!i['NAME']</option>
+    #end
+</select>

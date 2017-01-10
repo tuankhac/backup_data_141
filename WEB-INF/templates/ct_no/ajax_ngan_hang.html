@@ -1,0 +1,57 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.chuyenkhoans_mst}</th>
+		<th align=center>${n.i18n.chuyenkhoans_ten_nnt}</th>
+		<th align=center>${n.i18n.chuyenkhoans_sophieu}</th>
+		<th align=center>${n.i18n.chuyenkhoans_tien}</th>	
+		<th align=center>${n.i18n.chuyenkhoans_ngay_ct}</th>
+
+	</tr>
+#set ($list = $u.ref("search_gachno_cks_service","default",["$!{nganhang_id}","${province}","200","1"],4) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['PHIEU_ID']" name="gachno_rad"></td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>
+		<td align=left name='phieu_id'>$!i["PHIEU_ID"]</td>
+		<td align=left name='tien'>$!i["TIEN"]</td>
+		<td align=left name='ngaynhan'>$!i["NGAYNHAN"]</td>
+		<td align=left name='diachi' style="display:none">$!i["MOTA_DIACHI"]</td>
+	</tr>
+	<tr>
+		<td colspan=6>
+		<div class="row">
+          	<div class="col-md-12">
+          		<div class="box-body no-padding" id="sub-data-list_$!i["MST"]" style="display: none"></div>
+          	</div>
+        </div>	
+        </td>	
+	</tr>
+#end
+</table>
+<script>
+
+	$('input[name="gachno_rad"]').change(function(){	
+		$('input[name="gachno_rad"]').each(function(){
+			if ($(this).is(':checked')){
+				
+				var Objmst = $(':radio:checked').parent().parent().children("[name='mst']").text();					
+				$(this).parent().parent().css('background-color','#FC3');	
+				$.ajax({
+					url: 'crud_exec.jsp?crud_type=ct_no/ajax_index_ngan_hang.html&mst='+Objmst+'&ma_tinh=${province}',async: false,
+					success: function(data){ 		
+						$('div[id^="sub-data-list_"]').hide();
+						$('div[id^="sub-data-list_"]').empty();					
+						$('#sub-data-list_'+Objmst).show();		
+						$('#sub-data-list_'+Objmst).html(data);
+						$('#result').html('');
+					}
+				});	
+			}else{					
+				$(this).parent().parent().css("background","#fff");								
+				}
+			}
+		);
+	});
+</script>

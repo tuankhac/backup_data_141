@@ -1,0 +1,9 @@
+bangphieutra_q42015_id=Id
+bangphieutra_q42015_ma_tinh=Ma_Tinh
+bangphieutra_q42015_mst=Mst
+bangphieutra_q42015_ma_bc=Ma_Bc
+bangphieutra_q42015_httt_id=Httt_Id
+bangphieutra_q42015_nguoigachno_id=Nguoigachno_Id
+bangphieutra_q42015_ngay_tt=Ngay_Tt
+bangphieutra_q42015_ngay_thuc=Ngay_Thuc
+bangphieutra_q42015_quaythu_id=Quaythu_Id

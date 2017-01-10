@@ -1,0 +1,4 @@
+crud_new_notification_log_service=begin ?:=crud.new_notification_log(?,?,?,?,?,?,?,?);commit; end;
+crud_search_notification_log_service=begin ?:= crud.search_notification_log(?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_notification_log_service=begin ?:=crud.edit_notification_log(?,?,?,?,?,?,?,?);commit; end;
+crud_delete_notification_log_service=begin ?:=crud.del_notification_log(?,?,?);commit; end;

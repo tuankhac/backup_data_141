@@ -1,0 +1,129 @@
+<style>
+ .progress {
+	display:none;
+	position: fixed;
+	left: 50%;
+	top: 0px;
+	bottom: 0px;
+	width: 200px;
+
+	margin: auto auto auto -100px;
+	z-index:1041;
+	#tit{
+	align:left;
+	}
+}
+ </style>
+<div class="progress progress-striped active progress-sm">
+		<div class="progress-bar progress-bar-info"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%%">
+		</div>
+</div>
+<table id="policy_subscriber" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 15 ${n.i18n.crud_valid_length_postfix}" id="msisdn_label">Ảnh :</td>
+		<td><form id="frmUpload"><input type="file" id="file" name="file" style="display: inline;" accept="image/*" data-input="false" data-icon="false" data-buttonName="btn-primary" data-buttonText="${i18n.l.file_upload}"  onchange="javascript:file_onchange();if(this.value!='') {$('#upload_btn').removeAttr('disabled');} else {$('#upload_btn').attr('disabled','true');}" />
+			<button  name="submit" type="button" id="upload_btn" class="btn btn-primary start" disabled onClick="uploadFileAttach();" >Upload</button></form><span id="file_msg"></span></td>
+		</tr>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<section class="content"><div class="box box-primary">
+<div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div>
+</div>
+</section>
+<script type="text/javascript" src="style/base64.js"></script>
+<script type="text/javascript">
+var finish = false;
+var err_html = '';
+var total = 0;
+var success = 0;
+var fail = 0;
+function loading(l)  {
+	if(l)  {
+		$('<div/>',{'class':'modal-backdrop fade in'}).appendTo('body');
+		$('.progress').show();
+	} else  {
+		$('.modal-backdrop').remove();
+		$('.progress').hide();
+	}
+}
+ 
+function file_onchange() {fileisdn = '';}
+function checkFinish(){
+	if(success+fail<total) {
+		setTimeout(checkFinish,500);
+	} else {
+		var r_html = '<p></p><p><label>Kết quả import danh sách đại lý:</label></p>';
+		r_html += '<p>SL đại lý thực hiện: <label>' + total + '</label></p>';
+		r_html += '<p>SL import thành công: <label>' + success + '</label></p>';
+		r_html += '<p>SL import thất bại: <label>' + fail + '</label></p>';
+		if(fail>0) {
+			r_html += '<p><label>Chi tiết đại lý bị lỗi:</label></p>';
+			r_html += '<table width="100%" class="table table-condensed table-striped table-bordered">';
+			r_html += '<tr><th style="text-align: left;">Tên đại lý</th><th style="text-align: left;">Chi tiết lỗi</th></tr>';
+			r_html += err_html;
+			r_html += '</table>';
+		}
+		$('#data-list').html(r_html);
+		$('#result').html('');
+		loading();
+	}
+}
+		
+	var fileisdn = '';
+	function uploadFileAttach(){
+		if($('#file').val()=='') {
+			alert('Vui lòng chọn file danh sách!');
+			return;
+		}
+		finish = false;
+		err_html = '';
+		total = 0;
+		success = 0;
+		fail = 0;
+		var form = document.getElementById('frmUpload');
+		var formData = new FormData(form);
+		var u = 'nhanvien_tcs/uploadfile.jsp';
+		//alert(u);
+		loading();
+		$.ajax({
+			type : "POST",
+			url : u,
+			cache : false,
+			async : false,
+			enctype : 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,	
+			success : function(data) {
+				alert("success");
+				var s = data.trim().split("|");
+				if(s[0]="1") alert("upload file thanh cong");
+				else alert(s[0]);
+			},
+			error : function(data) {
+				alert("err "+data);
+			}
+		});
+		
+	}
+	function file_onchange() {fileisdn = '';}
+	$(function(){
+		$('#doNew').click(function(){
+			window.location.href='crud.jsp?crud_type=agent_name/index.html';
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nhanvien_tcs/index.html';
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

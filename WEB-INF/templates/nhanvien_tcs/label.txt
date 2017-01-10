@@ -1,0 +1,12 @@
+nhanvien_tcs_id=Id
+nhanvien_tcs_ma_tinh=Ma_Tinh
+nhanvien_tcs_so_cmnd=So_Cmnd
+nhanvien_tcs_ten_nv=Ten_Nv
+nhanvien_tcs_diachi=Diachi
+nhanvien_tcs_nguoi_bl=Nguoi_Bl
+nhanvien_tcs_tien_dc=Tien_Dc
+nhanvien_tcs_so_hd=So_Hd
+nhanvien_tcs_ngay_hd=Ngay_Hd
+nhanvien_tcs_mabc_id=Mabc_Id
+nhanvien_tcs_mobile=Mobile
+nhanvien_tcs_email=Email

@@ -1,0 +1,36 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_id}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_mst}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_tientra}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_ma_bc}</th>
+		<th align=center>HTTT</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_nguoigachno_id}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_ngay_tt}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_ngay_thuc}</th>
+		<th align=center>${n.i18n.bangphieutra_q42015_quay}</th>
+        <th align=center>Gom</th>
+	</tr>
+#set ($list = $u.ref("crud_search_bangphieutra_q42015_service","default",["$!{id}","$!{ma_tinh}","$!{mst}","$!{ma_bc}","$!{httt_id}","$!{nguoigachno_id}","$!{ngay_tt}","$!{ngay_thuc}","$!{quaythu_id}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="bangphieutra_q42015_rad"></td>
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='ma_tinh' style="font-weight:bold;color:#C30">$!i["TIEN_TRA"]</td>
+		<td align=left name='ma_bc'>$!i["MA_BC"]</td>
+		<td align=center name='httt_id'>$!i["HTTT_ID"]</td>
+		<td align=left name='nguoigachno_id'>$!i["NGUOIGACHNO_ID"]</td>
+		<td align=center name='ngay_tt'>$!i["NGAY_TT1"]</td>
+		<td align=center name='ngay_thuc'>$!i["NGAY_THUC1"]</td>
+		<td align=left name='quaythu_id'>$!i["QUAYTHU_ID"]</td>
+        <td align=left name='quaythu_id'>$!i["GROUP_ID"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_bangphieutra_q42015 :radio').change(function(){	
+		$('#ajax_bangphieutra_q42015 :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

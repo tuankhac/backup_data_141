@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>${n.i18n.print_tien_tra}</th>
+          <th>${n.i18n.thongtin_kythue}</th>
+          <th>${n.i18n.print_chuong}</th>
+          <!--th>${n.i18n.print_muc}</th-->     
+          <th>${n.i18n.print_ngay_tra}</th> 
+        </tr>
+      </thead>
+      <tbody>
+      	#set ($list = $u.ref("crud_info_history_service","default",["$!{mst}","$!{ma_tinh}"],2) )
+		#foreach ($i in $list)
+			<tr>
+				<td align=left name='da_tra'>$!i["TIENTRA"]</td>
+				<td align=left name='kythue'>$!i["KYTHUE"]</td>
+				<td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td>
+				<!--td align=left name='ma_tmuc'>$!i["TEN_MUC"]</td-->
+				<td align=left name='ngay_tt'>$!i["NGAY_TT"]</td>
+				<td><a href="javascript:doDelBill('$!i['PHIEU_ID']')" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></a></td>
+			</tr>
+		#end
+      </tbody>
+    </table>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+<script type="text/javascript">
+	var mst_ = '$!{mst}';
+	var agent_ = '$!{ma_tinh}';
+	function doDelBill(id){		
+		if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+		$('#result').html('${n.i18n.crud_process_message}');
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=bangphieutra/delete_exec.html&id='+id,
+			success: function(data){ 
+				if (data=="1.0"){
+					alert("${n.i18n.crud_delete_message}"); 
+					tt_reload();				
+				}else{
+					alert(data);
+				}
+			}
+		});
+	}
+	
+	function tt_reload(){
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=ct_no/ajax_index_no_m.html&mst='+mst_+'&ma_tinh='+agent_,async: false,
+			success: function(data){ 
+				$('#data-list').html(data);
+				$('#result').html('');
+			}
+		});
+		
+		$.ajax({
+			url: 'crud_exec.jsp?crud_type=ct_no/ajax_index_tra_m.html&mst='+mst_+'&ma_tinh='+agent_,async: false,
+			success: function(data){ 
+				$('#data-list2').html(data);
+				$('#result').html('');
+			}
+		});
+	}
+</script>
+

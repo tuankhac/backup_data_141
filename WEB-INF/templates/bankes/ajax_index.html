@@ -1,0 +1,42 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<!--th>&nbsp;</th-->
+		<th align=center>${n.i18n.bankes_id}</th>
+		<th align=center>${n.i18n.bankes_kbnn}</th>
+		<th align=center>${n.i18n.bankes_ct_kbnn}</th>
+		<!--th align=center>${n.i18n.bankes_kh_ct_nh}</th-->
+		<th align=center>${n.i18n.bankes_so_ct_nh}</th>
+		<th align=center>${n.i18n.bankes_sotien}</th>
+		<th align=center>${n.i18n.bankes_trang_thai}</th>
+		<th align=center>${n.i18n.bankes_ngay_unt}</th>
+		<th align=center>User</th>
+	</tr>
+#set ($list = $u.ref("crud_search_bankes_service","default",["$!{id}","$!{kbnn}","$!{ct_kbnn}","$!{kh_ct_nh}","$!{so_ct_nh}","$!{sotien}","$!{trang_thai}","$!{ngay_unt}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	<tr>
+		<!--td width='22px' align=center><input type="radio" id="rad$i['ID']" name="bankes_rad"></td-->
+		<td align=center name='id'>$!i["ID"]</td>
+		<td align=left name='kbnn'>$!i["KBNN"]</td>
+		<td align=left name='ct_kbnn'>$!i["CT_KBNN"]</td>
+		<!--td align=left name='kh_ct_nh'>$!i["KH_CT_NH"]</td-->
+		<td align=left name='so_ct_nh'>$!i["SO_CT_NH"]</td>
+		<td align=right name='sotien'>$!i["SOTIEN"]</td>
+		<td align=center name='trang_thai'>$!i["TRANG_THAI"]</td>
+		<td align=left name='ngay_unt'>$!i["NGAY_UNT"]</td>
+		<td align=left name='nguoi_gui'>$!i["LOGUSER"]</td>
+	</tr>
+#end
+</table>
+#set ($list = $u.ref("crud_search_bankes_service","default",["$!{id}","$!{kbnn}","$!{ct_kbnn}","$!{kh_ct_nh}","$!{so_ct_nh}","$!{sotien}","$!{trang_thai}","$!{ngay_unt}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+#foreach ($i in $list)
+	#set ($val_page =$!i["RECORD"])
+#end
+<script>	
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+
+	$('#ajax_buucucthus :radio').change(function(){	
+		$('#ajax_buucucthus :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

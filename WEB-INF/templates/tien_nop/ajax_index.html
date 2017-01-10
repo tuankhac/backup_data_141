@@ -1,0 +1,41 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.tien_nop_ma_bc}</th>
+		<th align=center>${n.i18n.tien_nop_ma_nv}</th>
+		<th align=center>${n.i18n.tien_nop_tien}</th>
+		<th align=center>${n.i18n.tien_nop_ngay_nop}</th>
+		<th align=center>${n.i18n.tien_nop_ngay_cn}</th>
+		<th align=center>${n.i18n.tien_nop_nguoi_cn}</th>
+		<th align=center>${n.i18n.tien_nop_ip_cn}</th>
+		<th align=center hidden>${n.i18n.tien_nop_id}</th>
+		<th align=center>${n.i18n.tien_nop_noi_dung}</th>
+	</tr>
+	<!-- default
+	#set ($list = $u.ref("crud_search_tien_nop_service","default",["$!{ma_bc}","$!{ma_nv}","$!{ngay_nop}","$!{tien}","$!{nguoi_cn}","$!{ngay_cn}","$!{ip_cn}","$!{id}","$!{noi_dung}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+	-->
+#set ($list = $u.ref("crud_search_tien_nop_service","default",["$!{ma_bc}","$!{ma_nv}","$!{ngay_nop}","$!{tien}","","","","$!{id}","$!{noi_dung}","${record_per_page}","${page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13) )
+
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="tien_nop_rad"></td>
+		<td align=left name='ma_bc'>$!i["MA_BC"]</td>
+		<td align=left name='ma_nv'>$!i["MA_NV"]</td>
+		<td align=center name='tien' onKeyUp="CalTra(this)">$!i["TIEN"]</td>
+		<td align=center name='ngay_nop'>$!i["NGAY_NOP"]</td>
+		<td align=center name='ngay_cn'>$!i["NGAY_CN"]</td>
+		<td align=left name='nguoi_cn'>$!i["NGUOI_CN"]</td>
+		<td align=left name='ip_cn'>$!i["IP_CN"]</td>
+		<td align=center name='id' hidden>$!i["ID"]</td>
+		<td align=left name='noi_dung'>$!i["NOI_DUNG"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_tien_nop :radio').change(function(){	
+		$('#ajax_tien_nop :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+	$("td[name='tien']").each(function(){
+		$(this).text( (fnumber($(this).text())));
+	});
+</script>

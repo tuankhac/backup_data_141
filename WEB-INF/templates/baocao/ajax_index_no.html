@@ -1,0 +1,26 @@
+﻿<div class="row">
+  <div class="col-sm-12 table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>${n.i18n.crud_info_nhan_vien}</th>
+          <th>${n.i18n.crud_info_tien_giao}</th>
+          <th>${n.i18n.crud_info_nguoi_giao}</th>
+          <th>${n.i18n.crud_info_tien_gach}</th>
+        </tr>
+      </thead>
+      <tbody>
+		#set ($list = $u.ref("crud_get_info_staff_dept","default",["$!{ma_tinh}","$!{tu_ngay}","$!{den_ngay}"],3) )
+		#foreach ($i in $list)
+			<tr>
+				<td align=left name='ma_nv'>$!i["MA_NV"]</td>
+				<td align=left name='tien_giao'>$!i["TIEN_GIAO"]</td>
+				<td align=left name='nguoi_giao'>$!i["NGUOI_GIAO"]</td>
+				<td align=left name='da_tra'>$!i["TIEN_TRA"]</td>	
+			</tr>
+		#end
+      </tbody>
+    </table>
+  </div><!-- /.col -->
+</div><!-- /.row -->
+

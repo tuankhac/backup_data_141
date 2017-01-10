@@ -1,0 +1,22 @@
+##khi chac chan thuc hien thi dong thoi se hien log
+#set($val = $u.val("Insert2DB","default",["$!{t_id}","$!{province}","$!{type}"],3))
+<div class = "box box box-primary">
+<table width="70%" class='table table-condensed'>
+	#set ($val1 = $u.val("get_count_records","default",["$!{table_name}","","$!{t_id}","$!{province}","0"],5))
+	#set ($val2 = $u.val("get_count_records","default",["$!{table_name}","1","$!{t_id}","$!{province}","0"],5))
+	#set ($val3 = $u.val("get_count_records","default",["$!{table_name}","0","$!{t_id}","$!{province}","0"],5))
+	<tr><th><strong>Insert thành công</strong></th></tr>
+	<tr>
+		<td align=left id='t_id'>ID : <span id ="seq">$!{t_id} <span></td>
+	</tr>
+	<tr>
+		<td align=left id='sum_records'>Tổng số bản ghi : $val1 </td>
+	</tr>
+	<tr>
+		<td align=left id='inserted_records'>Số bản ghi hợp lệ : $val2  </td>
+	</tr>
+	<tr>
+		<td align=left id='failed_records'>Số bản ghi không hợp lệ : $val3</td>
+	</tr>
+</table>
+</div>

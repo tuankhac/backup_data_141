@@ -1,0 +1,22 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;</th>
+		<th align=center>${n.i18n.provinces_id}</th>
+		<th align=center>${n.i18n.provinces_province_name}</th>
+		<th align=center>${n.i18n.provinces_country_id}</th>
+	</tr>
+#set ($list = $u.ref("crud_search_provinces_service","default",["$!{id}","$!{province_name}","$!{country_id}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],7) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center><input type="radio" id="rad$i['ID']" name="provinces_rad"></td>
+		<td align=left name='id'>$!i["ID"]</td>
+		<td align=left name='province_name'>$!i["PROVINCE_NAME"]</td>
+		<td align=left name='country_id'>$!i["COUNTRY_ID"]</td>
+	</tr>
+#end
+</table>
+<script>
+	$('#ajax_provinces :radio').change(function(){	
+		$('#ajax_provinces :radio').each(function(){$(this).parent().css("background","#fff");});$(this).parent().css('background-color','#dfdfdf');
+	});
+</script>

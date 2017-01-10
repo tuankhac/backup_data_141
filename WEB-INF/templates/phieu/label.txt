@@ -1,0 +1,6 @@
+phieu_q42015_id=Id
+phieu_q42015_mst=Mst
+phieu_q42015_tien_giao=Tien_Giao
+phieu_q42015_ma_nv=Ma_Nv
+phieu_q42015_ngay_giao=Ngay_Giao
+phieu_q42015_nguoi_giao=Nguoi_Giao

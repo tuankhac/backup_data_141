@@ -1,0 +1,2 @@
+hinhthuc_tts_id=Id
+hinhthuc_tts_name=Name

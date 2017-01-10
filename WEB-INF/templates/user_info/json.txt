@@ -1,0 +1,5 @@
+crud_new_user_info_service=begin ?:=crud.new_user_info(?,?,?,?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_search_user_info_status_id_service=select status_name name,id from ADMIN.USER_STATUS order by id
+crud_search_user_info_service=begin ?:= crud.search_user_info(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_user_info_service=begin ?:=crud.edit_user_info(?,?,?,?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_delete_user_info_service=begin ?:=crud.del_user_info(?,?,?);commit; end;

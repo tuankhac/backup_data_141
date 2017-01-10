@@ -1,0 +1,6 @@
+crud_new_nguoigachnos_service=begin ?:=crud.new_nguoigachnos(?,?,?,?,?,?,?,?,?);commit; end;
+crud_search_nguoigachnos_ma_tinh_service=select name,id from TAX.PROVINCES order by id
+crud_search_nguoigachnos_mabc_id_service=select name,id from TAX.BUUCUCTHUS order by id
+crud_search_nguoigachnos_service=begin ?:= crud.search_nguoigachnos(?,?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_nguoigachnos_service=begin ?:=crud.edit_nguoigachnos(?,?,?,?,?,?,?,?,?);commit; end;
+crud_delete_nguoigachnos_service=begin ?:=crud.del_nguoigachnos(?,?,?);commit; end;

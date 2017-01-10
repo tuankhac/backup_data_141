@@ -1,0 +1,10 @@
+coquanthus_id=Id
+coquanthus_cqt_qlt=Cqt_Qlt
+coquanthus_cqt_tms=Cqt_Tms
+coquanthus_ten_cqt=Ten_Cqt
+coquanthus_ma_tinh=Ma_Tinh
+coquanthus_ma_huyen=Ma_Huyen
+coquanthus_ma_quoc_gia=Ma_Quoc_Gia
+coquanthus_hieu_luc_tu=Hieu_Luc_Tu
+coquanthus_hieu_luc_den=Hieu_Luc_Den
+coquanthus_shkb=Shkb

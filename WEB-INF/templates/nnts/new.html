@@ -1,0 +1,97 @@
+<table id="nnts" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.crud_new_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.nnts_mst}<font>*</font></td>
+		<td>			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.nnts_ten_nnt}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="ten_nnt" id="ten_nnt" style='vertical-align:top'></textarea><span id="ten_nnt_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="" id="loai_nnt_label">${n.i18n.nnts_loai_nnt}</td>
+		<td>			<select class="form-control" name="loai_nnt" id="loai_nnt">
+				<option value="">Không chọn</option>
+				#foreach ($i in $u.qry("crud_search_nnts_loai_nnt_service","default",[],0) )
+               	<option value="$!i['ID']">$!i['NAME']</option>
+                #end
+			</select><span id="loai_nnt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="so_label">${n.i18n.nnts_so}</td>
+		<td>			<input  type="text" class="form-control" name="so" id="so"><span id="so_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="chuong_label">${n.i18n.nnts_chuong}</td>
+		<td>			<input  type="text" class="form-control" name="chuong" id="chuong"><span id="chuong_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_cqt_ql_label">${n.i18n.nnts_ma_cqt_ql}</td>
+		<td>			<input  type="text" class="form-control" name="ma_cqt_ql" id="ma_cqt_ql"><span id="ma_cqt_ql_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 300 ${n.i18n.crud_valid_length_postfix}" id="mota_diachi_label">${n.i18n.nnts_mota_diachi}</td>
+		<td>			<textarea class="form-control" title='${n.i18n.crud_input_editor_title}' rows=2 name="mota_diachi" id="mota_diachi" style='vertical-align:top'></textarea><span id="mota_diachi_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 6 ${n.i18n.crud_valid_length_postfix}" id="ma_tinh_label">${n.i18n.nnts_ma_tinh}</td>
+		<td>			<input  type="text" class="form-control" name="ma_tinh" id="ma_tinh"><span id="ma_tinh_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 6 ${n.i18n.crud_valid_length_postfix}" id="ma_huyen_label">${n.i18n.nnts_ma_huyen}</td>
+		<td>			<input  type="text" class="form-control" name="ma_huyen" id="ma_huyen"><span id="ma_huyen_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 6 ${n.i18n.crud_valid_length_postfix}" id="ma_xa_label">${n.i18n.nnts_ma_xa}</td>
+		<td>			<input  type="text" class="form-control" name="ma_xa" id="ma_xa"><span id="ma_xa_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.nnts_mobile}</td>
+		<td>			<input  type="text" class="form-control" name="mobile" id="mobile"><span id="mobile_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.nnts_email}</td>
+		<td>			<input  type="text" class="form-control" name="email" id="email"><span id="email_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.nnts_ma_nv}</td>
+		<td>			<input  type="text" class="form-control" name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		<td></td><td></td>
+	<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doNew" id="doNew"><i class="fa fa-plus-square"></i> ${n.i18n.crud_new_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="doClear" id="doClear"><i class="fa fa-eraser"></i> ${n.i18n.crud_clear_form_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td>
+	</tr></table>
+<script type="text/javascript">
+	$(function(){
+		$('#doNew').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			var exec='&mst='+$('#mst').val()+'&ten_nnt='+$('#ten_nnt').val()+'&loai_nnt='+$('#loai_nnt').val()+'&so='+$('#so').val()+'&chuong='+$('#chuong').val()+'&ma_cqt_ql='+$('#ma_cqt_ql').val()+'&mota_diachi='+$('#mota_diachi').val()+'&ma_tinh='+$('#ma_tinh').val()+'&ma_huyen='+$('#ma_huyen').val()+'&ma_xa='+$('#ma_xa').val()+'&mobile='+$('#mobile').val()+'&email='+$('#email').val()+'&ma_nv='+$('#ma_nv').val()+'&userid=$!{request.UserPrincipal.name}&userip=$!{request.RemoteAddr}';
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=nnts/new_exec.html'+exec,
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_new_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#doClear').click(function(){
+			$("input:text").each(function(){$(this).val('')});
+			$("textarea").each(function(){$(this).val('')});
+			$("select").each(function(){$(this).attr('selectedIndex', 0);});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=nnts/index.html';
+		});
+		$('#mst').blur(function(){
+			if ($('#mst').val()!=''){
+				$('#mst_msg').html('');
+				$('#mst_msg').attr('style','display:none');
+			}else{
+				$('#mst_msg').html('${n.i18n.crud_required_message} ${n.i18n.nnts_mst}');
+				$('#mst_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ten_nnt').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=ten_nnt&content="+$('#ten_nnt').val(),'selectFile',700,280);
+		});
+		$('#mota_diachi').dblclick(function(){
+			Popup("crud_editor.jsp?modal=1&source=mota_diachi&content="+$('#mota_diachi').val(),'selectFile',700,280);
+		});
+	});
+	$(document).ready(function(){
+	});
+</script>

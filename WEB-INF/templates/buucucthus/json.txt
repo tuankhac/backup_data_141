@@ -1,0 +1,6 @@
+crud_new_buucucthus_service=begin ?:=crud.new_buucucthus(?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_search_buucucthus_ma_tinh_service=select name,id from TAX.PROVINCES order by id
+crud_search_buucucthus_donviql_id_service=select name,id from TAX.DONVI_QLS order by id
+crud_search_buucucthus_service=begin ?:= crud.search_buucucthus(?,?,?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_buucucthus_service=begin ?:=crud.edit_buucucthus(?,?,?,?,?,?,?,?,?,?);commit; end;
+crud_delete_buucucthus_service=begin ?:=crud.del_buucucthus(?,?,?);commit; end;

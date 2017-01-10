@@ -1,0 +1,32 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+ 		<th align=center>${n.i18n.duongthus_id}</th>
+		<th align=center>${n.i18n.duongthus_ma_nv}</th>
+		<th align=center>${n.i18n.duongthus_ma_tinh}</th>
+		<th align=center>${n.i18n.duongthus_nguoi_cn}</th>
+		<th align=center>${n.i18n.duongthus_ngay_cn}</th>
+		<th align=center>${n.i18n.duongthus_ip_cn}</th>
+		<th align=center>${n.i18n.duongthus_description}</th>
+		<th align=center>${n.i18n.duongthus_action_type}</th>
+	</tr>
+<!--#set ($list = $u.ref("crud_search_duongthus_log","default",["$!{id}","$!{ma_nv}","$!{ma_tinh}","$!{nguoi_cn}","$!{ngay_cn}","$!{ip_cn}","$!{description}","$!{action_type}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )-->
+#set ($list = $u.ref("crud_search_duongthus_log","default",["","","","","","","","","$!{record_per_page}","$!{page_index}","",""],12) )
+#foreach ($i in $list)
+	<tr>
+ 		<td align=center name='id'>$!i["ID"]</td>
+		<td align=center name='ma_nv'>$!i["MA_NV"]</td>
+		<td align=center name='ma_tinh'>$!i["MA_TINH"]</td>
+		<td align=center name='nguoi_cn'>$!i["NGUOI_CN"]</td>
+		<td align=center name='ngay_cn'>$!i["NGAY_CN"]</td>
+ 		<td align=center name='ip_cn'>$!i["IP_CN"]</td>
+		<td align=center name='description'>$!i["DESCRIPTION"]</td>
+		#if ($!i["ACTION_TYPE"] == '0' || $!i["ACTION_TYPE"] == 0)
+			<td align=center name='action_type'>Xóa</td>
+		#else
+			<td align=center name='action_type'>Thêm</td>
+		#end
+  
+	</tr>
+#end
+</table>
+ 

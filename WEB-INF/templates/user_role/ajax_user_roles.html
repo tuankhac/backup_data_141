@@ -1,0 +1,6 @@
+<select name="UserRoles" id="UserRoles" style="width:100%;height:160px" multiple="multiple">
+    #set ($list = $u.qry("crud_search_user_role_role_granted_service","default",["${param.userid}","${province}"],2) )
+    #foreach ($i in $list)
+    <option value="$!i['ID']">$!i['ID'] - $!i["ROLE_NAME"]</option>
+    #end
+</select>

@@ -1,0 +1,45 @@
+<td width="30%">Nhân viên</td>
+<td colspan ='2'>
+	<select class="form-control"  style="cursor:default" id="nhan_vien" name="nhan_vien" disabled>
+	<option value="">Không chọn</option>
+	#foreach ($i in $u.qry('get_nhanvien_tcs','default',["$!{ma_tinh}","$!{co_quan}"],2) )	
+		<option value="$!i['ID']">$!i['ID'] - $!i['TEN_NV']</option>
+	#end	
+	</select>
+</td>
+
+<script>
+	var col = "MST,MA_NV,NNTS_2016";
+	var data = "";
+	
+	
+	/* Cac chuc nang thuc hien cho tab 2 */
+	$(function(){
+		//set chosen
+		$("input[name='radio_button']").on("change",function(){
+			var val = $("input:radio[name ='radio_button']:checked").val();
+			data = col + "," + $("#format_export").val();
+			if(val == "1"){
+				$("#nhan_vien").val("");
+				$("#nhan_vien").prop("disabled",true);
+			}
+			if(val == "2"){
+				$("#nhan_vien").val("");
+				$("#nhan_vien").prop("disabled",true);
+			}
+			if(val == "3"){
+				$("#nhan_vien").prop("disabled",false);
+			}
+		});
+		
+		$("#format_export").on("change",function(){
+			data = col + "," + $("#format_export").val();
+			if($("#format_export").val() != "" && $("#col_name").val() != ""){
+				$("#tr_doExport").css("display","table-row");
+			}else{
+				$("#tr_doExport").css("display","none");
+			}
+		});
+	});
+		
+</script>

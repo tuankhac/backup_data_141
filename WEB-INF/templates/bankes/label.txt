@@ -1,0 +1,8 @@
+bankes_id=Id
+bankes_kbnn=Kbnn
+bankes_ct_kbnn=Ct_Kbnn
+bankes_kh_ct_nh=Kh_Ct_Nh
+bankes_so_ct_nh=So_Ct_Nh
+bankes_sotien=Sotien
+bankes_trang_thai=Trang_Thai
+bankes_ngay_unt=Ngay_Unt

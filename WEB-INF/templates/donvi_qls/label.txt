@@ -1,0 +1,6 @@
+donvi_qls_id=Id
+donvi_qls_ma_tinh=Ma_Tinh
+donvi_qls_ten_dv=Ten_Dv
+donvi_qls_tel=Tel
+donvi_qls_fax=Fax
+donvi_qls_notes=Notes

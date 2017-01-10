@@ -1,0 +1,10 @@
+#set ($list = $u.qry("get_district_by_province","default",["$!{province_id}"],1) )
+#set ($k = 0 )
+<select id="12_ma_huyen_tt" name="12_ma_huyen_tt" onchange="doGetMaXA_TT()" class="form-control" >
+<option value="">Chọn tỉnh/ thành phố trước</option>
+#foreach ($i in $list )
+	#if ($k!=0),#end"$!i['ID']":"$!i['NAME']"
+	#set ($k=$k+1)
+	<option value="$!i['ID']">$!i['NAME']</option>
+#end
+</select>

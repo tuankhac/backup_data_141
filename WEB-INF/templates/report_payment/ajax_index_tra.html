@@ -1,0 +1,40 @@
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Mst</th>
+          <th>${n.i18n.print_tien_tra}</th>
+          <!--th>${n.i18n.print_chuong}</th-->
+          <th>${n.i18n.print_muc}</th>     
+		  <th>${n.i18n.hinhthuc_tts_name}</th>
+          <th>${n.i18n.print_ngay_tra}</th> 
+          <th>${n.i18n.curd_report_nguoi_tra}</th>
+        </tr>
+      </thead>
+      <tbody>
+      #set ($list = $u.ref("crud_report_info_debt_search","default",["$!{TU_NGAY}","$!{DEN_NGAY}","$!{AGENT}","$!{MA_DV}","$!{MA_BC}","$!{MA_QUAY}","$!{MA_GACH}","1","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )		
+      #foreach ($i in $list)
+			<tr>
+				<td align=left name='sophieu'>$!i["MST"]</td>
+				<td align=left name='da_tra'>$!i["TIENTRA"]</td>
+				<!--td align=left name='ma_chuong'>$!i["TEN_CHUONG"]</td-->
+				<td align=left name='ma_tmuc'>$!i["TEN_MUC"]</td>
+				<td align=left name='ma_tmuc'>$!i["HINHTHUC_TT"]</td>
+				<td align=left name='ngay_tt'>$!i["NGAY_TT"]</td>
+				<td align=left name='ngay_tt'>$!i["NGUOIGACHNO_ID"]</td>
+			</tr>
+		#end
+      </tbody>
+    </table>
+    
+    #set ($list = $u.ref("crud_report_info_debt_search","default",["$!{TU_NGAY}","$!{DEN_NGAY}","$!{AGENT}","$!{MA_DV}","$!{MA_BC}","$!{MA_QUAY}","$!{MA_GACH}","2","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )		
+	#foreach ($i in $list)
+		#set ($val_page =$!i["RECORD"])
+	#end
+
+
+<script>
+	var total_ = $val_page;
+	$("#total").html(total_);
+	$("#page").html(parseInt($("#total").html()/$("#cboSetPageRec").val())+1);
+</script>

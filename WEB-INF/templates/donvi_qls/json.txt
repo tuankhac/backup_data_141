@@ -1,0 +1,5 @@
+crud_new_donvi_qls_service=begin ?:=crud.new_donvi_qls(?,?,?,?,?,?,?,?);commit; end;
+crud_search_donvi_qls_ma_tinh_service=select name,id from TAX.PROVINCES order by id
+crud_search_donvi_qls_service=begin ?:= crud.search_donvi_qls(?,?,?,?,?,?,?,?,?,?) ;end;
+crud_edit_donvi_qls_service=begin ?:=crud.edit_donvi_qls(?,?,?,?,?,?,?,?);commit; end;
+crud_delete_donvi_qls_service=begin ?:=crud.del_donvi_qls(?,?,?);commit; end;

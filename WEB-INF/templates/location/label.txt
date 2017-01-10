@@ -1,0 +1,5 @@
+location_id=Id
+location_latitude=Latitude
+location_longitude=Longitude
+location_location=Location
+location_staff=Staff

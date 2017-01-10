@@ -1,0 +1,25 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th>&nbsp;STT</th>
+		<th align=center>${n.i18n.phieuhuys_mst}</th>
+		<th align=center>${n.i18n.hctt_name}</th>		
+		<th align=center>${n.i18n.hctt_mota_diachi}</th>
+		<th align=center>${n.i18n.hctt_ma_nv}</th>	
+        <th align=center>${n.i18n.inoffline_chuky}</th>
+        <th align=center>${n.i18n.inoffline_conthieu}</th>		
+	</tr>
+#set ($list = $u.ref("get_receipt_offline","default",["$!{ma_nv}","$!{mathue}","$!{tieumuc}","$!{chuky}","$!{type_print}","1","${page_index}","${record_per_page}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],10) )
+#foreach ($i in $list)
+	<tr>
+		<td width='22px' align=center>$!i["ROWNUM"]</td>
+		<td align=center name='id'>$!i["MST"]</td>
+		<td align=left name='ten_nnt'>$!i["TEN_NNT"]</td>	
+		<td align=left name='mota_diachi'>$!i["MOTA_DIACHI"]</td>		
+		<td align=center name='ma_nv' >$!i["MA_NV"]</td>
+        <td align=left name='mota_diachi'>$!i["KYTHUE"]</td>		
+		<td align=center name='ma_nv' >$!i["NOCUOI"]</td>
+	</tr>
+#end
+</table>
+
+

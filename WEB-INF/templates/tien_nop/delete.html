@@ -1,0 +1,100 @@
+#set ($v = $u.ref("crud_search_tien_nop_service","default",["$!{ma_bc}","$!{ma_nv}","$!{ngay_nop}","$!{tien}","$!{nguoi_cn}","$!{ngay_cn}","$!{ip_cn}","$!{id}","$!{noi_dung}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],13)[0] )
+	<table id="tien_nop" class='table table-condensed'>
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_bc_label">${n.i18n.tien_nop_ma_bc}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_BC"]' name="ma_bc" id="ma_bc"><span id="ma_bc_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.tien_nop_ma_nv}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["MA_NV"]' name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_nop_label">${n.i18n.tien_nop_ngay_nop}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["NGAY_NOP"]' name="ngay_nop" id="ngay_nop"><span id="ngay_nop_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_label">${n.i18n.tien_nop_tien}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["TIEN"]' name="tien" id="tien"><span id="tien_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="nguoi_cn_label">${n.i18n.tien_nop_nguoi_cn}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["NGUOI_CN"]' name="nguoi_cn" id="nguoi_cn"><span id="nguoi_cn_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_cn_label">${n.i18n.tien_nop_ngay_cn}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["NGAY_CN"]' name="ngay_cn" id="ngay_cn"><span id="ngay_cn_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ip_cn_label">${n.i18n.tien_nop_ip_cn}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["IP_CN"]' name="ip_cn" id="ip_cn"><span id="ip_cn_msg"></span></td>
+			<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.tien_nop_id}</td>
+			<td>			<input readonly type="text" class="form-control" value='$!v["ID"]' name="id" id="id"><span id="id_msg"></span></td>
+		</tr>
+	<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 400 ${n.i18n.crud_valid_length_postfix}" id="noi_dung_label">${n.i18n.tien_nop_noi_dung}</td>
+			<td>			<textarea class="form-control" readonly rows=2 name="noi_dung" id="noi_dung" style='vertical-align:top'>$!v["NOI_DUNG"]</textarea><span id="noi_dung_msg"></span></td>
+		<td></td><td></td>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=tien_nop/delete_exec.html&id=${id}',
+				success: function(data){ 
+					if (data=="1.0"){
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=tien_nop/index.html';
+		});
+		$('#ngay_nop').blur(function(){
+			if ($('#ngay_nop').val()=='' || patternValidate($('#ngay_nop'),'dd/mm/yyyy')){
+				$('#ngay_nop_msg').html('');
+				$('#ngay_nop_msg').attr('style','display:none');
+			}else{
+				$('#ngay_nop_msg').html('${n.i18n.tien_nop_ngay_nop} dạng dd/mm/yyyy');
+				$('#ngay_nop_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#tien').blur(function(){
+			if ($('#tien').val()*1==$('#tien').val()){
+				$('#tien_msg').html('');
+				$('#tien_msg').attr('style','display:none');
+			}else{
+				$('#tien_msg').html('${n.i18n.tien_nop_tien} ${n.i18n.crud_is_number_message}');
+				$('#tien_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#ngay_cn').blur(function(){
+			if ($('#ngay_cn').val()=='' || patternValidate($('#ngay_cn'),'dd/mm/yyyy')){
+				$('#ngay_cn_msg').html('');
+				$('#ngay_cn_msg').attr('style','display:none');
+			}else{
+				$('#ngay_cn_msg').html('${n.i18n.tien_nop_ngay_cn} dạng dd/mm/yyyy');
+				$('#ngay_cn_msg').attr('style','display:block');
+				return false;
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.tien_nop_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#ngay_nop').datepicker({format:"dd/mm/yyyy"});
+		$('#ngay_cn').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

@@ -1,0 +1,9 @@
+tien_nop_ma_bc=Ma_Bc
+tien_nop_ma_nv=Ma_Nv
+tien_nop_ngay_nop=Ngay_Nop
+tien_nop_tien=Tien
+tien_nop_nguoi_cn=Nguoi_Cn
+tien_nop_ngay_cn=Ngay_Cn
+tien_nop_ip_cn=Ip_Cn
+tien_nop_id=Id
+tien_nop_noi_dung=Noi_Dung

@@ -1,0 +1,32 @@
+﻿<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>STT</th>
+ 		<th align=center>${n.i18n.tiennop_ma_nv}</th>
+		<th align=center>${n.i18n.tiennop_ten_nv}</th>
+		<th align=center>${n.i18n.tiennop_tien_tra}</th>
+		<th align=center>${n.i18n.tiennop_tien_nop}</th>
+		<th align=center>Tiền lệch</th>
+
+	</tr>
+ 
+#set ($list = $u.ref("crud_search_report_tiennop_service","default",["$!{ma_tinh}","$!{tu_ngay}","$!{den_ngay}","$!{ma_cq_thu}","$!{ma_bc}","$!{quaythu_id}","$!{nguoi_huy}","$!{duong_thu}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],12) )
+#foreach ($i in $list)
+	<tr>
+		<td  align=center name='stt'></td>
+ 		<td  align=center name='MA_NV'>$!i["MA_NV"]</td>
+		<td  align=center name='TEN_NV'>$!i["TEN_NV"]</td>
+		<td  align=center name='TIENTRA'>$!i["TIENTRA"]</td>
+		<td  align=center name='TIEN_NOP'>$!i["TIEN_NOP"]</td>
+		<td  align=center name='TIEN_LECH'>$!i["TIEN_LECH"]</td>
+	</tr>
+#end
+</table>
+<script>
+	var count = 0;
+	var page_ = "$!{page_index}";
+	var record_ = (record_per_page*(page_-1));
+ 	$('td[name="stt"]').each(function(){	
+		count=count+1 ;
+		$(this).html(record_+count);
+	});
+</script>

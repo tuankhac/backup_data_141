@@ -1,0 +1,17 @@
+<table class="table table-striped">
+	<tbody>
+		<tr>			
+			<td style="font-weight:bold;">[Ch&#432;&#417;ng] m&#7909;c</td>
+			<td style="font-weight:bold;">Ti&#7873;n tr&#7843;</td>								  
+		</tr>
+		#set ($list = $u.ref("crud_search_ct_no_service","default",["$!{mst}","$!{ma_tinh}"],2) )
+		#foreach ($i in $list)
+		<tr>			
+			<td>[$!i["TEN_CHUONG"]] $!i["TENTIEUMUC"]
+			<input type="hidden" id="fn_$!i['MA_CHUONG']_$!i['MA_TMUC']" value="$!{mst},$!{ma_tinh},{TIEN_TRA},$!i['MA_CHUONG'],$!i['MA_CQ_THU'],$!i['MA_TMUC'],$!i['SO_TAIKHOAN_CO'],$!i['SO_QDINH'],$!i['NGAY_QDINH'],$!i['LOAI_TIEN'],$!i['TI_GIA'],$!i['LOAI_THUE']" />
+			</td>
+			<td style="font-weight:bold;color:#039"><input name="tien_tra" style="font-weight:bold;color:#dd4b39" type="text" class="form-control" value='$!i["SOTIEN"]' id="n_$!i['MA_CHUONG']_$!i['MA_TMUC']" onKeyUp="CalTra(this)"></td>								  
+		</tr>
+		#end
+	</tbody>
+</table>		

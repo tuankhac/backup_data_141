@@ -1,0 +1,65 @@
+<table id="phieu_q42015" class='table table-condensed'>
+	<tr><th colspan='4'><b>${n.i18n.phieu_giao_button_message.toUpperCase()}</b></th></tr>	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="id_label">${n.i18n.phieu_q42015_id}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="id" id="id"><span id="id_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 40 ${n.i18n.crud_valid_length_postfix}" id="mst_label">${n.i18n.phieu_q42015_mst}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="mst" id="mst"><span id="mst_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="tien_giao_label">${n.i18n.phieu_q42015_tien_giao}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="tien_giao" id="tien_giao"><span id="tien_giao_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.phieu_q42015_ma_nv}<font>*</font></td>
+		<td>
+			<input  type="text" class="form-control" name="ma_nv" id="ma_nv"><span id="ma_nv_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 7 ${n.i18n.crud_valid_length_postfix}" id="ngay_giao_label">${n.i18n.phieu_q42015_ngay_giao}</td>
+		<td>
+			<input  type="text" class="form-control" name="ngay_giao" id="ngay_giao"><span id="ngay_giao_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 30 ${n.i18n.crud_valid_length_postfix}" id="nguoi_giao_label">${n.i18n.phieu_q42015_nguoi_giao}</td>
+		<td>
+			<input  type="text" class="form-control" name="nguoi_giao" id="nguoi_giao"><span id="nguoi_giao_msg"></span></td>
+		</tr>
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button name="doSearch" id="doSearch" class="btn btn-primary"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goDelete" id="goDelete"><i class="fa fa-trash"></i> ${n.i18n.phieu_giao_button_delete} &gt;</button>&nbsp;			
+		</td></tr>
+</table><section class="content"><div class="box box-primary">  <div class="box-body no-padding" id='data-list' style="overflow:auto;margin:auto"></div></div></section>
+<script type="text/javascript">
+	$(function(){
+		$('#doSearch').click(function(){
+			$('#result').html('${n.i18n.crud_process_message}');
+			$.ajax({
+				url: 'crud_exec.jsp?crud_type=phieu_giao/ajax_index.html&record_per_page=500&page_index=1'+'&id='+$('#id').val()+'&mst='+$('#mst').val()+'&tien_giao='+$('#tien_giao').val()+'&ma_nv='+$('#ma_nv').val()+'&ngay_giao='+$('#ngay_giao').val()+'&nguoi_giao='+$('#nguoi_giao').val(),
+				success: function(data){ 
+					$('#data-list').html(data);
+					$('#result').html('');
+				}
+			});
+		});
+	$('#doSearch').click();
+		$('#goDelete').click(function(){
+			if ($(':radio:checked').parent().parent().children("[name='id']").length>=1){
+				window.location.href='crud.jsp?crud_type=phieu_giao/delete.html&id='+$(':radio:checked').parent().parent().children("[name='id']").text();
+			}else{
+				alert('${n.i18n.crud_alert_select_one}');
+			}
+		});
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.phieu_q42015_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});		
+	});
+	$(document).ready(function(){
+		$('#ngay_giao').datepicker({format:"dd/mm/yyyy"});
+	});
+</script>

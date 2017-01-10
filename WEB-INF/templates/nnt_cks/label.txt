@@ -1,0 +1,6 @@
+nnt_cks_mst=Mst
+nnt_cks_nganhang_id=Nganhang_Id
+nnt_cks_ngay_bd=Ngay_Bd
+nnt_cks_ngay_kt=Ngay_Kt
+nnt_cks_loguser=Loguser
+nnt_cks_logdate=Logdate

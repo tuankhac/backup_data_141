@@ -1,0 +1,20 @@
+<table width="100%" class='table table-condensed table-striped table-bordered'>
+	<tr>
+		<th align=center>${n.i18n.nhatky_thus_mst}</th>
+		<th align=center>${n.i18n.curd_report_staff}</th>
+		<th align=center>${n.i18n.curd_report_tien_giao}</th>
+		<th align=center>${n.i18n.curd_report_ngay_giao}</th>
+		<th align=center>${n.i18n.curd_report_nguoi_giao}</th>
+	</tr>
+#set ($list = $u.ref("crud_report_info_staff_search","default",["$!{TU_NGAY}","$!{DEN_NGAY}","$!{AGENT}","$!{MA_DV}","$!{MA_BC}","$!{MA_NV}","$!{record_per_page}","$!{page_index}","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],10) )
+#foreach ($i in $list)
+	<tr>
+		<td align=left name='mst'>$!i["MST"]</td>
+		<td align=left name='manc'>$!i["MA_NV"]</td>
+		<td align=left name='tien'>$!i["TIEN_GIAO"]</td>
+		<td align=left name='ngay'>$!i["NGAY_GIAO"]</td>
+		<td align=left name='nguoi_tt'>$!i["NGUOI_GIAO"]</td>
+	</tr>
+#end
+</table>
+

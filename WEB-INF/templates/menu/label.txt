@@ -1,0 +1,8 @@
+menu_id=Id
+menu_name=Name
+menu_display_order=Display_Order
+menu_picture_file=Picture_File
+menu_detail_file=Detail_File
+menu_menu_level=Menu_Level
+menu_parent_id=Parent_Id
+menu_publish=Publish

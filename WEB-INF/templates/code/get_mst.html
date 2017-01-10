@@ -1,0 +1,6 @@
+#set ($list = $u.ref("get_mst","default",["$!{ma_tinh}"],1) )
+#set ($k = 0 )
+#foreach ($i in $list)
+#if ($k!=0),#end"$!i['MST']":"$!i['MST']"
+	#set ($k=$k+1)
+#end

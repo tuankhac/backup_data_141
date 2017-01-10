@@ -1,0 +1,202 @@
+#set ($v = $u.ref("crud_search_tt_ng_nopthue","default",["$!{mst}","$!{ten_nnt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"],6)[0] )
+
+	<table id="tien_nop" class='table table-condensed'>   
+		<tr><th colspan='4'><b>${n.i18n.crud_delete_button_message.toUpperCase()}</b></th></tr>	
+		<tr>
+			<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ma_st_label">${n.i18n.phieuhuys_mst}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="1_mst" id="1_mst" maxlength="20" value='$!v["MST"]' readonly><span id="ma_st_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 10 ${n.i18n.crud_valid_length_postfix}" id="ten_nnt_label">${n.i18n.hctt_name}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" name="2_ten_nnt" id="2_ten_nnt" maxlength="300" readonly value='$!v["TEN_NNT"]'><span id="ten_msg"></span></td>
+		</tr>
+	<tr>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ma_cqt_ql_label">${n.i18n.hctt_ma_cqt_ql}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" name="4_ma_cqt_ql" id="4_ma_cqt_ql" maxlength="300" readonly value='$!v["MA_CQT_QL"]'>
+			
+			</td>
+		<td></td>
+		<td></td>
+		</tr>
+		
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 100 ${n.i18n.crud_valid_length_postfix}" id="mota_diachi_label">${n.i18n.hctt_mota_diachi}<font color=red>*</font>:</td>
+		<td>
+		<select class="form-control" name="6_ma_tinh" id="6_ma_tinh" onchange="doGetMaHUYEN()" readonly onclick="doGetMaCQT_QL()">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_tinh","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TINH'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+						</select><span id="ma_tinh_msg"></span>
+		</td>
+		<td>
+		<select class="form-control" id="7_ma_huyen" name="7_ma_huyen" readonly onclick="doGetMaXA()">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_huyen","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_HUYEN'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']">$!i['NAME']</option>
+								#end
+							#end
+							
+			</select>
+		
+		</td>
+		<td>
+		<select class="form-control" id="8_ma_xa" readonly name="8_ma_xa">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_xa","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_XA'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']">$!i['NAME']</option>
+								#end
+							#end
+							
+			</select>
+			
+		</td>
+		</tr>
+	
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="so_nha_label">${n.i18n.hctt_so_nha}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" readonly name="9_so_nha" id="9_so_nha" maxlength="100" value='$!v["SO_NHA"]'><span id="so_nha_msg"></span></td>
+		<td></td>
+		<td>
+			
+		</td>
+		</tr>
+	<tr> <!--ma tinh, ma huyen tt-->
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="diachi_tt_label">${n.i18n.hctt_diachi_tt}<font color=red>*</font>:</td>
+		<td>
+			<select class="form-control" name="11_ma_tinh_tt" readonly id="11_ma_tinh_tt" onchange="doGetMaHUYEN_TT()" >
+				<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_tinh","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_TINH_TT'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']">$!i['NAME']</option>
+									
+								#end
+							#end
+			</select><span id="ma_tinh_tt_msg"></span></td>
+		<td>
+			<select class="form-control" id="12_ma_huyen_tt" readonly name="12_ma_huyen_tt" onclick="doGetMaXA_TT()">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_huyen","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_HUYEN_TT'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']">$!i['NAME']</option>
+								#end
+							#end
+							
+			</select>
+		</td>
+		<td>
+		<select class="form-control" id="13_ma_xa_tt" readonly name="13_ma_xa_tt">
+							<option value="0">Không chọn</option>
+							#foreach ($i in $u.qry("select_ma_xa","default",[],0) )
+								#if ($!i['ID'] == $!v['EDIT_MA_XA_TT'])
+								<option value="$!i['ID']" selected="selected">$!i['NAME']</option>
+								#else 
+									<option value="$!i['ID']" >$!i['NAME']</option>
+								#end
+							#end
+						</select>
+		</td>
+	</tr>
+	
+	<tr >
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="so_nha_tt_label">${n.i18n.hctt_so_nha_tt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" readonly name="14_so_nha_tt" id="14_so_nha_tt" value='$!v["DIACHI_TT"]' maxlength="100"><span id="so_nha_tt_msg" ></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="mobile_label">${n.i18n.hctt_mobile}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" readonly name="15_mobile" id="15_mobile" maxlength="11" value='$!v["MOBILE"]'><span id="mobile_msg"></span></td>
+		</tr>
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="email_label">${n.i18n.hctt_email}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" readonly name="16_email" id="16_email" maxlength="40" value='$!v["EMAIL"]'><span id="email_msg"></span>			</td>
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ma_nv_label">${n.i18n.hctt_ma_nv}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" readonly name="17_ma_nv" id="17_ma_nv" maxlength="40" value='$!v["MA_NV"]'><span id="ma_nv_msg"></span>
+			
+		</td>
+		</tr>
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="ma_unt_label">${n.i18n.hctt_ma_unt}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" readonly name="19_ma_unt" id="19_ma_unt" maxlength="20" value='$!v["MA_UNT"]'><span id="ma_unt_msg"></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ten_unt_label">${n.i18n.hctt_ten_unt}<font color=red>*</font>:</td>
+		<td><input  type="text" class="form-control" readonly name="20_ten_unt" id="20_ten_unt" maxlength="100" value='$!v["TEN_UNT"]'><span id="ten_unt_msg"></span></td>
+		</tr>
+	
+	<tr>
+		
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="kbnn_label">${n.i18n.hctt_kbnn}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" readonly name="24_kbnn" id="24_kbnn" value='$!v["KBNN"]'><span id="kbnn_msg"></span></td>
+		<td></td>
+		<td></td>
+		</tr>
+
+	<tr >
+		<td title="${n.i18n.crud_valid_length_prefix} 20 ${n.i18n.crud_valid_length_postfix}" id="sobl_unt_label">${n.i18n.hctt_sobl_unt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" readonly name="27_sobl_unt" id="27_sobl_unt" value='$!v["SOBL_UNT"]' maxlength="20"><span id="sobl_unt_msg" ></span></td>
+		<td title="${n.i18n.crud_valid_length_prefix} 22 ${n.i18n.crud_valid_length_postfix}" id="ngaybl_unt_label">${n.i18n.hctt_ngaybl_unt}<font color=red>*</font>:</td>
+		<td>
+			<input  type="text" class="form-control" readonly name="28_ngaybl_unt" id="28_ngaybl_unt" value='$!v["NGAYBL_UNT"]' maxlength="11"><span id="ngaybl_unt_msg" ></span></td>
+		</tr>
+		<tr><td colspan="4" align=center><font id="result" color=red></font></td></tr>
+		
+		<tr id='control'><td colspan='4' align='center'><font id="result"></font>
+			<button class="btn btn-primary" name="doDel" id="doDel"><i class="fa fa-trash"></i> ${n.i18n.crud_delete_button_message}</button>&nbsp;
+			<button class="btn btn-primary" name="goSearch" id="goSearch"><i class="fa fa-search"></i> ${n.i18n.crud_search_button_message} &gt;</button>&nbsp;
+		</td></tr>
+	</table>
+<script type="text/javascript">
+	$(function(){
+		$('#doDel').click(function(){
+			if( !confirm('${n.i18n.crud_confirm_message}') ){return;}
+			$('#result').html('${n.i18n.crud_process_message}');
+			var url='crud_exec.jsp?crud_type=hoactt/tab_ng_nopthue/nhap_tt_ng_nop_thue/delete_exec.html&mst='+$("#1_mst").val();
+			
+			$.ajax({
+				url: url,
+				success: function(data){ 			
+					if (data=="1.0" || data=="1" ||data==1){
+						$('#result').attr('style',' color:#006600; font-weight:bold;');
+						$('#result').html("${n.i18n.crud_delete_message}"); 
+					}else{
+						$('#result').html(data);
+					}
+				}
+			});
+		});
+		$('#goSearch').click(function(){
+			window.location.href='crud.jsp?crud_type=hoactt/tab_ng_nopthue/index.html';
+			
+		});
+		
+		$('#id').blur(function(){
+			if ($('#id').val()*1==$('#id').val()){
+				$('#id_msg').html('');
+				$('#id_msg').attr('style','display:none');
+			}else{
+				$('#id_msg').html('${n.i18n.tien_nop_id} ${n.i18n.crud_is_number_message}');
+				$('#id_msg').attr('style','display:block');
+				return false;
+			}
+		});
+	});
+	$(document).ready(function(){
+		$('#28_ngaybl_unt').datepicker({format:"dd/mm/yyyy"});
+		//alert(["$!{mst}","$!{ten_nnt}","1","1","$!{request.UserPrincipal.name}","$!{request.RemoteAddr}"]);
+	});
+</script>

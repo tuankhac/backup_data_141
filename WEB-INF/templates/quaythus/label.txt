@@ -1,0 +1,8 @@
+quaythus_id=Id
+quaythus_ma_tinh=Ma_Tinh
+quaythus_tenquay=Tenquay
+quaythus_diachi=Diachi
+quaythus_tel=Tel
+quaythus_fax=Fax
+quaythus_truongquay=Truongquay
+quaythus_mabc_id=Mabc_Id
